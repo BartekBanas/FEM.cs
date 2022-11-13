@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MES Csharp", "MES Csharp.csproj", "{2E1B831A-9930-42F6-9786-5F1E17F63C52}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2E1B831A-9930-42F6-9786-5F1E17F63C52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E1B831A-9930-42F6-9786-5F1E17F63C52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E1B831A-9930-42F6-9786-5F1E17F63C52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E1B831A-9930-42F6-9786-5F1E17F63C52}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
