@@ -13,3 +13,18 @@ J:\Programming\C++\MES\MES Csharp\obj\Debug\net6.0\refint\MES Csharp.dll
 J:\Programming\C++\MES\MES Csharp\obj\Debug\net6.0\MES Csharp.pdb
 J:\Programming\C++\MES\MES Csharp\obj\Debug\net6.0\MES Csharp.genruntimeconfig.cache
 J:\Programming\C++\MES\MES Csharp\obj\Debug\net6.0\ref\MES Csharp.dll
+C:\Users\tomas\bartek\C#\MES\MES_Csharp\bin\Debug\net6.0\MES Csharp.exe
+C:\Users\tomas\bartek\C#\MES\MES_Csharp\bin\Debug\net6.0\MES Csharp.deps.json
+C:\Users\tomas\bartek\C#\MES\MES_Csharp\bin\Debug\net6.0\MES Csharp.runtimeconfig.json
+C:\Users\tomas\bartek\C#\MES\MES_Csharp\bin\Debug\net6.0\MES Csharp.dll
+C:\Users\tomas\bartek\C#\MES\MES_Csharp\bin\Debug\net6.0\MES Csharp.pdb
+C:\Users\tomas\bartek\C#\MES\MES_Csharp\obj\Debug\net6.0\MES Csharp.csproj.AssemblyReference.cache
+C:\Users\tomas\bartek\C#\MES\MES_Csharp\obj\Debug\net6.0\MES Csharp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\tomas\bartek\C#\MES\MES_Csharp\obj\Debug\net6.0\MES Csharp.AssemblyInfoInputs.cache
+C:\Users\tomas\bartek\C#\MES\MES_Csharp\obj\Debug\net6.0\MES Csharp.AssemblyInfo.cs
+C:\Users\tomas\bartek\C#\MES\MES_Csharp\obj\Debug\net6.0\MES Csharp.csproj.CoreCompileInputs.cache
+C:\Users\tomas\bartek\C#\MES\MES_Csharp\obj\Debug\net6.0\MES Csharp.dll
+C:\Users\tomas\bartek\C#\MES\MES_Csharp\obj\Debug\net6.0\refint\MES Csharp.dll
+C:\Users\tomas\bartek\C#\MES\MES_Csharp\obj\Debug\net6.0\MES Csharp.pdb
+C:\Users\tomas\bartek\C#\MES\MES_Csharp\obj\Debug\net6.0\MES Csharp.genruntimeconfig.cache
+C:\Users\tomas\bartek\C#\MES\MES_Csharp\obj\Debug\net6.0\ref\MES Csharp.dll

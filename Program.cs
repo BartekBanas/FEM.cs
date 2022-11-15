@@ -79,10 +79,10 @@ internal static class Example
         discreteElement.PrintKsiTable();
         discreteElement.PrintEtaTable();
 
-        for (int i = 1; i < everyElement.Count; i++)
-        {
-            Jacobian(everyElement[i], discreteElement);
-        }
+        // for (int i = 1; i < everyElement.Count; i++)
+        // {
+        //     Jacobian(everyElement[i], discreteElement);
+        // }
     }
 
     static void PrintNodeArray(List<Node> array)

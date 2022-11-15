@@ -49,4 +49,11 @@ public static class Functions
     {
         return (1 - ξ) / 4;
     }
+
+    public static double[,] matrixInversion(double[,] matrix)
+    {
+        double inverseDeterminant = matrix[0, 0] + matrix[1, 1] - matrix[0, 1] - matrix[1, 0];
+
+        return new double[,] { matrix[1, 1] * inverseDeterminant, -matrix[0, 1] * inverseDeterminant };
+    }
 }

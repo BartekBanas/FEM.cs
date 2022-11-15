@@ -42,4 +42,19 @@ public class Element
             points[j].PrintNode();
         }
     }
+    
+    double[] Jacobian (DiscreteElement discreteElement)
+    {
+        double dxdξ = 0, dxdη = 0, dydξ = 0, dydη = 0;
+
+        for (int i = 0; i < 4; i++)
+        {
+            dxdξ += discreteElement.KsiTable[i, 0] * this.points[i].x;
+            dxdη += discreteElement.EtaTable[i, 1] * this.points[i].x;
+            dydξ += discreteElement.KsiTable[i, 2] * this.points[i].y;
+            dydη += discreteElement.EtaTable[i, 3] * this.points[i].y;
+        }
+
+        return new[] { dxdξ, dxdη, dydξ, dydη };
+    }
 };
