@@ -52,8 +52,17 @@ public static class Functions
 
     public static double[,] matrixInversion(double[,] matrix)
     {
-        double inverseDeterminant = matrix[0, 0] + matrix[1, 1] - matrix[0, 1] - matrix[1, 0];
+        double inverseDeterminant = 1 / MatrixDeterminant(matrix);
 
-        return new double[,] { matrix[1, 1] * inverseDeterminant, -matrix[0, 1] * inverseDeterminant };
+        return new double[,]
+        {
+            { matrix[1, 1] * inverseDeterminant, -matrix[0, 1] * inverseDeterminant },
+            { -matrix[1, 0] * inverseDeterminant, matrix[0, 0] * inverseDeterminant }
+        };
+    }
+
+    public static double MatrixDeterminant(double[,] matrix)
+    {
+        return matrix[0, 0] + matrix[1, 1] - matrix[0, 1] - matrix[1, 0];
     }
 }
