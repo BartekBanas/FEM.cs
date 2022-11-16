@@ -76,7 +76,7 @@ internal static class Example
         Console.WriteLine($"Integral 2: {Integrate2d2(Functions.function21)}");
         Console.WriteLine($"Integral 2: {Integrate2d3(Functions.function21)}\n");
 
-        DiscreteElement discreteElement = new DiscreteElement(4);
+        DiscreteElement discreteElement = new DiscreteElement(2);
         discreteElement.PrintKsiTable();
         discreteElement.PrintEtaTable();
 
@@ -163,20 +163,5 @@ internal static class Example
         }
 
         return result;
-    }
-    
-    static double[] Jacobian (Element element, DiscreteElement discreteElement)
-    {
-        double dxdξ = 0, dxdη = 0, dydξ = 0, dydη = 0;
-
-        for (int i = 0; i < 4; i++)
-        {
-            dxdξ += discreteElement.KsiTable[i, 0] * element.points[i].x;
-            dxdη += discreteElement.EtaTable[i, 1] * element.points[i].x;
-            dydξ += discreteElement.KsiTable[i, 2] * element.points[i].y;
-            dydη += discreteElement.EtaTable[i, 3] * element.points[i].y;
-        }
-
-        return new[] { dxdξ, dxdη, dydξ, dydη };
     }
 }
