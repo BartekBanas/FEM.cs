@@ -43,18 +43,41 @@ public class Element
         }
     }
     
-    double[] Jacobian (DiscreteElement discreteElement)
+    double[,] Jacobian (DiscreteElement discreteElement, int number)
     {
         double dxdξ = 0, dxdη = 0, dydξ = 0, dydη = 0;
 
         for (int i = 0; i < 4; i++)
-        {
-            dxdξ += discreteElement.KsiTable[i, 0] * this.points[i].x;
-            dxdη += discreteElement.EtaTable[i, 1] * this.points[i].x;
-            dydξ += discreteElement.KsiTable[i, 2] * this.points[i].y;
-            dydη += discreteElement.EtaTable[i, 3] * this.points[i].y;
+        {   
+            dxdξ += discreteElement.KsiTable[number, i] * this.points[i].x;
+            dxdη += discreteElement.EtaTable[number, i] * this.points[i].x;
+            dydξ += discreteElement.KsiTable[number, i] * this.points[i].y;
+            dydη += discreteElement.EtaTable[number, i] * this.points[i].y;
         }
 
-        return new[] { dxdξ, dxdη, dydξ, dydη };
+        return new[,]
+        {
+            { dxdξ, dxdη },
+            { dydξ, dydη }
+        };
+    }
+
+    double[,] Hmatrix(DiscreteElement discreteElement, int pointIndex)
+    {
+        double[,] inversedJacobian = Functions.MatrixInversion(Jacobian(discreteElement, pointIndex));
+        int ip = discreteElement.integralPoints * discreteElement.integralPoints;
+
+        double[] dNdx = new double [ip];
+        double[] dNdy = new double [ip];
+        for (int i = 0; i < ip; i++)
+        {
+            dNdx[i] = inversedJacobian[0, 0] * discreteElement.KsiTable[pointIndex, i] +
+                      inversedJacobian[0, 1] * discreteElement.EtaTable[pointIndex, i];
+            
+            dNdy[i] = inversedJacobian[1, 0] * discreteElement.KsiTable[pointIndex, i] +
+                      inversedJacobian[1, 1] * discreteElement.EtaTable[pointIndex, i];
+        }
+        
+        
     }
 };
