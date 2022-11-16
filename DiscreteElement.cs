@@ -7,12 +7,13 @@ public class DiscreteElement
     
     double[] _etas = new double[] { };
     double[] _ksis = new double[] { };
-    public int integralPoints;
+    double[] wages = new double[] { };
+    public int IntegralPoints;
     
     
     public DiscreteElement(int size)
     {
-        integralPoints = size;
+        IntegralPoints = size;
         FillCoordinates();
 
         KsiTable = MakeKsiTable();
@@ -22,12 +23,12 @@ public class DiscreteElement
 
     private void FillCoordinates()
     {
-        if (integralPoints == 2)
+        if (IntegralPoints == 2)
         {
-            _etas = new double[4] {-1 / Math.Sqrt(3), 1 / Math.Sqrt(3), -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
-            _ksis = new double[4] {-1 / Math.Sqrt(3), -1 / Math.Sqrt(3), 1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
+            _etas = new double[] {-1 / Math.Sqrt(3), 1 / Math.Sqrt(3), -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
+            _ksis = new double[] {-1 / Math.Sqrt(3), -1 / Math.Sqrt(3), 1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
         }
-        else if(integralPoints == 3)
+        else if(IntegralPoints == 3)
         {
             _etas = new double[9] {-Math.Sqrt(3.0 / 5.0), -Math.Sqrt(3.0 / 5.0), -Math.Sqrt(3.0 / 5.0), 0, 0, 0, 
                 Math.Sqrt(3.0 / 5.0), Math.Sqrt(3.0 / 5.0), Math.Sqrt(3.0 / 5.0)};
@@ -35,14 +36,34 @@ public class DiscreteElement
             _ksis = new double[9] {-Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0), 
                 -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0), -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0)};
         }
+        if (IntegralPoints == 4)
+        {
+            _etas = new double[16];
+            for (int i = 0; i < 4; i++)
+            {
+                _etas[i * 4 + 0] = -Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
+                _etas[i * 4 + 1] = -Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
+                _etas[i * 4 + 2] =  Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
+                _etas[i * 4 + 3] =  Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
+            }
+            
+            _ksis = new double[16];
+            for (int i = 0; i < 4; i++)
+            {
+                _ksis[i + 0] = -Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
+                _ksis[i + 4] = -Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
+                _ksis[i + 8] =  Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
+                _ksis[i + 12] = Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
+            }
+        }
     }
 
     double[,] MakeKsiTable()
     {
-        int lenght = integralPoints * integralPoints;
+        int lenght = IntegralPoints * IntegralPoints;
         double[,] resultTable = new double [4, lenght];
 
-        for (int i = 0; i < integralPoints * integralPoints; i++)
+        for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
         {
             resultTable[0, i] = Functions.N1dξ(_etas[i]);
             resultTable[1, i] = Functions.N2dξ(_etas[i]);
@@ -55,10 +76,10 @@ public class DiscreteElement
     
     double[,] MakeEtaTable()
     {
-        int lenght = integralPoints * integralPoints;
+        int lenght = IntegralPoints * IntegralPoints;
         double[,] resultTable = new double [4, lenght];
 
-        for (int i = 0; i < integralPoints * integralPoints; i++)
+        for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
         {
             resultTable[0, i] = Functions.N1eta(_ksis[i]);
             resultTable[1, i] = Functions.N2eta(_ksis[i]);
@@ -72,7 +93,7 @@ public class DiscreteElement
     public void PrintKsiTable()
     {
         Console.WriteLine("\nKsi table:");
-        for (int i = 0; i < integralPoints * integralPoints; i++)
+        for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
         {
             Console.WriteLine($"{_etas[i]:F8}\t" +
                               $"{KsiTable[0, i]:F8}\t" +
@@ -85,7 +106,7 @@ public class DiscreteElement
     public void PrintEtaTable()
     {
         Console.WriteLine("\nEta table:");
-        for (int i = 0; i < integralPoints * integralPoints; i++)
+        for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
         {
             Console.WriteLine($"{_ksis[i]:F8}\t" +
                               $"{EtaTable[0, i]:F8}\t" +
@@ -93,5 +114,22 @@ public class DiscreteElement
                               $"{EtaTable[2, i]:F8}\t" +
                               $"{EtaTable[3, i]:F8}");
         }   Console.WriteLine();
+    }
+
+    void MakeWages()
+    {
+        if (IntegralPoints == 2)
+        {
+            wages = new[] { 1.0, 1.0 };
+        }
+        if (IntegralPoints == 3)
+        {
+            wages = new[] { 5.0 / 9.0, 8.0 / 9.0 };
+        }
+        
+        if (IntegralPoints == 4)
+        {
+            wages = new[] { (18.0 + Math.Sqrt(30.0)) / 36.0, -(18.0 + Math.Sqrt(30.0)) / 36.0 };
+        }
     }
 }

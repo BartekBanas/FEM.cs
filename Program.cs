@@ -76,7 +76,7 @@ internal static class Example
         Console.WriteLine($"Integral 2: {Integrate2d2(Functions.function21)}");
         Console.WriteLine($"Integral 2: {Integrate2d3(Functions.function21)}\n");
 
-        DiscreteElement discreteElement = new DiscreteElement(2);
+        DiscreteElement discreteElement = new DiscreteElement(4);
         discreteElement.PrintKsiTable();
         discreteElement.PrintEtaTable();
 
@@ -86,8 +86,7 @@ internal static class Example
         mrElement.AddNode(new Node(0, 0.025, 0.025));
         mrElement.AddNode(new Node(0, 0, 0.025));
 
-        Functions.PrintMatrix(mrElement.Hmatrix(discreteElement),
-            discreteElement.integralPoints * discreteElement.integralPoints);
+        Functions.PrintMatrix(mrElement.Hmatrix(discreteElement), 4);
     }
 
     static void PrintNodeArray(List<Node> array)
