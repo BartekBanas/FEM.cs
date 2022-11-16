@@ -64,7 +64,7 @@ public static class Functions
 
     public static double MatrixDeterminant(double[,] matrix)
     {
-        return matrix[0, 0] + matrix[1, 1] - matrix[0, 1] - matrix[1, 0];
+        return matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0];
     }
 
     public static double[,] MultiplingSimpleMatrices(double[] matrixA, double[] matrixB, int size)
@@ -105,6 +105,6 @@ public static class Functions
             {
                 Console.Write($"{matrix[i, j].ToString("F8", CultureInfo.InvariantCulture)}\t");
             }   Console.WriteLine();
-        }
-    }
+        }   Console.WriteLine("\n");
+    }   
 }

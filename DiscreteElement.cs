@@ -9,9 +9,7 @@ public class DiscreteElement
     double[] _ksis = new double[] { };
     public int integralPoints;
     
-     
     
-
     public DiscreteElement(int size)
     {
         integralPoints = size;
@@ -81,7 +79,7 @@ public class DiscreteElement
                               $"{KsiTable[1, i]:F8}\t" +
                               $"{KsiTable[2, i]:F8}\t" +
                               $"{KsiTable[3, i]:F8}");
-        }
+        }   Console.WriteLine();
     }
     
     public void PrintEtaTable()
@@ -94,6 +92,6 @@ public class DiscreteElement
                               $"{EtaTable[1, i]:F8}\t" +
                               $"{EtaTable[2, i]:F8}\t" +
                               $"{EtaTable[3, i]:F8}");
-        }
+        }   Console.WriteLine();
     }
 }

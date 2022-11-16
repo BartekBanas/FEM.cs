@@ -14,14 +14,14 @@ public class Node
         y = 0;
     }
 
-    Node(int _ID, int _x, int _y)
+    public Node(int id, double x, double y)
     {
-        if (_ID < 0)
+        if (id < 0)
             Console.Write("Warning: Given Identicator less than 0!");
 
-        ID = _ID;
-        x = _x;
-        y = _y;
+        this.ID = id;
+        this.x = x;
+        this.y = y;
     }
 
     public void PrintNode()

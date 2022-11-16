@@ -12,6 +12,7 @@ internal static class Example
 
         Conditions.ReadConditions(data);
         Conditions.PrintConditions();
+        Conditions.Conductivity = 30;
 
         var fileText = File.ReadAllText(data);          //Preparation for file absorption
         var lines = fileText.Split(Environment.NewLine);
@@ -79,10 +80,14 @@ internal static class Example
         discreteElement.PrintKsiTable();
         discreteElement.PrintEtaTable();
 
-        // for (int i = 1; i < everyElement.Count; i++)
-        // {
-        //     Jacobian(everyElement[i], discreteElement);
-        // }
+        Element mrElement = new Element();
+        mrElement.AddNode(new Node(0, 0, 0));
+        mrElement.AddNode(new Node(0, 0.025, 0));
+        mrElement.AddNode(new Node(0, 0.025, 0.025));
+        mrElement.AddNode(new Node(0, 0, 0.025));
+
+        Functions.PrintMatrix(mrElement.Hmatrix(discreteElement),
+            discreteElement.integralPoints * discreteElement.integralPoints);
     }
 
     static void PrintNodeArray(List<Node> array)
