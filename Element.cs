@@ -62,9 +62,11 @@ public class Element
         };
     }
 
-    double[,] Hmatrix(DiscreteElement discreteElement, int pointIndex)
+    double[,] HmatrixPatrial(DiscreteElement discreteElement, int pointIndex)
     {
-        double[,] inversedJacobian = Functions.MatrixInversion(Jacobian(discreteElement, pointIndex));
+        double[,] jacobian = Jacobian(discreteElement, pointIndex);
+        double determinant = Functions.MatrixDeterminant(jacobian);
+        double[,] inversedJacobian = Functions.MatrixInversion(jacobian);
         int ip = discreteElement.integralPoints * discreteElement.integralPoints;
 
         double[] dNdx = new double [ip];
@@ -77,7 +79,32 @@ public class Element
             dNdy[i] = inversedJacobian[1, 0] * discreteElement.KsiTable[pointIndex, i] +
                       inversedJacobian[1, 1] * discreteElement.EtaTable[pointIndex, i];
         }
+
+        double[,] Hmatrix = Functions.MatrixSummation(Functions.MultiplingSimpleMatrices(dNdx, dNdx, ip),
+            Functions.MultiplingSimpleMatrices(dNdy, dNdy, ip), ip);
         
-        
+        for (int i = 0; i < ip; i++)
+        {
+            for (int j = 0; j < ip; j++)
+            {
+                Hmatrix[i, j] *= Conditions.Conductivity * determinant;
+            }
+        }
+
+        Functions.PrintMatrix(Hmatrix, ip);
+        return Hmatrix;
+    }
+
+    double[,] Hmatrix(DiscreteElement discreteElement)
+    {
+        double[,] Hmatrix = HmatrixPatrial(discreteElement, 0);
+
+        for (int i = 1; i < 4; i++)
+        {
+            Hmatrix = Functions.MatrixSummation(Hmatrix, HmatrixPatrial(discreteElement, i),
+                discreteElement.integralPoints * discreteElement.integralPoints);
+        }
+
+        return Hmatrix;
     }
 };

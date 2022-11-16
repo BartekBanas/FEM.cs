@@ -1,4 +1,5 @@
-﻿using Math = System.Math;
+﻿using System.Globalization;
+using Math = System.Math;
 
 namespace MES_Csharp;
 
@@ -94,5 +95,16 @@ public static class Functions
         }
 
         return matrixToReturn;
+    }
+    
+    public static void PrintMatrix(double[,] matrix, int size)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                Console.Write($"{matrix[i, j].ToString("F8", CultureInfo.InvariantCulture)}\t");
+            }   Console.WriteLine();
+        }
     }
 }
