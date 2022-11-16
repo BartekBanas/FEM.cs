@@ -4,10 +4,10 @@ public class DiscreteElement
 {
     public double[,] KsiTable;
     public double[,] EtaTable;
+    public double[] Wages = new double[] { };
     
     double[] _etas = new double[] { };
     double[] _ksis = new double[] { };
-    double[] wages = new double[] { };
     public int IntegralPoints;
     
     
@@ -15,6 +15,7 @@ public class DiscreteElement
     {
         IntegralPoints = size;
         FillCoordinates();
+        MakeWages();
 
         KsiTable = MakeKsiTable();
         EtaTable = MakeEtaTable();
@@ -120,16 +121,16 @@ public class DiscreteElement
     {
         if (IntegralPoints == 2)
         {
-            wages = new[] { 1.0, 1.0 };
+            Wages = new[] { 1.0, 1.0 };
         }
         if (IntegralPoints == 3)
         {
-            wages = new[] { 5.0 / 9.0, 8.0 / 9.0, 5.0 / 9.0 };
+            Wages = new[] { 5.0 / 9.0, 8.0 / 9.0, 5.0 / 9.0 };
         }
         
         if (IntegralPoints == 4)
         {
-            wages = new[]
+            Wages = new[]
             {
                 (18.0 - Math.Sqrt(30.0)) / 36.0, (18.0 + Math.Sqrt(30.0)) / 36.0,
                 (18.0 + Math.Sqrt(30.0)) / 36.0, (18.0 - Math.Sqrt(30.0)) / 36.0

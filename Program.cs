@@ -76,7 +76,7 @@ internal static class Example
         Console.WriteLine($"Integral 2: {Integrate2d2(Functions.function21)}");
         Console.WriteLine($"Integral 2: {Integrate2d3(Functions.function21)}\n");
 
-        DiscreteElement discreteElement = new DiscreteElement(2);
+        DiscreteElement discreteElement = new DiscreteElement(4);
         discreteElement.PrintKsiTable();
         discreteElement.PrintEtaTable();
 
