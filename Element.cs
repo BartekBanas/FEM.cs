@@ -115,9 +115,7 @@ public class Element
 
     public double[,] Hmatrix(DiscreteElement discreteElement)
     {
-        //double[,] hmatrix = HmatrixPartial(discreteElement, 0);
         double[,] hmatrix = new double[4, 4];
-        int amountOfPoints = discreteElement.IntegralPoints * discreteElement.IntegralPoints;
 
         int pointIndex = 0;
         for (int i = 0; i < discreteElement.IntegralPoints; i++)
