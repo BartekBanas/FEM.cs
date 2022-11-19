@@ -4,7 +4,7 @@ namespace MES_Csharp;
 
 internal static class Example
 {
-    static void Main(string[] args)
+    static void Main()
     {
         CultureInfo.CurrentCulture = new CultureInfo("en-US");
         
@@ -76,7 +76,7 @@ internal static class Example
         Console.WriteLine($"Integral 2: {Integrate2d2(Functions.function21)}");
         Console.WriteLine($"Integral 2: {Integrate2d3(Functions.function21)}\n");
 
-        DiscreteElement discreteElement = new DiscreteElement(4);
+        DiscreteElement discreteElement = new DiscreteElement(2);
         discreteElement.PrintKsiTable();
         discreteElement.PrintEtaTable();
 
@@ -107,7 +107,7 @@ internal static class Example
 
     static double Integrate1d2(Func<double, double> function)
     {
-        double[] nodes = new double[3] { 0, -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
+        double[] nodes = new double[] { 0, -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
         
         double result = 0;
         for (int i = 1; i < 3; i++)
@@ -120,8 +120,8 @@ internal static class Example
 
     static double Integrate1d3(Func<double, double> function)
     {
-        double[] nodes = new double[4] { 0,-Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0) };
-        double[] coefficients = new double[4] { 0, 5.0 / 9.0, 8.0 / 9.0, 5.0 / 9.0 };
+        double[] nodes = { 0,-Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0) };
+        double[] coefficients = { 0, 5.0 / 9.0, 8.0 / 9.0, 5.0 / 9.0 };
         double result = 0;
 
         for (int i = 1; i <= 3; i++)
@@ -133,8 +133,8 @@ internal static class Example
 
     static double Integrate2d2(Func<double, double, double> function)
     {
-        double[] nodes = new double[3] { 0, -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
-        double[] coefficients = new double[3] { 0, 1, 1 };
+        double[] nodes = new double[] { 0, -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
+        double[] coefficients = new double[] { 0, 1, 1 };
         double result = 0;
 
         for (int i = 1; i <= 2; i++)
@@ -150,8 +150,8 @@ internal static class Example
 
     static double Integrate2d3(Func<double, double, double> function)
     {
-        double[] nodes = new double[4] { 0, -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0) };
-        double[] coefficients = new double[4] { 0, 5.0 / 9.0, 8.0 / 9.0, 5.0 / 9.0 };
+        double[] nodes = new double[] { 0, -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0) };
+        double[] coefficients = new double[] { 0, 5.0 / 9.0, 8.0 / 9.0, 5.0 / 9.0 };
         double result = 0;
 
         for (int i = 1; i <= 3; i++)

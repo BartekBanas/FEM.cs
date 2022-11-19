@@ -2,6 +2,7 @@
 
 public class Element
 {
+    private static int dimension = Conditions.dimension;
     public int ID;
     public int capacity = 0;
     public Node[] points = new Node[4];
@@ -75,9 +76,9 @@ public class Element
         //Functions.PrintMatrix(inversedJacobian, 2);
         int ip = discreteElement.IntegralPoints * discreteElement.IntegralPoints;
 
-        double[] dNdx = new double [4];
-        double[] dNdy = new double [4];
-        for (int i = 0; i < 4; i++) 
+        double[] dNdx = new double [dimension * dimension];
+        double[] dNdy = new double [dimension * dimension];
+        for (int i = 0; i < dimension * dimension; i++) 
         {
             dNdx[i] = inversedJacobian[0, 0] * discreteElement.KsiTable[i, pointIndex] +
                       inversedJacobian[0, 1] * discreteElement.EtaTable[i, pointIndex];
@@ -96,8 +97,9 @@ public class Element
         // }   Console.WriteLine();
         
         
-        double[,] hmatrixPartial = Functions.MatrixSummation(Functions.MultiplingSimpleMatrices(dNdx, dNdx, 4),
-            Functions.MultiplingSimpleMatrices(dNdy, dNdy, 4), 4);
+        double[,] hmatrixPartial = Functions.MatrixSummation(
+            Functions.MultiplingSimpleMatrices(dNdx, dNdx, dimension * dimension),
+            Functions.MultiplingSimpleMatrices(dNdy, dNdy, dimension * dimension), dimension * dimension);
         //Functions.PrintMatrix(Hmatrix, ip);
         
         for (int i = 0; i < 4; i++)
@@ -108,14 +110,14 @@ public class Element
             }
         }
 
-        Console.WriteLine($"Hmatrix of point {pointIndex+1}");
-        Functions.PrintMatrix(hmatrixPartial, 4);
+        Console.WriteLine($"Hmatrix of point {pointIndex + 1}");
+        Functions.PrintMatrix(hmatrixPartial, dimension * dimension);
         return hmatrixPartial;
     }
 
     public double[,] Hmatrix(DiscreteElement discreteElement)
     {
-        double[,] hmatrix = new double[4, 4];
+        double[,] hmatrix = new double[dimension * dimension, dimension * dimension];
 
         int pointIndex = 0;
         for (int i = 0; i < discreteElement.IntegralPoints; i++)
@@ -124,15 +126,15 @@ public class Element
             {
                 double[,] partialHmatrix = HmatrixPartial(discreteElement, pointIndex);
 
-                for (int k = 0; k < 4; k++)
+                for (int k = 0; k < dimension * dimension; k++)
                 {
-                    for (int l = 0; l < 4; l++)
+                    for (int l = 0; l < dimension * dimension; l++)
                     {
                         partialHmatrix[k, l] *= discreteElement.Wages[i] * discreteElement.Wages[j];
                     }
                 }
                 
-                hmatrix = Functions.MatrixSummation(hmatrix, partialHmatrix, 4);
+                hmatrix = Functions.MatrixSummation(hmatrix, partialHmatrix, dimension * dimension);
                 pointIndex++;
             }
         }
