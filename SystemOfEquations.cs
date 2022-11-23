@@ -12,7 +12,6 @@ public class SystemOfEquations
     public SystemOfEquations(List<Element> elements, DiscreteElement discreteElement)
     {   
         this.elements = elements;
-        this.elements.RemoveAt(0);
         this.discreteElement = discreteElement;
 
         amountOfNodes = elements[^1].points[2].ID;

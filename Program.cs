@@ -8,7 +8,7 @@ internal static class Example
     {
         CultureInfo.CurrentCulture = new CultureInfo("en-US");
         
-        const string data = "../../../data/dane.txt";         //Path to data
+        const string data = "../../../data/dane.txt";       //Path to data
 
         Conditions.ReadConditions(data);
         Conditions.PrintConditions();
@@ -21,19 +21,20 @@ internal static class Example
         for (int i = 0; i < Conditions.NodesNumber; i++)
             readNodes[i] = lines[i + 11].Trim().Split(',');
 
-        string[][]
-            readElements =
+        
+        string[][] readElements =
                 new string[Conditions.ElementsNumber][];    //Getting a proper bunch of text that'll become Elements
         for (int i = 0; i < Conditions.ElementsNumber; i++)
             readElements[i] = lines[i + 12 + Conditions.NodesNumber].Trim().Split(',');
 
+        
         List<int> everyBC = new List<int>();                //Getting a proper bunch of words that'll become BCs
         foreach (var word in lines[13 + Conditions.NodesNumber + Conditions.ElementsNumber].Trim().Split(','))
             everyBC.Add(Convert.ToInt16(word.Trim()));
 
 
         List<Node> everyNode = new List<Node> { new Node() };
-        List<Element> everyElement = new List<Element> { new Element() };
+        List<Element> everyElement = new List<Element> {};
 
         for (int i = 0; i < Conditions.NodesNumber; i++)    //Filling list of nodes
         {
@@ -47,53 +48,31 @@ internal static class Example
         {
             everyElement.Add(new Element());
 
-            everyElement[i + 1].ID = Convert.ToInt16(readElements[i][0].Trim());
+            everyElement[i].ID = Convert.ToInt16(readElements[i][0].Trim());
 
-            everyElement[i + 1].AddNode(everyNode[Convert.ToInt16(readElements[i][1].Trim())]);
-            everyElement[i + 1].AddNode(everyNode[Convert.ToInt16(readElements[i][2].Trim())]);
-            everyElement[i + 1].AddNode(everyNode[Convert.ToInt16(readElements[i][3].Trim())]);
-            everyElement[i + 1].AddNode(everyNode[Convert.ToInt16(readElements[i][4].Trim())]);
+            everyElement[i].AddNode(everyNode[Convert.ToInt16(readElements[i][1].Trim())]);
+            everyElement[i].AddNode(everyNode[Convert.ToInt16(readElements[i][2].Trim())]);
+            everyElement[i].AddNode(everyNode[Convert.ToInt16(readElements[i][3].Trim())]);
+            everyElement[i].AddNode(everyNode[Convert.ToInt16(readElements[i][4].Trim())]);
         }
 
-        foreach (var id in everyBC.Skip(1)) //Setting BC for eligible nodes
+        foreach (var id in everyBC) //Setting BC for eligible nodes
         {
             everyNode[id].BC = true;
         }
 
         PrintNodeArray(everyNode);
-
-        Console.WriteLine();
-
         PrintElementArray(everyElement);
-
-        Console.WriteLine();
         
-        // foreach (var element in everyElement)
-        // {
-        //     element.PrintElement();
-        // }
-        //
 
-        DiscreteElement discreteElement = new DiscreteElement(2);
+        DiscreteElement discreteElement = new DiscreteElement(4);
         discreteElement.PrintKsiTable();
         discreteElement.PrintEtaTable();
-
-        Element mrElement = new Element();
-        mrElement.AddNode(new Node(0, 0, 0));
-        mrElement.AddNode(new Node(0, 0.025, 0));
-        mrElement.AddNode(new Node(0, 0.025, 0.025));
-        mrElement.AddNode(new Node(0, 0, 0.025));
-
-        Functions.PrintMatrix(mrElement.Hmatrix(discreteElement), 4);
+        
 
         SystemOfEquations systemOfEquations = new SystemOfEquations(everyElement, discreteElement);
         systemOfEquations.PrintSystem();
-
-
-        foreach (var element in everyElement)
-        {
-            element.PrintElement();
-        }
+        
 
         // Console.WriteLine($"\n\n");
         // for (int i = 1; i < everyElement.Count; i++)
@@ -109,14 +88,14 @@ internal static class Example
         for (int i = 1; i < Conditions.NodesNumber + 1; i++)
         {
             array[i].PrintNode();
-        }
+        }   Console.WriteLine();
     }
 
     static void PrintElementArray(List<Element> array)
     {
-        for (int i = 1; i < Conditions.ElementsNumber + 1; i++)
+        for (int i = 0; i < Conditions.ElementsNumber; i++)
         {
             array[i].PrintElement();
-        }
+        }   Console.WriteLine();
     }
 }

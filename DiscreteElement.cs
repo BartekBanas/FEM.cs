@@ -114,7 +114,7 @@ public class DiscreteElement
                               $"{EtaTable[1, i]:F8}\t" +
                               $"{EtaTable[2, i]:F8}\t" +
                               $"{EtaTable[3, i]:F8}");
-        }   Console.WriteLine();
+        }   Console.WriteLine("\n");
     }
 
     void MakeWages()
