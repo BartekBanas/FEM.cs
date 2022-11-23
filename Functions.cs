@@ -14,6 +14,66 @@ public static class Functions
     {
         return (-2 * Math.Pow(x, 2) * y) + 2 * x * y + 4;
     }
+    
+    static double Integrate1d2(Func<double, double> function)
+    {
+        double[] nodes = new double[] { 0, -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
+        
+        double result = 0;
+        for (int i = 1; i < 3; i++)
+        {
+            result += function(nodes[i]);
+        }
+        
+        return result;
+    }
+
+    static double Integrate1d3(Func<double, double> function)
+    {
+        double[] nodes = { 0,-Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0) };
+        double[] coefficients = { 0, 5.0 / 9.0, 8.0 / 9.0, 5.0 / 9.0 };
+        double result = 0;
+
+        for (int i = 1; i <= 3; i++)
+        {
+            result += function(nodes[i]) * coefficients[i];
+        }
+        return result;
+    }
+
+    static double Integrate2d2(Func<double, double, double> function)
+    {
+        double[] nodes = new double[] { 0, -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
+        double[] coefficients = new double[] { 0, 1, 1 };
+        double result = 0;
+
+        for (int i = 1; i <= 2; i++)
+        {
+            for (int j = 1; j <= 2; j++)
+            {
+                result += function(nodes[j], nodes[i]) * coefficients[i] * coefficients[j];
+            }
+        }
+
+        return result;
+    }
+
+    static double Integrate2d3(Func<double, double, double> function)
+    {
+        double[] nodes = new double[] { 0, -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0) };
+        double[] coefficients = new double[] { 0, 5.0 / 9.0, 8.0 / 9.0, 5.0 / 9.0 };
+        double result = 0;
+
+        for (int i = 1; i <= 3; i++)
+        {
+            for (int j = 1; j <= 3; j++)
+            {
+                result += function(nodes[i], nodes[j]) * coefficients[i] * coefficients[j];
+            }
+        }
+
+        return result;
+    }
 
     public static double N1dξ(double η)
     {
