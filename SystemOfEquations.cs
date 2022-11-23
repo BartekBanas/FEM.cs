@@ -47,8 +47,7 @@ public class SystemOfEquations
                 Console.Write(system[i, j] < 0 ? "-" : " ");
 
                 Console.Write(Math.Abs(system[i, j]).ToString("F2", CultureInfo.InvariantCulture));
-                
-                Console.Write(Math.Abs(system[i, j]) < 100 ? "\t" : " ");
+                Console.Write("\t");
 
             }   Console.WriteLine();
         }   
