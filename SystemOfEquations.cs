@@ -44,8 +44,12 @@ public class SystemOfEquations
         {
             for (int j = 0; j < amountOfNodes; j++)
             {
-                Console.Write(system[i, j].ToString("F2", CultureInfo.InvariantCulture));
-                Console.Write("\t");
+                Console.Write(system[i, j] < 0 ? "-" : " ");
+
+                Console.Write(Math.Abs(system[i, j]).ToString("F2", CultureInfo.InvariantCulture));
+                
+                Console.Write(Math.Abs(system[i, j]) < 100 ? "\t" : " ");
+
             }   Console.WriteLine();
         }   
     }
