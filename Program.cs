@@ -8,7 +8,7 @@ internal static class Example
     {
         CultureInfo.CurrentCulture = new CultureInfo("en-US");
         
-        const string data = "dane.txt";         //Path to data
+        const string data = "../../../data/dane.txt";         //Path to data
 
         Conditions.ReadConditions(data);
         Conditions.PrintConditions();
