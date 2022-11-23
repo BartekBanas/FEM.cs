@@ -110,8 +110,8 @@ public class Element
             }
         }
 
-        Console.WriteLine($"Hmatrix of point {pointIndex + 1}");
-        Functions.PrintMatrix(hmatrixPartial, dimension * dimension);
+        //Console.WriteLine($"Hmatrix of point {pointIndex + 1}");
+        //Functions.PrintMatrix(hmatrixPartial, dimension * dimension);
         return hmatrixPartial;
     }
 

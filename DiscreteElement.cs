@@ -26,8 +26,8 @@ public class DiscreteElement
     {
         if (IntegralPoints == 2)
         {
-            _etas = new double[] {-1 / Math.Sqrt(3), 1 / Math.Sqrt(3), -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
-            _ksis = new double[] {-1 / Math.Sqrt(3), -1 / Math.Sqrt(3), 1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
+            _etas = new double[] {-1 / Math.Sqrt(3), -1 / Math.Sqrt(3), 1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
+            _ksis = new double[] {-1 / Math.Sqrt(3), 1 / Math.Sqrt(3), -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
         }
         else if(IntegralPoints == 3)
         {
