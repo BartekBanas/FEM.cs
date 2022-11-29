@@ -26,12 +26,12 @@ public class SystemOfEquations
     {
         foreach (var element in elements)
         {
-            double[,] Hmatrix = element.Hmatrix(discreteElement);
+            double[,] hmatrix = element.Hmatrix(discreteElement);
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    double value = Hmatrix[i, j];
+                    double value = hmatrix[i, j];
                     system[element.points[i].ID - 1, element.points[j].ID - 1] += value;
                 }
             }
