@@ -6,13 +6,11 @@ public class SystemOfEquations
 {
     public double[,] system;
     private List<Element> elements;
-    private DiscreteElement discreteElement;
     private int amountOfNodes;
     
-    public SystemOfEquations(List<Element> elements, DiscreteElement discreteElement)
+    public SystemOfEquations(List<Element> elements)
     {   
         this.elements = elements;
-        this.discreteElement = discreteElement;
 
         amountOfNodes = elements[^1].nodes[2].ID;
         
@@ -26,7 +24,7 @@ public class SystemOfEquations
     {
         foreach (var element in elements)
         {
-            double[,] hmatrix = element.Hmatrix(discreteElement);
+            double[,] hmatrix = element.Hmatrix();
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)

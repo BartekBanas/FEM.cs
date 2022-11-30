@@ -2,18 +2,17 @@
 
 public class BCedge
 {
-    private DiscreteElement _discreteElement;
-    private Node node1;
-    private Node node2;
+    private Node _node1;
+    private Node _node2;
 
-    private double JacobianDeterminant;
+    private double _jacobianDeterminant;
 
-    public BCedge(DiscreteElement discreteElement, Node node1, Node node2)
+    public BCedge(Node node1, Node node2)
     {
-        _discreteElement = discreteElement;
-        this.node1 = node1;
-        this.node2 = node2;
+        this._node1 = node1;
+        this._node2 = node2;
+        
 
-        JacobianDeterminant = Functions.GetDistance(node1, node2);
+        _jacobianDeterminant = Functions.GetDistance(node1, node2) / 2;
     }
 }

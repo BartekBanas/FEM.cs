@@ -44,17 +44,17 @@ public class Element
         }
     }
     
-    public double[,] Jacobian (DiscreteElement discreteElement, int number)
+    public double[,] Jacobian (int number)
     {
         //int iterations = discreteElement.integralPoints * discreteElement.integralPoints;
         double dxdξ = 0, dxdη = 0, dydξ = 0, dydη = 0;
 
         for (int i = 0; i < 4; i++)
         {   
-            dxdξ += discreteElement.KsiTable[i, number] * this.nodes[i].x;
-            dxdη += discreteElement.EtaTable[i, number] * this.nodes[i].x;
-            dydξ += discreteElement.KsiTable[i, number] * this.nodes[i].y;
-            dydη += discreteElement.EtaTable[i, number] * this.nodes[i].y;
+            dxdξ += DiscreteElement.KsiTable[i, number] * this.nodes[i].x;
+            dxdη += DiscreteElement.EtaTable[i, number] * this.nodes[i].x;
+            dydξ += DiscreteElement.KsiTable[i, number] * this.nodes[i].y;
+            dydη += DiscreteElement.EtaTable[i, number] * this.nodes[i].y;
         }
 
         return new[,]
@@ -64,9 +64,9 @@ public class Element
         };
     }
 
-    public double[,] HmatrixPartial(DiscreteElement discreteElement, int pointIndex)
+    public double[,] HmatrixPartial(int pointIndex)
     {
-        double[,] jacobian = Jacobian(discreteElement, pointIndex);
+        double[,] jacobian = Jacobian(pointIndex);
         // Console.WriteLine("Jacobian: ");
         // Functions.PrintMatrix(jacobian, 2);
         double determinant = Functions.MatrixDeterminant(jacobian);
@@ -74,17 +74,17 @@ public class Element
         double[,] inversedJacobian = Functions.MatrixInversion(jacobian);
         //Console.WriteLine("Inversed Jacobian: ");
         //Functions.PrintMatrix(inversedJacobian, 2);
-        int ip = discreteElement.IntegralPoints * discreteElement.IntegralPoints;
+        int ip = DiscreteElement.IntegralPoints * DiscreteElement.IntegralPoints;
 
         double[] dNdx = new double [dimension * dimension];
         double[] dNdy = new double [dimension * dimension];
         for (int i = 0; i < dimension * dimension; i++) 
         {
-            dNdx[i] = inversedJacobian[0, 0] * discreteElement.KsiTable[i, pointIndex] +
-                      inversedJacobian[0, 1] * discreteElement.EtaTable[i, pointIndex];
+            dNdx[i] = inversedJacobian[0, 0] * DiscreteElement.KsiTable[i, pointIndex] +
+                      inversedJacobian[0, 1] * DiscreteElement.EtaTable[i, pointIndex];
 
-            dNdy[i] = inversedJacobian[1, 0] * discreteElement.KsiTable[i, pointIndex] +
-                      inversedJacobian[1, 1] * discreteElement.EtaTable[i, pointIndex];
+            dNdy[i] = inversedJacobian[1, 0] * DiscreteElement.KsiTable[i, pointIndex] +
+                      inversedJacobian[1, 1] * DiscreteElement.EtaTable[i, pointIndex];
         }
 
         // for (int i = 0; i < 4; i++)
@@ -115,22 +115,22 @@ public class Element
         return hmatrixPartial;
     }
 
-    public double[,] Hmatrix(DiscreteElement discreteElement)
+    public double[,] Hmatrix()
     {
         double[,] hmatrix = new double[dimension * dimension, dimension * dimension];
 
         int pointIndex = 0;
-        for (int i = 0; i < discreteElement.IntegralPoints; i++)
+        for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
         {
-            for (int j = 0; j < discreteElement.IntegralPoints; j++)
+            for (int j = 0; j < DiscreteElement.IntegralPoints; j++)
             {
-                double[,] partialHmatrix = HmatrixPartial(discreteElement, pointIndex);
+                double[,] partialHmatrix = HmatrixPartial(pointIndex);
 
                 for (int k = 0; k < dimension * dimension; k++)
                 {
                     for (int l = 0; l < dimension * dimension; l++)
                     {
-                        partialHmatrix[k, l] *= discreteElement.Wages[i] * discreteElement.Wages[j];
+                        partialHmatrix[k, l] *= DiscreteElement.Wages[i] * DiscreteElement.Wages[j];
                     }
                 }
                 

@@ -65,12 +65,12 @@ internal static class Example
         PrintElementArray(everyElement);
         
 
-        DiscreteElement discreteElement = new DiscreteElement(4);
-        discreteElement.PrintKsiTable();
-        discreteElement.PrintEtaTable();
+        DiscreteElement.Update(4);
+        DiscreteElement.PrintKsiTable();
+        DiscreteElement.PrintEtaTable();
         
 
-        SystemOfEquations systemOfEquations = new SystemOfEquations(everyElement, discreteElement);
+        SystemOfEquations systemOfEquations = new SystemOfEquations(everyElement);
         systemOfEquations.PrintSystem();
         
 

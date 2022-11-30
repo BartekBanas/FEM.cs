@@ -1,17 +1,17 @@
 ﻿namespace MES_Csharp;
 
-public class DiscreteElement
+public static class DiscreteElement
 {
-    public double[,] KsiTable;
-    public double[,] EtaTable;
-    public double[] Wages = new double[] { };
+    public static double[,] KsiTable;
+    public static double[,] EtaTable;
+    public static double[] Wages = new double[] { };
     
-    double[] _etas = new double[] { };
-    double[] _ksis = new double[] { };
-    public int IntegralPoints;
+    static double[] _etas = new double[] { };
+    static double[] _ksis = new double[] { };
+    public static int IntegralPoints;
     
     
-    public DiscreteElement(int size)
+    public static void Update(int size)
     {
         IntegralPoints = size;
         FillCoordinates();
@@ -22,7 +22,7 @@ public class DiscreteElement
     }
 
 
-    private void FillCoordinates()
+    private static void FillCoordinates()
     {
         if (IntegralPoints == 2)
         {
@@ -59,7 +59,7 @@ public class DiscreteElement
         }
     }
 
-    double[,] MakeKsiTable()
+    private static double[,] MakeKsiTable()
     {
         int lenght = IntegralPoints * IntegralPoints;
         double[,] resultTable = new double [4, lenght];
@@ -75,7 +75,7 @@ public class DiscreteElement
         return resultTable;
     }
     
-    double[,] MakeEtaTable()
+    private static double[,] MakeEtaTable()
     {
         int lenght = IntegralPoints * IntegralPoints;
         double[,] resultTable = new double [4, lenght];
@@ -91,7 +91,7 @@ public class DiscreteElement
         return resultTable;
     }
 
-    public void PrintKsiTable()
+    public static void PrintKsiTable()
     {
         Console.WriteLine("\nKsi table:");
         for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
@@ -104,7 +104,7 @@ public class DiscreteElement
         }   Console.WriteLine();
     }
     
-    public void PrintEtaTable()
+    public static void PrintEtaTable()
     {
         Console.WriteLine("\nEta table:");
         for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
@@ -117,7 +117,7 @@ public class DiscreteElement
         }   Console.WriteLine("\n");
     }
 
-    void MakeWages()
+    private static void MakeWages()
     {
         if (IntegralPoints == 2)
         {
