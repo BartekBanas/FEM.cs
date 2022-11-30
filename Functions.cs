@@ -168,7 +168,7 @@ public static class Functions
         }   Console.WriteLine("\n");
     }
     
-    private static double GetDistance(Node node1, Node node2)
+    public static double GetDistance(Node node1, Node node2)
     {
         return Math.Sqrt(Math.Pow(node2.x - node1.x, 2) + Math.Pow(node2.y - node1.y, 2));
     }
