@@ -5,7 +5,7 @@ public class Element
     private static int dimension = Conditions.dimension;
     public int ID;
     public int capacity = 0;
-    public Node[] points = new Node[4];
+    public Node[] nodes = new Node[4];
     
     public Element()
     {
@@ -16,7 +16,7 @@ public class Element
     {
         if (capacity < 4)
         {
-            points[capacity] = newNode;
+            nodes[capacity] = newNode;
             capacity++;
         }
         else
@@ -30,7 +30,7 @@ public class Element
         Console.Write($"Element; ID:{ID}\tIncludes Nodes: ");
         for (int j = 0; j < 4; j++)
         {
-            Console.Write($"{points[j].ID}");
+            Console.Write($"{nodes[j].ID}");
             if (j < 3)
                 Console.Write(", ");
         }   Console.Write("\n");
@@ -40,7 +40,7 @@ public class Element
     {
         for (int j = 0; j < 4; j++)
         {
-            points[j].PrintNode();
+            nodes[j].PrintNode();
         }
     }
     
@@ -51,10 +51,10 @@ public class Element
 
         for (int i = 0; i < 4; i++)
         {   
-            dxdξ += discreteElement.KsiTable[i, number] * this.points[i].x;
-            dxdη += discreteElement.EtaTable[i, number] * this.points[i].x;
-            dydξ += discreteElement.KsiTable[i, number] * this.points[i].y;
-            dydη += discreteElement.EtaTable[i, number] * this.points[i].y;
+            dxdξ += discreteElement.KsiTable[i, number] * this.nodes[i].x;
+            dxdη += discreteElement.EtaTable[i, number] * this.nodes[i].x;
+            dydξ += discreteElement.KsiTable[i, number] * this.nodes[i].y;
+            dydη += discreteElement.EtaTable[i, number] * this.nodes[i].y;
         }
 
         return new[,]

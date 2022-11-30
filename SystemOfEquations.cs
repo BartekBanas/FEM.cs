@@ -14,7 +14,7 @@ public class SystemOfEquations
         this.elements = elements;
         this.discreteElement = discreteElement;
 
-        amountOfNodes = elements[^1].points[2].ID;
+        amountOfNodes = elements[^1].nodes[2].ID;
         
         system = new double[amountOfNodes, amountOfNodes];
         
@@ -32,7 +32,7 @@ public class SystemOfEquations
                 for (int j = 0; j < 4; j++)
                 {
                     double value = hmatrix[i, j];
-                    system[element.points[i].ID - 1, element.points[j].ID - 1] += value;
+                    system[element.nodes[i].ID - 1, element.nodes[j].ID - 1] += value;
                 }
             }
         }
