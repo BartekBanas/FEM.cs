@@ -2,5 +2,8 @@
 
 public class BCedge
 {
+    private DiscreteElement _discreteElement;
+    private double[,] integralPoints;
+    
     
 }
