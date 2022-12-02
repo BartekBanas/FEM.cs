@@ -6,6 +6,8 @@ public static class DiscreteElement
     public static double[,] EtaTable;
     public static double[] Wages = new double[] { };
     
+    public static double[] points;
+    
     static double[] _etas = new double[] { };
     static double[] _ksis = new double[] { };
     public static int IntegralPoints;
@@ -26,11 +28,14 @@ public static class DiscreteElement
     {
         if (IntegralPoints == 2)
         {
+            points = new[] { -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
             _etas = new double[] {-1 / Math.Sqrt(3), -1 / Math.Sqrt(3), 1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
             _ksis = new double[] {-1 / Math.Sqrt(3), 1 / Math.Sqrt(3), -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
         }
         else if(IntegralPoints == 3)
         {
+            points = new[] { -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0) };
+            
             _etas = new double[9] {-Math.Sqrt(3.0 / 5.0), -Math.Sqrt(3.0 / 5.0), -Math.Sqrt(3.0 / 5.0), 0, 0, 0, 
                 Math.Sqrt(3.0 / 5.0), Math.Sqrt(3.0 / 5.0), Math.Sqrt(3.0 / 5.0)};
             
@@ -39,6 +44,14 @@ public static class DiscreteElement
         }
         if (IntegralPoints == 4)
         {
+            points = new[]
+            {
+                -Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0)),
+                -Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0)),
+                Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0)),
+                Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0))
+            };
+            
             _etas = new double[16];
             for (int i = 0; i < 4; i++)
             {

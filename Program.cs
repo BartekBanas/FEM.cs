@@ -65,7 +65,7 @@ internal static class Example
         PrintElementArray(everyElement);
         
 
-        DiscreteElement.Update(4);
+        DiscreteElement.Update(2);
         DiscreteElement.PrintKsiTable();
         DiscreteElement.PrintEtaTable();
         
