@@ -2,9 +2,9 @@
 
 public static class DiscreteElement
 {
-    public static double[,] KsiTable;
-    public static double[,] EtaTable;
-    public static double[] Wages = new double[] { };
+    public static double[,] ksiTable;
+    public static double[,] etaTable;
+    public static double[] wages = new double[] { };
     
     public static double[] points;
     
@@ -19,8 +19,8 @@ public static class DiscreteElement
         FillCoordinates();
         MakeWages();
 
-        KsiTable = MakeKsiTable();
-        EtaTable = MakeEtaTable();
+        ksiTable = MakeKsiTable();
+        etaTable = MakeEtaTable();
     }
 
 
@@ -95,10 +95,10 @@ public static class DiscreteElement
 
         for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
         {
-            resultTable[0, i] = Functions.N1eta(_ksis[i]);
-            resultTable[1, i] = Functions.N2eta(_ksis[i]);
-            resultTable[2, i] = Functions.N3eta(_ksis[i]);
-            resultTable[3, i] = Functions.N4eta(_ksis[i]);
+            resultTable[0, i] = Functions.N1dη(_ksis[i]);
+            resultTable[1, i] = Functions.N2dη(_ksis[i]);
+            resultTable[2, i] = Functions.N3dη(_ksis[i]);
+            resultTable[3, i] = Functions.N4dη(_ksis[i]);
         }
 
         return resultTable;
@@ -110,10 +110,10 @@ public static class DiscreteElement
         for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
         {
             Console.WriteLine($"{_etas[i]:F8}\t" +
-                              $"{KsiTable[0, i]:F8}\t" +
-                              $"{KsiTable[1, i]:F8}\t" +
-                              $"{KsiTable[2, i]:F8}\t" +
-                              $"{KsiTable[3, i]:F8}");
+                              $"{ksiTable[0, i]:F8}\t" +
+                              $"{ksiTable[1, i]:F8}\t" +
+                              $"{ksiTable[2, i]:F8}\t" +
+                              $"{ksiTable[3, i]:F8}");
         }   Console.WriteLine();
     }
     
@@ -123,10 +123,10 @@ public static class DiscreteElement
         for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
         {
             Console.WriteLine($"{_ksis[i]:F8}\t" +
-                              $"{EtaTable[0, i]:F8}\t" +
-                              $"{EtaTable[1, i]:F8}\t" +
-                              $"{EtaTable[2, i]:F8}\t" +
-                              $"{EtaTable[3, i]:F8}");
+                              $"{etaTable[0, i]:F8}\t" +
+                              $"{etaTable[1, i]:F8}\t" +
+                              $"{etaTable[2, i]:F8}\t" +
+                              $"{etaTable[3, i]:F8}");
         }   Console.WriteLine("\n");
     }
 
@@ -134,16 +134,16 @@ public static class DiscreteElement
     {
         if (IntegralPoints == 2)
         {
-            Wages = new[] { 1.0, 1.0 };
+            wages = new[] { 1.0, 1.0 };
         }
         if (IntegralPoints == 3)
         {
-            Wages = new[] { 5.0 / 9.0, 8.0 / 9.0, 5.0 / 9.0 };
+            wages = new[] { 5.0 / 9.0, 8.0 / 9.0, 5.0 / 9.0 };
         }
         
         if (IntegralPoints == 4)
         {
-            Wages = new[]
+            wages = new[]
             {
                 (18.0 - Math.Sqrt(30.0)) / 36.0, (18.0 + Math.Sqrt(30.0)) / 36.0,
                 (18.0 + Math.Sqrt(30.0)) / 36.0, (18.0 - Math.Sqrt(30.0)) / 36.0

@@ -51,10 +51,10 @@ public class Element
 
         for (int i = 0; i < 4; i++)
         {   
-            dxdξ += DiscreteElement.KsiTable[i, number] * this.nodes[i].x;
-            dxdη += DiscreteElement.EtaTable[i, number] * this.nodes[i].x;
-            dydξ += DiscreteElement.KsiTable[i, number] * this.nodes[i].y;
-            dydη += DiscreteElement.EtaTable[i, number] * this.nodes[i].y;
+            dxdξ += DiscreteElement.ksiTable[i, number] * this.nodes[i].x;
+            dxdη += DiscreteElement.etaTable[i, number] * this.nodes[i].x;
+            dydξ += DiscreteElement.ksiTable[i, number] * this.nodes[i].y;
+            dydη += DiscreteElement.etaTable[i, number] * this.nodes[i].y;
         }
 
         return new[,]
@@ -80,11 +80,11 @@ public class Element
         double[] dNdy = new double [dimension * dimension];
         for (int i = 0; i < dimension * dimension; i++) 
         {
-            dNdx[i] = inversedJacobian[0, 0] * DiscreteElement.KsiTable[i, pointIndex] +
-                      inversedJacobian[0, 1] * DiscreteElement.EtaTable[i, pointIndex];
+            dNdx[i] = inversedJacobian[0, 0] * DiscreteElement.ksiTable[i, pointIndex] +
+                      inversedJacobian[0, 1] * DiscreteElement.etaTable[i, pointIndex];
 
-            dNdy[i] = inversedJacobian[1, 0] * DiscreteElement.KsiTable[i, pointIndex] +
-                      inversedJacobian[1, 1] * DiscreteElement.EtaTable[i, pointIndex];
+            dNdy[i] = inversedJacobian[1, 0] * DiscreteElement.ksiTable[i, pointIndex] +
+                      inversedJacobian[1, 1] * DiscreteElement.etaTable[i, pointIndex];
         }
 
         // for (int i = 0; i < 4; i++)
@@ -130,7 +130,7 @@ public class Element
                 {
                     for (int l = 0; l < dimension * dimension; l++)
                     {
-                        partialHmatrix[k, l] *= DiscreteElement.Wages[i] * DiscreteElement.Wages[j];
+                        partialHmatrix[k, l] *= DiscreteElement.wages[i] * DiscreteElement.wages[j];
                     }
                 }
                 

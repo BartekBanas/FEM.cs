@@ -20,7 +20,6 @@ public class BCedge
         setIntegrationPoints();
     }
 
-
     private void setIntegrationPoints()
     {
         switch (side)
@@ -62,5 +61,42 @@ public class BCedge
                 break;
             }
         }
+    }
+    
+    private double[,] partialMatrix(double ξ, double η, int index)
+    {
+        double[] row = { Functions.N1(ξ, η), Functions.N2(ξ, η), Functions.N3(ξ, η), Functions.N4(ξ, η) };
+
+        double[,] matrix = Functions.MultiplingSimpleMatrices(row, row, 4);
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                matrix[i, j] *= DiscreteElement.wages[index];
+            }
+        }
+
+        return matrix;
+    }
+
+    public double[,] HBCmatrix()
+    {
+        double[,] HBCmatrix = new double[4,4];
+        
+        for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
+        {
+            HBCmatrix = Functions.MatrixSummation(HBCmatrix,
+                partialMatrix(integrationPoints[i, 0], integrationPoints[i, 1], i), 4);
+        }
+        
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                HBCmatrix[i, j] *= Conditions.Conductivity * _jacobianDeterminant;
+            }
+        }
+
+        return HBCmatrix;
     }
 }

@@ -75,6 +75,23 @@ public static class Functions
         return result;
     }
 
+    public static double N1(double ξ, double η)
+    {
+        return (1 - ξ) * (1 - η) / 4;
+    }
+    public static double N2(double ξ, double η)
+    {
+        return  (1 + ξ) * (1 - η) / 4;
+    }
+    public static double N3(double ξ, double η)
+    {
+        return (1 + ξ) * (1 + η) / 4;
+    }
+    public static double N4(double ξ, double η)
+    {
+        return (1 - ξ) * (1 + η) / 4;
+    }
+    
     public static double N1dξ(double η)
     {
         return - (1 - η) / 4;
@@ -94,19 +111,19 @@ public static class Functions
     
     //
     
-    public static double N1eta(double ξ)
+    public static double N1dη(double ξ)
     {
         return (1 - ξ) * - 1 / 4;
     }
-    public static double N2eta(double ξ)
+    public static double N2dη(double ξ)
     {
         return (1 + ξ) * - 1 / 4;
     }
-    public static double N3eta(double ξ)
+    public static double N3dη(double ξ)
     {
         return (1 + ξ) / 4;
     }
-    public static double N4eta(double ξ)
+    public static double N4dη(double ξ)
     {
         return (1 - ξ) / 4;
     }
@@ -127,7 +144,7 @@ public static class Functions
         return matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0];
     }
 
-    public static double[,] MultiplingSimpleMatrices(double[] matrixA, double[] matrixB, int size)
+    public static double[,] MultiplingSimpleMatrices(double[] column, double[] row, int size)
     {
         double[,] matrixToReturn = new double[size, size];
 
@@ -135,7 +152,7 @@ public static class Functions
         {
             for (int j = 0; j < size; j++)
             {
-                matrixToReturn[i, j] = matrixA[i] * matrixB[j];
+                matrixToReturn[i, j] = column[i] * row[j];
             }
         }
 
