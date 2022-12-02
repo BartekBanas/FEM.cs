@@ -28,7 +28,7 @@ public class BCedge
             {
                 for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
                 {
-                    integrationPoints[i, 0] = DiscreteElement.points[i];
+                    integrationPoints[i, 0] = DiscreteElement.Points[i];
                     integrationPoints[i, 1] = -1;
                 }
                 break;
@@ -38,7 +38,7 @@ public class BCedge
                 for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
                 {
                     integrationPoints[i, 0] = 1;
-                    integrationPoints[i, 1] = DiscreteElement.points[i];
+                    integrationPoints[i, 1] = DiscreteElement.Points[i];
                 }
                 break;
             }
@@ -46,7 +46,7 @@ public class BCedge
             {
                 for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
                 {
-                    integrationPoints[i, 0] = -DiscreteElement.points[i];
+                    integrationPoints[i, 0] = -DiscreteElement.Points[i];
                     integrationPoints[i, 1] = 1;
                 }
                 break;
@@ -56,7 +56,7 @@ public class BCedge
                 for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
                 {
                     integrationPoints[i, 0] = -1;
-                    integrationPoints[i, 1] = -DiscreteElement.points[i];
+                    integrationPoints[i, 1] = -DiscreteElement.Points[i];
                 }
                 break;
             }
@@ -72,7 +72,7 @@ public class BCedge
         {
             for (int j = 0; j < 4; j++)
             {
-                matrix[i, j] *= DiscreteElement.wages[index];
+                matrix[i, j] *= DiscreteElement.Wages[index];
             }
         }
 

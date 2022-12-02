@@ -2,14 +2,14 @@
 
 public static class DiscreteElement
 {
-    public static double[,] ksiTable;
-    public static double[,] etaTable;
-    public static double[] wages = new double[] { };
+    public static double[,] KsiTable;
+    public static double[,] EtaTable;
+    public static double[] Wages = new double[] { };
     
-    public static double[] points;
+    public static double[] Points;
     
-    static double[] _etas = new double[] { };
-    static double[] _ksis = new double[] { };
+    private static double[] _etas = new double[] { };
+    private static double[] _ksis = new double[] { };
     public static int IntegralPoints;
     
     
@@ -19,8 +19,8 @@ public static class DiscreteElement
         FillCoordinates();
         MakeWages();
 
-        ksiTable = MakeKsiTable();
-        etaTable = MakeEtaTable();
+        KsiTable = MakeKsiTable();
+        EtaTable = MakeEtaTable();
     }
 
 
@@ -28,13 +28,13 @@ public static class DiscreteElement
     {
         if (IntegralPoints == 2)
         {
-            points = new[] { -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
+            Points = new[] { -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
             _etas = new double[] {-1 / Math.Sqrt(3), -1 / Math.Sqrt(3), 1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
             _ksis = new double[] {-1 / Math.Sqrt(3), 1 / Math.Sqrt(3), -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
         }
         else if(IntegralPoints == 3)
         {
-            points = new[] { -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0) };
+            Points = new[] { -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0) };
             
             _etas = new double[9] {-Math.Sqrt(3.0 / 5.0), -Math.Sqrt(3.0 / 5.0), -Math.Sqrt(3.0 / 5.0), 0, 0, 0, 
                 Math.Sqrt(3.0 / 5.0), Math.Sqrt(3.0 / 5.0), Math.Sqrt(3.0 / 5.0)};
@@ -44,7 +44,7 @@ public static class DiscreteElement
         }
         if (IntegralPoints == 4)
         {
-            points = new[]
+            Points = new[]
             {
                 -Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0)),
                 -Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0)),
@@ -110,10 +110,10 @@ public static class DiscreteElement
         for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
         {
             Console.WriteLine($"{_etas[i]:F8}\t" +
-                              $"{ksiTable[0, i]:F8}\t" +
-                              $"{ksiTable[1, i]:F8}\t" +
-                              $"{ksiTable[2, i]:F8}\t" +
-                              $"{ksiTable[3, i]:F8}");
+                              $"{KsiTable[0, i]:F8}\t" +
+                              $"{KsiTable[1, i]:F8}\t" +
+                              $"{KsiTable[2, i]:F8}\t" +
+                              $"{KsiTable[3, i]:F8}");
         }   Console.WriteLine();
     }
     
@@ -123,10 +123,10 @@ public static class DiscreteElement
         for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
         {
             Console.WriteLine($"{_ksis[i]:F8}\t" +
-                              $"{etaTable[0, i]:F8}\t" +
-                              $"{etaTable[1, i]:F8}\t" +
-                              $"{etaTable[2, i]:F8}\t" +
-                              $"{etaTable[3, i]:F8}");
+                              $"{EtaTable[0, i]:F8}\t" +
+                              $"{EtaTable[1, i]:F8}\t" +
+                              $"{EtaTable[2, i]:F8}\t" +
+                              $"{EtaTable[3, i]:F8}");
         }   Console.WriteLine("\n");
     }
 
@@ -134,16 +134,16 @@ public static class DiscreteElement
     {
         if (IntegralPoints == 2)
         {
-            wages = new[] { 1.0, 1.0 };
+            Wages = new[] { 1.0, 1.0 };
         }
         if (IntegralPoints == 3)
         {
-            wages = new[] { 5.0 / 9.0, 8.0 / 9.0, 5.0 / 9.0 };
+            Wages = new[] { 5.0 / 9.0, 8.0 / 9.0, 5.0 / 9.0 };
         }
         
         if (IntegralPoints == 4)
         {
-            wages = new[]
+            Wages = new[]
             {
                 (18.0 - Math.Sqrt(30.0)) / 36.0, (18.0 + Math.Sqrt(30.0)) / 36.0,
                 (18.0 + Math.Sqrt(30.0)) / 36.0, (18.0 - Math.Sqrt(30.0)) / 36.0
