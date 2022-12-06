@@ -25,12 +25,14 @@ public class SystemOfEquations
         foreach (var element in elements)
         {
             double[,] hmatrix = element.Hmatrix();
+            double[,] hbcmatrix = element.HBCmatrix();
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    double value = hmatrix[i, j];
-                    system[element.nodes[i].ID - 1, element.nodes[j].ID - 1] += value;
+                    //double value = hmatrix[i, j];
+                    system[element.nodes[i].ID - 1, element.nodes[j].ID - 1] += hmatrix[i, j];
+                    system[element.nodes[i].ID - 1, element.nodes[j].ID - 1] += hbcmatrix[i, j];
                 }
             }
         }
