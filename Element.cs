@@ -155,9 +155,12 @@ public class Element
         {
             if (nodes[i].BC && nodes[i + 1].BC)
             {
-                Functions.MatrixSummation(hBCmatrix, new BCedge(nodes[i], nodes[i + 1], i + 1).HBCmatrix(), 4);
+                hBCmatrix = Functions.MatrixSummation(hBCmatrix, new BCedge(nodes[i], nodes[i + 1], i + 1).HBCmatrix(), 4);
             }
         }
+        
+        Console.WriteLine($"HBCmatrix nr {ID}");
+        Functions.PrintMatrix(hBCmatrix, 4);
 
         return hBCmatrix;
     }

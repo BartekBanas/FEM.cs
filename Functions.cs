@@ -182,7 +182,7 @@ public static class Functions
             {
                 Console.Write($"{matrix[i, j].ToString("F8", CultureInfo.InvariantCulture)}\t");
             }   Console.WriteLine();
-        }   Console.WriteLine("\n");
+        }   Console.WriteLine();
     }
     
     public static double GetDistance(Node node1, Node node2)
