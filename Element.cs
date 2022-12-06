@@ -141,6 +141,24 @@ public class Element
 
         return hmatrix;
     }
-    
-    
+
+    public double[,] HBCmatrix()
+    {
+        double[,] hBCmatrix = new double[4, 4];
+
+        if (nodes[3].BC && nodes[0].BC)
+        {
+            hBCmatrix = Functions.MatrixSummation(hBCmatrix, new BCedge(nodes[3], nodes[0], 4).HBCmatrix(), 4);
+        }
+
+        for (int i = 0; i < nodes.Length - 1; i++)
+        {
+            if (nodes[i].BC && nodes[i + 1].BC)
+            {
+                Functions.MatrixSummation(hBCmatrix, new BCedge(nodes[i], nodes[i + 1], i + 1).HBCmatrix(), 4);
+            }
+        }
+
+        return hBCmatrix;
+    }
 };
