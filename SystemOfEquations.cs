@@ -50,6 +50,6 @@ public class SystemOfEquations
                 Console.Write("\t");
 
             }   Console.WriteLine();
-        }   
+        }   Console.WriteLine();  
     }
 }
