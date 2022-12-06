@@ -82,6 +82,7 @@ internal static class Example
         BCedge testEdge = new BCedge(new Node(0, 0.025, 0.025), new Node(0, 0, 0.025), 4);
         Functions.PrintMatrix(testEdge.HBCmatrix(), 4);
 
+        Console.WriteLine($"Conductivity {Conditions.Conductivity}");
 
         // Console.WriteLine($"\n\n");
         // for (int i = 1; i < everyElement.Count; i++)
