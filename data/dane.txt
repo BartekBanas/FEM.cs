@@ -1,6 +1,6 @@
 SimulationTime 500
 SimulationStepTime 50
-Conductivity 25
+Conductivity 300
 Alfa 300
 Tot 1200
 InitialTemp 100
