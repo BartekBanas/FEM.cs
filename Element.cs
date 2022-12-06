@@ -74,7 +74,6 @@ public class Element
         double[,] inversedJacobian = Functions.MatrixInversion(jacobian);
         //Console.WriteLine("Inversed Jacobian: ");
         //Functions.PrintMatrix(inversedJacobian, 2);
-        int ip = DiscreteElement.IntegralPoints * DiscreteElement.IntegralPoints;
 
         double[] dNdx = new double [dimension * dimension];
         double[] dNdy = new double [dimension * dimension];
