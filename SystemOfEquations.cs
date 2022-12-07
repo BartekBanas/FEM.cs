@@ -72,7 +72,7 @@ public class SystemOfEquations
 
         for (int i = 0; i < amountOfNodes; i++)
         {
-            for (int j = 0; j < amountOfNodes + 1; j++)
+            for (int j = 0; j < amountOfNodes; j++)
             {
                 coefficents[i, j] = system[i, j];
             }
