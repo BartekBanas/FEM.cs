@@ -73,7 +73,7 @@ internal static class Example
         SystemOfEquations systemOfEquations = new SystemOfEquations(everyElement);
         systemOfEquations.PrintSystem();
 
-        systemOfEquations.calculateSystem();
+        systemOfEquations.CalculateSystem();
 
         // Element testElement = new Element();
         // testElement.AddNode(new Node(0, 0, 0));

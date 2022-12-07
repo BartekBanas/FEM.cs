@@ -64,11 +64,11 @@ public class SystemOfEquations
         Console.WriteLine();
     }
 
-    public double[] calculateSystem()
+    public double[] CalculateSystem()
     {
         double epsilon = 1;
         double peak;
-        int peakID = 0;
+        int peakId = 0;
 
         double[,] coefficents = new double [amountOfNodes, amountOfNodes + 1];
 
@@ -95,22 +95,22 @@ public class SystemOfEquations
         // Partial Pivoting
         for (int i = 0; i < amountOfNodes; i++)
         {
-            peakID = i;
+            peakId = i;
             peak = Math.Abs(coefficents[i, i]);
             for (int j = i; j < amountOfNodes; j++)
             {
                 if (peak + epsilon < Math.Abs(coefficents[j, i]) && coefficents[j, i] != 0)
                 {
                     peak = Math.Abs(coefficents[j, i]);
-                    peakID = j;
+                    peakId = j;
                 }
             }
 
-            if (peakID != i)
+            if (peakId != i)
             {
                 for (int j = 0; j < amountOfNodes + 1; j++)
                 {
-                    (coefficents[i, j], coefficents[peakID, j]) = (coefficents[peakID, j], coefficents[i, j]);
+                    (coefficents[i, j], coefficents[peakId, j]) = (coefficents[peakId, j], coefficents[i, j]);
                 }
             }
         }
