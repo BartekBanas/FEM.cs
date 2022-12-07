@@ -24,7 +24,6 @@ public class SystemOfEquations
 
     private void Aggregation()
     {
-        Console.WriteLine("System of Equations:");
         foreach (var element in elements)
         {
             double[,] hmatrix = element.Hmatrix();
@@ -45,6 +44,7 @@ public class SystemOfEquations
 
     public void PrintSystem()
     {
+        Console.WriteLine("System of Equations:");
         for (int i = 0; i < amountOfNodes; i++)
         {
             for (int j = 0; j < amountOfNodes; j++)
@@ -56,6 +56,7 @@ public class SystemOfEquations
             }
 
             Console.Write("*  ");
+            Console.Write(globalPvector[i] < 0 ? "-" : " ");
             Console.Write(Math.Abs(globalPvector[i]).ToString("F2", CultureInfo.InvariantCulture));
             Console.WriteLine();
         }
@@ -86,7 +87,7 @@ public class SystemOfEquations
             peak = Math.Abs(coefficents[i, i]);
             for (int j = i; j < amountOfNodes; j++)
             {
-                if (peak < Math.Abs(coefficents[j, i]) && (coefficents[j, i]) != 0)
+                if (peak < Math.Abs(coefficents[j, i]) && coefficents[j, i] != 0)
                 {
                     peak = Math.Abs(coefficents[j, i]);
                     peakID = j;
