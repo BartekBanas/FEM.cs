@@ -75,24 +75,22 @@ public class SystemOfEquations
         for (int i = 0; i < amountOfNodes; i++)
         {
             for (int j = 0; j < amountOfNodes; j++)
-            {
                 coefficents[i, j] = system[i, j];
-            }
 
             coefficents[i, amountOfNodes] = globalPvector[i];
         }
 
-        Console.WriteLine("\nExtended matrix before Partial Pivoting:");
-        for (int i = 0; i < amountOfNodes; i++)
-        {
-            for (int j = 0; j < amountOfNodes + 1; j++)
-            {
-                Console.Write(coefficents[i, j].ToString("F2", CultureInfo.InvariantCulture));
-                Console.Write("\t");
-            }
-
-            Console.WriteLine();
-        }
+        // Console.WriteLine("\nExtended matrix before Partial Pivoting:");
+        // for (int i = 0; i < amountOfNodes; i++)
+        // {
+        //     for (int j = 0; j < amountOfNodes + 1; j++)
+        //     {
+        //         Console.Write(coefficents[i, j].ToString("F2", CultureInfo.InvariantCulture));
+        //         Console.Write("\t");
+        //     }
+        //
+        //     Console.WriteLine();
+        // }
 
         // Partial Pivoting
         for (int i = 0; i < amountOfNodes; i++)
@@ -117,19 +115,19 @@ public class SystemOfEquations
             }
         }
 
-        Console.WriteLine("\nExtended matrix after Partial Pivoting:");
-        for (int i = 0; i < amountOfNodes; i++)
-        {
-            for (int j = 0; j < amountOfNodes + 1; j++) //Printing
-            {
-                Console.Write(coefficents[i, j].ToString("F2", CultureInfo.InvariantCulture));
-                Console.Write("\t");
-            }
-
-            Console.WriteLine();
-        }
-
-        Console.WriteLine();
+        // Console.WriteLine("\nExtended matrix after Partial Pivoting:");
+        // for (int i = 0; i < amountOfNodes; i++)
+        // {
+        //     for (int j = 0; j < amountOfNodes + 1; j++) //Printing
+        //     {
+        //         Console.Write(coefficents[i, j].ToString("F2", CultureInfo.InvariantCulture));
+        //         Console.Write("\t");
+        //     }
+        //
+        //     Console.WriteLine();
+        // }
+        //
+        // Console.WriteLine();
 
 
         double[,] multiplier = new double[amountOfNodes, 2];
@@ -157,19 +155,19 @@ public class SystemOfEquations
             }
         }
 
-        Console.WriteLine("Extended matrix after the first stage of calculations:");
-        for (int i = 0; i < amountOfNodes; i++) //Printing
-        {
-            for (int j = 0; j < amountOfNodes + 1; j++)
-            {
-                Console.Write(coefficents[i, j].ToString("F2", CultureInfo.InvariantCulture));
-                Console.Write("\t");
-            }
-
-            Console.WriteLine();
-        }
-
-        Console.WriteLine();
+        // Console.WriteLine("Extended matrix after the first stage of calculations:");
+        // for (int i = 0; i < amountOfNodes; i++) //Printing
+        // {
+        //     for (int j = 0; j < amountOfNodes + 1; j++)
+        //     {
+        //         Console.Write(coefficents[i, j].ToString("F2", CultureInfo.InvariantCulture));
+        //         Console.Write("\t");
+        //     }
+        //
+        //     Console.WriteLine();
+        // }
+        //
+        // Console.WriteLine();
 
         double[] xi = new double[amountOfNodes];
         double[] sum = new double[amountOfNodes];
