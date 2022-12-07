@@ -80,49 +80,62 @@ public class SystemOfEquations
 
             coefficents[i, amountOfNodes] = globalPvector[i];
         }
-
-        //	Partial Pivoting
+        
+        Console.WriteLine("\nExtended matrix before Partial Pivoting:");
         for (int i = 0; i < amountOfNodes; i++)
         {
-            peak = Math.Abs(coefficents[i, i]);
-            for (int j = i; j < amountOfNodes; j++)
-            {
-                if (peak < Math.Abs(coefficents[j, i]) && coefficents[j, i] != 0)
-                {
-                    peak = Math.Abs(coefficents[j, i]);
-                    peakID = j;
-                }
-            }
-
-            if (peakID != i)
-            {
-                for (int j = 0; j < amountOfNodes + 1; j++)
-                {
-                    (coefficents[i, j], coefficents[peakID, j]) = (coefficents[peakID, j], coefficents[i, j]);
-                }
-            }
-            //cout << i + 1 << " iteration of the matrix" << endl;
-            //for (unsigned int k = 0; k < degree; k++) {                //Wypisywanie
-            //	for (unsigned int j = 0; j < degree + 1; j++) {
-            //		cout << coefficents[k][j] << ",\t";
-            //	}
-            //	cout << endl;
-            //}   cout << endl;
-        }
-
-        Console.WriteLine("\nExtended matrix after Partial Pivoting:\n");
-        for (int i = 0; i < amountOfNodes; i++)
-        {
-            //Wypisywanie
             for (int j = 0; j < amountOfNodes + 1; j++)
             {
-                Console.Write($"{coefficents[i, j]},\t");
+                Console.Write(coefficents[i, j].ToString("F2", CultureInfo.InvariantCulture));
+                Console.Write("\t");
             }
 
             Console.WriteLine();
         }
 
-        Console.WriteLine();
+        //	Partial Pivoting
+        // for (int i = 0; i < amountOfNodes; i++)
+        // {
+        //     peak = Math.Abs(coefficents[i, i]);
+        //     for (int j = i; j < amountOfNodes; j++)
+        //     {
+        //         if (peak < Math.Abs(coefficents[j, i]) && coefficents[j, i] != 0)
+        //         {
+        //             peak = Math.Abs(coefficents[j, i]);
+        //             peakID = j;
+        //         }
+        //     }
+        //
+        //     if (peakID != i)
+        //     {
+        //         for (int j = 0; j < amountOfNodes + 1; j++)
+        //         {
+        //             (coefficents[i, j], coefficents[peakID, j]) = (coefficents[peakID, j], coefficents[i, j]);
+        //         }
+        //     }
+        //     //cout << i + 1 << " iteration of the matrix" << endl;
+        //     //for (unsigned int k = 0; k < degree; k++) {                //Wypisywanie
+        //     //	for (unsigned int j = 0; j < degree + 1; j++) {
+        //     //		cout << coefficents[k][j] << ",\t";
+        //     //	}
+        //     //	cout << endl;
+        //     //}   cout << endl;
+        // }
+        //
+        // Console.WriteLine("\nExtended matrix after Partial Pivoting:");
+        // for (int i = 0; i < amountOfNodes; i++)
+        // {
+        //     //Wypisywanie
+        //     for (int j = 0; j < amountOfNodes + 1; j++)
+        //     {
+        //         Console.Write(coefficents[i, j].ToString("F2", CultureInfo.InvariantCulture));
+        //         Console.Write("\t");
+        //     }
+        //
+        //     Console.WriteLine();
+        // }
+        //
+        // Console.WriteLine();
 
 
         double[,] multiplier = new double[amountOfNodes, 2];
@@ -136,29 +149,27 @@ public class SystemOfEquations
 
         for (int k = 0; k < amountOfNodes - 1; k++)
         {
-            for (int i = k + 1; i < amountOfNodes; i++)
+            for (int i = k + 1; i < amountOfNodes; i++)     //Operacje
             {
-                //Operacje
                 for (int j = k; j <= amountOfNodes; j++)
                 {
                     coefficents[i, j] -= (coefficents[k, j] * multiplier[i, 0]);
                 }
             }
 
-            for (int i = k + 2; i < amountOfNodes; i++)
+            for (int i = k + 2; i < amountOfNodes; i++)     //Mnożniki
             {
-                //Mnożniki
                 multiplier[i, 0] = coefficents[i, k + 1] / coefficents[k + 1, k + 1];
             }
         }
 
         Console.WriteLine("Extended matrix after the first stage of calculations:");
-        for (int i = 0; i < amountOfNodes; i++)
+        for (int i = 0; i < amountOfNodes; i++)     //Wypisywanie
         {
-            //Wypisywanie
             for (int j = 0; j < amountOfNodes + 1; j++)
             {
-                Console.Write($"{coefficents[i, j]},\t");
+                Console.Write(coefficents[i, j].ToString("F2", CultureInfo.InvariantCulture));
+                Console.Write("\t");
             }
 
             Console.WriteLine();
