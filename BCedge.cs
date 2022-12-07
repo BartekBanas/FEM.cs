@@ -93,10 +93,45 @@ public class BCedge
         {
             for (int j = 0; j < 4; j++)
             {
-                HBCmatrix[i, j] *= Conditions.Conductivity * _jacobianDeterminant;
+                HBCmatrix[i, j] *= Conditions.α * _jacobianDeterminant;
             }
         }
 
         return HBCmatrix;
+    }
+    
+    private double[] partialPvector(double ξ, double η, int index)
+    {
+        double[] vector = { Functions.N1(ξ, η), Functions.N2(ξ, η), Functions.N3(ξ, η), Functions.N4(ξ, η) };
+        
+        for (int i = 0; i < 4; i++)
+        {
+            vector[i] *= DiscreteElement.Wages[index];
+        }
+
+        return vector;
+    }
+    
+    public double[] Pvector()
+    {
+        double[] pVector = new double[4];
+        double[] subVector;
+        
+        for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
+        {
+            subVector = partialPvector(integrationPoints[i, 0], integrationPoints[i, 1], i);
+            
+            for (int j = 0; j < DiscreteElement.IntegralPoints; j++)
+            {
+                pVector[j] += subVector[j];
+            }
+        }
+        
+        for (int i = 0; i < 4; i++)
+        {
+            pVector[i] *= Conditions.α * _jacobianDeterminant;
+        }
+
+        return pVector;
     }
 }
