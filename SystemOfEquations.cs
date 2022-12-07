@@ -54,7 +54,9 @@ public class SystemOfEquations
                 Console.Write(Math.Abs(system[i, j]).ToString("F2", CultureInfo.InvariantCulture));
                 Console.Write("\t");
 
-            }   
+            }
+
+            Console.Write("*  ");
             Console.Write(Math.Abs(globalPvector[i]).ToString("F2", CultureInfo.InvariantCulture));
             Console.WriteLine();
             

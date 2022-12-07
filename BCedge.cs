@@ -129,7 +129,7 @@ public class BCedge
         
         for (int i = 0; i < 4; i++)
         {
-            pVector[i] *= Conditions.α * _jacobianDeterminant;
+            pVector[i] *= Conditions.α * _jacobianDeterminant * Conditions.TemperatureSurr;
         }
 
         return pVector;
