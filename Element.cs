@@ -164,4 +164,33 @@ public class Element
 
         return hBCmatrix;
     }
+
+    public double[] Pvector()
+    {
+        double[] pVector = new double[4];
+        double[] subVector;
+        
+        if (nodes[3].BC && nodes[0].BC)
+        {
+            subVector = new BCedge(nodes[3], nodes[0], 4).Pvector();
+            for (int i = 0; i < 4; i++)
+            {
+                pVector[i] += subVector[i];
+            }
+        }
+        
+        for (int i = 0; i < nodes.Length - 1; i++)
+        {
+            if (nodes[i].BC && nodes[i + 1].BC)
+            {
+                subVector = new BCedge(nodes[i], nodes[i + 1], i + 1).Pvector();
+                for (int j = 0; j < 4; j++)
+                {
+                    pVector[j] += subVector[j];
+                }
+            }
+        }
+
+        return pVector;
+    }
 };
