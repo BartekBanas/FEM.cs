@@ -2,9 +2,6 @@
 
 public class BCedge
 {
-    private Node _node1;
-    private Node _node2;
-
     private int side;
 
     private double _jacobianDeterminant;
@@ -12,8 +9,6 @@ public class BCedge
 
     public BCedge(Node node1, Node node2, int side)
     {
-        this._node1 = node1;
-        this._node2 = node2;
         this.side = side;
         
         _jacobianDeterminant = Functions.GetDistance(node1, node2) / 2;
