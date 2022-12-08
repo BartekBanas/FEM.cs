@@ -174,6 +174,21 @@ public static class Functions
         return matrixToReturn;
     }
     
+    public static double[,] MatrixSummation(double[,] matrixA, double[,] matrixB)
+    {
+        double[,] matrixToReturn = new double[matrixA.Length, matrixA.Length];
+
+        for (int i = 0; i < matrixA.Length; i++)
+        {
+            for (int j = 0; j < matrixA.Length; j++)
+            {
+                matrixToReturn[i, j] = matrixA[i, j] + matrixB[i, j];
+            }
+        }
+
+        return matrixToReturn;
+    }
+    
     public static void PrintMatrix(double[,] matrix, int size)
     {
         for (int i = 0; i < size; i++)
