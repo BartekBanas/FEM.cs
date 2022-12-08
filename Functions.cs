@@ -144,7 +144,7 @@ public static class Functions
         return matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0];
     }
 
-    public static double[,] MultiplingSimpleMatrices(double[] column, double[] row, int size)
+    public static double[,] MultiplyingVectors(double[] column, double[] row, int size)
     {
         double[,] matrixToReturn = new double[size, size];
 
@@ -194,6 +194,16 @@ public static class Functions
         }
 
         return vectorToReturn;
+    }
+
+    public static double[] MultiplyVector(double[] vector, double multiplier)
+    {
+        for (int i = 0; i < vector.Length; i++)
+        {
+            vector[i] *= multiplier;
+        }
+
+        return vector;
     }
     
     public static double GetDistance(Node node1, Node node2)
