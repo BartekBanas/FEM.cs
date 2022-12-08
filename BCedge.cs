@@ -62,7 +62,7 @@ public class BCedge
     {
         double[] row = { Functions.N1(ξ, η), Functions.N2(ξ, η), Functions.N3(ξ, η), Functions.N4(ξ, η) };
 
-        double[,] matrix = Functions.MultiplyingVectors(row, row, 4);
+        double[,] matrix = Functions.MultiplyingVectors(row, row);
         for (int i = 0; i < 4; i++)
         {
             for (int j = 0; j < 4; j++)

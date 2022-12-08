@@ -144,13 +144,13 @@ public static class Functions
         return matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0];
     }
 
-    public static double[,] MultiplyingVectors(double[] column, double[] row, int size)
+    public static double[,] MultiplyingVectors(double[] column, double[] row)
     {
-        double[,] matrixToReturn = new double[size, size];
+        double[,] matrixToReturn = new double[column.Length, column.Length];
 
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < column.Length; i++)
         {
-            for (int j = 0; j < size; j++)
+            for (int j = 0; j < column.Length; j++)
             {
                 matrixToReturn[i, j] = column[i] * row[j];
             }
@@ -159,20 +159,20 @@ public static class Functions
         return matrixToReturn;
     }
 
-    // public static double[,] MatrixSummation(double[,] matrixA, double[,] matrixB, int size)
-    // {
-    //     double[,] matrixToReturn = new double[size, size];
-    //
-    //     for (int i = 0; i < size; i++)
-    //     {
-    //         for (int j = 0; j < size; j++)
-    //         {
-    //             matrixToReturn[i, j] = matrixA[i, j] + matrixB[i, j];
-    //         }
-    //     }
-    //
-    //     return matrixToReturn;
-    // }
+    public static double[,] MatrixSummation(double[,] matrixA, double[,] matrixB, int size)
+    {
+        double[,] matrixToReturn = new double[size, size];
+    
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                matrixToReturn[i, j] = matrixA[i, j] + matrixB[i, j];
+            }
+        }
+    
+        return matrixToReturn;
+    }
     
     public static double[,] MatrixSummation(double[,] matrixA, double[,] matrixB)
     {
