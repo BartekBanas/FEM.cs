@@ -100,7 +100,7 @@ public class BCedge
         return HBCmatrix;
     }
     
-    private double[] partialPvector(double ξ, double η, int index)
+    private double[] PartialPvector(double ξ, double η, int index)
     {
         double[] vector = { Functions.N1(ξ, η), Functions.N2(ξ, η), Functions.N3(ξ, η), Functions.N4(ξ, η) };
         
@@ -115,18 +115,11 @@ public class BCedge
     public double[] Pvector()
     {
         double[] pVector = new double[4];
-        double[] subVector;
-        
+
         for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
         {
-            subVector = partialPvector(integrationPoints[i, 0], integrationPoints[i, 1], i);
-            
-            
-            
-            for (int j = 0; j < DiscreteElement.IntegralPoints; j++)
-            {
-                pVector[j] += subVector[j];
-            }
+            pVector = Functions.VectorSummation(pVector,
+                PartialPvector(integrationPoints[i, 0], integrationPoints[i, 1], i));
         }
         
         for (int i = 0; i < 4; i++)
