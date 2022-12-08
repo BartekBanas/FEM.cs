@@ -184,6 +184,17 @@ public static class Functions
             }   Console.WriteLine();
         }   Console.WriteLine();
     }
+
+    public static double[] VectorSummation(double[] vectorA, double[] vectorB)
+    {
+        double[] vectorToReturn = new double [vectorA.Length];
+        for (int i = 0; i < vectorA.Length; i++)
+        {
+            vectorToReturn[i] = vectorA[i] + vectorB[i];
+        }
+
+        return vectorToReturn;
+    }
     
     public static double GetDistance(Node node1, Node node2)
     {
