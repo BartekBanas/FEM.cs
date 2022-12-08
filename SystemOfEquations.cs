@@ -70,14 +70,14 @@ public class SystemOfEquations
         double peak;
         int peakId = 0;
 
-        double[,] coefficents = new double [amountOfNodes, amountOfNodes + 1];
+        double[,] coefficients = new double [amountOfNodes, amountOfNodes + 1];
 
         for (int i = 0; i < amountOfNodes; i++)
         {
             for (int j = 0; j < amountOfNodes; j++)
-                coefficents[i, j] = system[i, j];
+                coefficients[i, j] = system[i, j];
 
-            coefficents[i, amountOfNodes] = globalPvector[i];
+            coefficients[i, amountOfNodes] = globalPvector[i];
         }
 
         // Console.WriteLine("\nExtended matrix before Partial Pivoting:");
@@ -96,12 +96,12 @@ public class SystemOfEquations
         for (int i = 0; i < amountOfNodes; i++)
         {
             peakId = i;
-            peak = Math.Abs(coefficents[i, i]);
+            peak = Math.Abs(coefficients[i, i]);
             for (int j = i; j < amountOfNodes; j++)
             {
-                if (peak + epsilon < Math.Abs(coefficents[j, i]) && coefficents[j, i] != 0)
+                if (peak + epsilon < Math.Abs(coefficients[j, i]) && coefficients[j, i] != 0)
                 {
-                    peak = Math.Abs(coefficents[j, i]);
+                    peak = Math.Abs(coefficients[j, i]);
                     peakId = j;
                 }
             }
@@ -110,7 +110,7 @@ public class SystemOfEquations
             {
                 for (int j = 0; j < amountOfNodes + 1; j++)
                 {
-                    (coefficents[i, j], coefficents[peakId, j]) = (coefficents[peakId, j], coefficents[i, j]);
+                    (coefficients[i, j], coefficients[peakId, j]) = (coefficients[peakId, j], coefficients[i, j]);
                 }
             }
         }
@@ -133,8 +133,8 @@ public class SystemOfEquations
         double[,] multiplier = new double[amountOfNodes, 2];
         for (int i = 1; i < amountOfNodes; i++)
         {
-            multiplier[i, 0] = coefficents[i, 0] / coefficents[0, 0];
-            multiplier[i, 1] = coefficents[i, 1] / coefficents[1, 1];
+            multiplier[i, 0] = coefficients[i, 0] / coefficients[0, 0];
+            multiplier[i, 1] = coefficients[i, 1] / coefficients[1, 1];
         }
 
         Console.WriteLine();
@@ -145,13 +145,13 @@ public class SystemOfEquations
             {
                 for (int j = k; j <= amountOfNodes; j++)
                 {
-                    coefficents[i, j] -= (coefficents[k, j] * multiplier[i, 0]);
+                    coefficients[i, j] -= (coefficients[k, j] * multiplier[i, 0]);
                 }
             }
 
             for (int i = k + 2; i < amountOfNodes; i++) //multipliers
             {
-                multiplier[i, 0] = coefficents[i, k + 1] / coefficents[k + 1, k + 1];
+                multiplier[i, 0] = coefficients[i, k + 1] / coefficients[k + 1, k + 1];
             }
         }
 
@@ -171,8 +171,8 @@ public class SystemOfEquations
 
         double[] xi = new double[amountOfNodes];
         double[] sum = new double[amountOfNodes];
-        xi[amountOfNodes - 1] = coefficents[amountOfNodes - 1, amountOfNodes] /
-                                coefficents[amountOfNodes - 1, amountOfNodes - 1];
+        xi[amountOfNodes - 1] = coefficients[amountOfNodes - 1, amountOfNodes] /
+                                coefficients[amountOfNodes - 1, amountOfNodes - 1];
         Console.WriteLine("Solution of the system of equations:");
 
         for (int i = amountOfNodes - 2; i >= 0; i--)
@@ -180,10 +180,10 @@ public class SystemOfEquations
             sum[i] = 0;
             for (int k = i + 1; k < amountOfNodes; k++)
             {
-                sum[i] += coefficents[i, k] * xi[k];
+                sum[i] += coefficients[i, k] * xi[k];
             }
 
-            xi[i] = (coefficents[i, amountOfNodes] - sum[i]) / coefficents[i, i];
+            xi[i] = (coefficients[i, amountOfNodes] - sum[i]) / coefficients[i, i];
         }
 
         for (int i = 0; i < amountOfNodes; i++)
