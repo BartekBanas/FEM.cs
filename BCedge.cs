@@ -81,7 +81,7 @@ public class BCedge
         for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
         {
             HBCmatrix = Functions.MatrixSummation(HBCmatrix,
-                partialMatrix(integrationPoints[i, 0], integrationPoints[i, 1], i), 4);
+                partialMatrix(integrationPoints[i, 0], integrationPoints[i, 1], i));
         }
         
         for (int i = 0; i < 4; i++)

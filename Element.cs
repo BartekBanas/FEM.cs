@@ -98,7 +98,7 @@ public class Element
         
         double[,] hmatrixPartial = Functions.MatrixSummation(
             Functions.MultiplyingVectors(dNdx, dNdx, dimension * dimension),
-            Functions.MultiplyingVectors(dNdy, dNdy, dimension * dimension), dimension * dimension);
+            Functions.MultiplyingVectors(dNdy, dNdy, dimension * dimension));
         //Functions.PrintMatrix(Hmatrix, ip);
         
         for (int i = 0; i < 4; i++)
@@ -133,7 +133,7 @@ public class Element
                     }
                 }
                 
-                hmatrix = Functions.MatrixSummation(hmatrix, partialHmatrix, dimension * dimension);
+                hmatrix = Functions.MatrixSummation(hmatrix, partialHmatrix);
                 pointIndex++;
             }
         }
@@ -147,14 +147,14 @@ public class Element
 
         if (nodes[3].BC && nodes[0].BC)
         {
-            hBCmatrix = Functions.MatrixSummation(hBCmatrix, new BCedge(nodes[3], nodes[0], 4).HBCmatrix(), 4);
+            hBCmatrix = Functions.MatrixSummation(hBCmatrix, new BCedge(nodes[3], nodes[0], 4).HBCmatrix());
         }
 
         for (int i = 0; i < nodes.Length - 1; i++)
         {
             if (nodes[i].BC && nodes[i + 1].BC)
             {
-                hBCmatrix = Functions.MatrixSummation(hBCmatrix, new BCedge(nodes[i], nodes[i + 1], i + 1).HBCmatrix(), 4);
+                hBCmatrix = Functions.MatrixSummation(hBCmatrix, new BCedge(nodes[i], nodes[i + 1], i + 1).HBCmatrix());
             }
         }
         

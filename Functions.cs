@@ -159,28 +159,29 @@ public static class Functions
         return matrixToReturn;
     }
 
-    public static double[,] MatrixSummation(double[,] matrixA, double[,] matrixB, int size)
-    {
-        double[,] matrixToReturn = new double[size, size];
-
-        for (int i = 0; i < size; i++)
-        {
-            for (int j = 0; j < size; j++)
-            {
-                matrixToReturn[i, j] = matrixA[i, j] + matrixB[i, j];
-            }
-        }
-
-        return matrixToReturn;
-    }
+    // public static double[,] MatrixSummation(double[,] matrixA, double[,] matrixB, int size)
+    // {
+    //     double[,] matrixToReturn = new double[size, size];
+    //
+    //     for (int i = 0; i < size; i++)
+    //     {
+    //         for (int j = 0; j < size; j++)
+    //         {
+    //             matrixToReturn[i, j] = matrixA[i, j] + matrixB[i, j];
+    //         }
+    //     }
+    //
+    //     return matrixToReturn;
+    // }
     
     public static double[,] MatrixSummation(double[,] matrixA, double[,] matrixB)
     {
-        double[,] matrixToReturn = new double[matrixA.Length, matrixA.Length];
+        int lenght = Convert.ToInt32(Math.Sqrt(matrixA.Length));
+        double[,] matrixToReturn = new double[lenght, lenght];
 
-        for (int i = 0; i < matrixA.Length; i++)
+        for (int i = 0; i < lenght; i++)
         {
-            for (int j = 0; j < matrixA.Length; j++)
+            for (int j = 0; j < lenght; j++)
             {
                 matrixToReturn[i, j] = matrixA[i, j] + matrixB[i, j];
             }
