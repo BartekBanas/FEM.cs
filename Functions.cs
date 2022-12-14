@@ -144,7 +144,7 @@ public static class Functions
         return matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0];
     }
 
-    public static double[,] MultiplyingVectors(double[] column, double[] row)
+    public static double[,] VectorsMultiplication(double[] column, double[] row)
     {
         double[,] matrixToReturn = new double[column.Length, column.Length];
 

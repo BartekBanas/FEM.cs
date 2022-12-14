@@ -9,8 +9,9 @@ public static class DiscreteElement
     public static double[] Wages = new double[] { };
     
     public static double[] Points = new double[] { };
-    public static double[] Ntable = new double[] { };
-    
+    public static double[,][] Ntable = new double[,][]{ };
+    public static List<double[,]> PointsSfList = new List<double[,]>();
+
     private static double[] _etas = new double[] { };
     private static double[] _ksis = new double[] { };
 
@@ -23,6 +24,7 @@ public static class DiscreteElement
 
         KsiDerivativeTable = MakeKsiDerivativeTable();
         EtaDerivativeTable = MakeEtaDerivativeTable();
+        MakePointsSfList();
     }
     
     private static void FillCoordinates()
@@ -152,8 +154,24 @@ public static class DiscreteElement
         }
     }
 
-    private static void MakeNtable()
+    private static void MakePointsSfList()
     {
-        
+        for (int i = 0; i < IntegralPoints; i++)
+        {
+            for (int j = 0; j < IntegralPoints; j++)
+            {
+                double[] vector =
+                {
+                    Functions.N1(_ksis[i], _etas[j]),
+                    Functions.N2(_ksis[i], _etas[j]),
+                    Functions.N3(_ksis[i], _etas[j]),
+                    Functions.N4(_ksis[i], _etas[j])
+                };
+                
+                PointsSfList.Add(Functions.VectorsMultiplication(vector, vector));
+            }
+        }
     }
+    
+    
 }

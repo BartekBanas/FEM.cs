@@ -96,8 +96,8 @@ public class Element
         
         
         double[,] hmatrixPartial = Functions.MatrixSummation(
-            Functions.MultiplyingVectors(dNdx, dNdx),
-            Functions.MultiplyingVectors(dNdy, dNdy));
+            Functions.VectorsMultiplication(dNdx, dNdx),
+            Functions.VectorsMultiplication(dNdy, dNdy));
         //Functions.PrintMatrix(Hmatrix, ip);
         
         for (int i = 0; i < 4; i++)
