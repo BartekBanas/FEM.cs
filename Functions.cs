@@ -190,6 +190,22 @@ public static class Functions
         return matrixToReturn;
     }
     
+    public static double[,] MultiplyMatrix(double[,] matrix, double multiplier)
+    {
+        int lenght = Convert.ToInt32(Math.Sqrt(matrix.Length));
+        double[,] matrixToReturn = new double[lenght, lenght];
+
+        for (int i = 0; i < lenght; i++)
+        {
+            for (int j = 0; j < lenght; j++)
+            {
+                matrixToReturn[i, j] *= multiplier;
+            }
+        }
+
+        return matrixToReturn;
+    }
+    
     public static void PrintMatrix(double[,] matrix, int size)
     {
         for (int i = 0; i < size; i++)
@@ -225,5 +241,21 @@ public static class Functions
     public static double GetDistance(Node node1, Node node2)
     {
         return Math.Sqrt(Math.Pow(node2.x - node1.x, 2) + Math.Pow(node2.y - node1.y, 2));
+    }
+
+    public static double[,] CopyMatrix(double[,] matrix)
+    {
+        int lenght = Convert.ToInt32(Math.Sqrt(matrix.Length));
+        double[,] matrixToReturn = new double[lenght, lenght];
+
+        for (int i = 0; i < lenght; i++)
+        {
+            for (int j = 0; j < lenght; j++)
+            {
+                matrixToReturn[i, j] = matrix[i, j];
+            }
+        }
+
+        return matrixToReturn;
     }
 }

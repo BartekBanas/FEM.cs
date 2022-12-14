@@ -184,16 +184,27 @@ public class Element
         return pVector;
     }
 
-    // public double[,] Cmatrix()
-    // {
-    //     for (int i = 0; i < DiscreteElement.IntegralPoints * DiscreteElement.IntegralPoints; i++)
-    //     {
-    //         
-    //     }
-    // }
-    //
-    // public double[,] CmatrixPartial(int i, int j)
-    // {
-    //     
-    // }
+    public double[,] Cmatrix(int pointIndex)
+    {
+        double[,] jacobian = Jacobian(pointIndex);
+        double determinant = Functions.MatrixDeterminant(jacobian);
+
+        double[,] Cmatrix = new double[4 ,4];
+        double[,] temporary = new double[,] {};
+
+        for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
+        {
+            for (int j = 0; j < DiscreteElement.IntegralPoints; j++)
+            {
+                temporary = Functions.CopyMatrix(Cmatrix);
+                Functions.MultiplyMatrix(temporary,
+                    DiscreteElement.Wages[i] * DiscreteElement.Wages[j] * determinant *
+                    Conditions.SpecificHeat * Conditions.Density);
+
+                Cmatrix = Functions.MatrixSummation(Cmatrix, temporary);
+            }
+        }
+
+        return Cmatrix;
+    }
 };
