@@ -1,4 +1,6 @@
-﻿namespace MES_Csharp;
+﻿using System.Globalization;
+
+namespace MES_Csharp;
 
 public static class DiscreteElement
 {
@@ -75,6 +77,50 @@ public static class DiscreteElement
         }
     }
 
+    public static void PrintKsiDerivativeTable()
+    {
+        Console.WriteLine("\nKsi table:");
+        for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
+        {
+            Console.WriteLine($"{_etas[i]:F8}\t" +
+                              $"{KsiDerivativeTable[0, i]:F8}\t" +
+                              $"{KsiDerivativeTable[1, i]:F8}\t" +
+                              $"{KsiDerivativeTable[2, i]:F8}\t" +
+                              $"{KsiDerivativeTable[3, i]:F8}");
+        }   Console.WriteLine();
+    }
+    
+    public static void PrintEtaDerivativeTable()
+    {
+        Console.WriteLine("\nEta table:");
+        for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
+        {
+            Console.WriteLine($"{_ksis[i]:F8}\t" +
+                              $"{EtaDerivativeTable[0, i]:F8}\t" +
+                              $"{EtaDerivativeTable[1, i]:F8}\t" +
+                              $"{EtaDerivativeTable[2, i]:F8}\t" +
+                              $"{EtaDerivativeTable[3, i]:F8}");
+        }   Console.WriteLine("\n");
+    }
+
+    public static void PrintPointsSfList()
+    {
+        for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
+        {
+            Console.WriteLine($"Shape function for point {i}:");
+            for (int j = 0; j < 4; j++)
+            {
+                for (int k = 0; k < 4; k++)
+                {
+                    PointsSfList[i][j, k] *= Conditions.SpecificHeat * Conditions.Density;
+                    
+                    Console.Write(PointsSfList[i][j, k].ToString("F2", CultureInfo.InvariantCulture));
+                    Console.Write("\t");
+                }   Console.WriteLine();
+            }   Console.WriteLine();
+        }
+    }
+    
     private static double[,] MakeKsiDerivativeTable()
     {
         int lenght = IntegralPoints * IntegralPoints;
@@ -105,32 +151,6 @@ public static class DiscreteElement
         }
 
         return resultTable;
-    }
-
-    public static void PrintKsiDerivativeTable()
-    {
-        Console.WriteLine("\nKsi table:");
-        for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
-        {
-            Console.WriteLine($"{_etas[i]:F8}\t" +
-                              $"{KsiDerivativeTable[0, i]:F8}\t" +
-                              $"{KsiDerivativeTable[1, i]:F8}\t" +
-                              $"{KsiDerivativeTable[2, i]:F8}\t" +
-                              $"{KsiDerivativeTable[3, i]:F8}");
-        }   Console.WriteLine();
-    }
-    
-    public static void PrintEtaDerivativeTable()
-    {
-        Console.WriteLine("\nEta table:");
-        for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
-        {
-            Console.WriteLine($"{_ksis[i]:F8}\t" +
-                              $"{EtaDerivativeTable[0, i]:F8}\t" +
-                              $"{EtaDerivativeTable[1, i]:F8}\t" +
-                              $"{EtaDerivativeTable[2, i]:F8}\t" +
-                              $"{EtaDerivativeTable[3, i]:F8}");
-        }   Console.WriteLine("\n");
     }
 
     private static void MakeWages()

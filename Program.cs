@@ -65,7 +65,7 @@ internal static class Example
         PrintElementArray(everyElement);
         
 
-        DiscreteElement.Update(4);
+        DiscreteElement.Update(2);
         DiscreteElement.PrintKsiDerivativeTable();
         DiscreteElement.PrintEtaDerivativeTable();
         
@@ -74,6 +74,8 @@ internal static class Example
         systemOfEquations.PrintSystem();
 
         systemOfEquations.CalculateSystem();
+        
+        DiscreteElement.PrintPointsSfList();
 
         // Element testElement = new Element();
         // testElement.AddNode(new Node(0, 0, 0));
