@@ -184,13 +184,16 @@ public class Element
         return pVector;
     }
 
-    // public double[,] Cmatrix()
-    // {
-    //     
-    // }
-    //
-    // public double[,] CmatrixBase()
-    // {
-    //     
-    // }
+    public double[,] Cmatrix()
+    {
+        for (int i = 0; i < DiscreteElement.IntegralPoints * DiscreteElement.IntegralPoints; i++)
+        {
+            
+        }
+    }
+    
+    public double[,] CmatrixPartial(int i, int j)
+    {
+        
+    }
 };

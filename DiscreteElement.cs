@@ -105,7 +105,7 @@ public static class DiscreteElement
 
     public static void PrintPointsSfList()
     {
-        for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
+        for (int i = 0; i < IntegralPoints * IntegralPoints ; i++)
         {
             Console.WriteLine($"Shape function for point {i}:");
             for (int j = 0; j < 4; j++)
