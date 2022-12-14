@@ -75,7 +75,7 @@ internal static class Example
 
         systemOfEquations.CalculateSystem();
         
-        DiscreteElement.PrintPointsSfMatrix();
+        //DiscreteElement.PrintPointsSfMatrix();
 
         // Element testElement = new Element();
         // testElement.AddNode(new Node(0, 0, 0));

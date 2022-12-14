@@ -199,7 +199,7 @@ public static class Functions
         {
             for (int j = 0; j < lenght; j++)
             {
-                matrixToReturn[i, j] *= multiplier;
+                matrixToReturn[i, j] = matrix[i, j] * multiplier;
             }
         }
 

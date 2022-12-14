@@ -199,16 +199,11 @@ public class Element
                 double determinant = Functions.MatrixDeterminant(jacobian);
                 
                 temporary = Functions.CopyMatrix(DiscreteElement.PointsSfMatrix[i, j]);
-                Functions.MultiplyMatrix(temporary,
+                temporary = Functions.MultiplyMatrix(temporary,
                     DiscreteElement.Wages[i] * DiscreteElement.Wages[j] * determinant *
                     Conditions.SpecificHeat * Conditions.Density);
                 
-                
-
                 cMatrix = Functions.MatrixSummation(cMatrix, temporary);
-                
-                Console.WriteLine("C Matrix:");
-                Functions.PrintMatrix(cMatrix, 4);
             }
         }
 

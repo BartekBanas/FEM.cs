@@ -29,7 +29,9 @@ public class SystemOfEquations
             double[,] hmatrix = element.Hmatrix();
             hmatrix = Functions.MatrixSummation(hmatrix, element.HBCmatrix());
             
-            double[,] cPerΔτ = Functions.MultiplyMatrix(element.Cmatrix(), 1 / Conditions.SimulationTime);
+            double[,] cPerΔτ = Functions.MultiplyMatrix(element.Cmatrix(), 1 / Conditions.SimulationStepTime);
+            Console.WriteLine("C Matrix:");
+            Functions.PrintMatrix(cPerΔτ, 4);
             
             double[] pVector = element.Pvector();
             
