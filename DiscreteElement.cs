@@ -5,13 +5,13 @@ namespace MES_Csharp;
 public static class DiscreteElement
 {
     public static int IntegralPoints;
-    
+
     public static double[,] KsiDerivativeTable = new double[,] { };
     public static double[,] EtaDerivativeTable = new double[,] { };
     public static double[] Wages = new double[] { };
-    
+
     public static double[] Points = new double[] { };
-    public static double[,][,] PointsSfList = new double[,][,] {};
+    public static double[,][,] PointsSfMatrix = new double[,][,] { };
 
     private static double[] _etas = new double[] { };
     private static double[] _ksis = new double[] { };
@@ -25,27 +25,34 @@ public static class DiscreteElement
 
         KsiDerivativeTable = MakeKsiDerivativeTable();
         EtaDerivativeTable = MakeEtaDerivativeTable();
-        MakePointsSfList();
+        MakePointsSfMatrix();
     }
-    
+
     private static void FillCoordinates()
     {
         if (IntegralPoints == 2)
         {
             Points = new[] { -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
-            _etas = new double[] {-1 / Math.Sqrt(3), -1 / Math.Sqrt(3), 1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
-            _ksis = new double[] {-1 / Math.Sqrt(3), 1 / Math.Sqrt(3), -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
+            _etas = new double[] { -1 / Math.Sqrt(3), -1 / Math.Sqrt(3), 1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
+            _ksis = new double[] { -1 / Math.Sqrt(3), 1 / Math.Sqrt(3), -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
         }
-        else if(IntegralPoints == 3)
+        else if (IntegralPoints == 3)
         {
             Points = new[] { -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0) };
-            
-            _etas = new double[9] {-Math.Sqrt(3.0 / 5.0), -Math.Sqrt(3.0 / 5.0), -Math.Sqrt(3.0 / 5.0), 0, 0, 0, 
-                Math.Sqrt(3.0 / 5.0), Math.Sqrt(3.0 / 5.0), Math.Sqrt(3.0 / 5.0)};
-            
-            _ksis = new double[9] {-Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0), 
-                -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0), -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0)};
+
+            _etas = new double[9]
+            {
+                -Math.Sqrt(3.0 / 5.0), -Math.Sqrt(3.0 / 5.0), -Math.Sqrt(3.0 / 5.0), 0, 0, 0,
+                Math.Sqrt(3.0 / 5.0), Math.Sqrt(3.0 / 5.0), Math.Sqrt(3.0 / 5.0)
+            };
+
+            _ksis = new double[9]
+            {
+                -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0),
+                -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0), -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0)
+            };
         }
+
         if (IntegralPoints == 4)
         {
             Points = new[]
@@ -55,26 +62,24 @@ public static class DiscreteElement
                 Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0)),
                 Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0))
             };
-            
+
             _etas = new double[16];
             for (int i = 0; i < 4; i++)
             {
                 _etas[i * 4 + 0] = -Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
                 _etas[i * 4 + 1] = -Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
-                _etas[i * 4 + 2] =  Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
-                _etas[i * 4 + 3] =  Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
+                _etas[i * 4 + 2] = Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
+                _etas[i * 4 + 3] = Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
             }
-            
+
             _ksis = new double[16];
             for (int i = 0; i < 4; i++)
             {
                 _ksis[i + 0] = -Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
                 _ksis[i + 4] = -Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
-                _ksis[i + 8] =  Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
+                _ksis[i + 8] = Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
                 _ksis[i + 12] = Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
             }
-
-            
         }
     }
 
@@ -88,9 +93,11 @@ public static class DiscreteElement
                               $"{KsiDerivativeTable[1, i]:F8}\t" +
                               $"{KsiDerivativeTable[2, i]:F8}\t" +
                               $"{KsiDerivativeTable[3, i]:F8}");
-        }   Console.WriteLine();
+        }
+
+        Console.WriteLine();
     }
-    
+
     public static void PrintEtaDerivativeTable()
     {
         Console.WriteLine("\nEta table:");
@@ -101,23 +108,25 @@ public static class DiscreteElement
                               $"{EtaDerivativeTable[1, i]:F8}\t" +
                               $"{EtaDerivativeTable[2, i]:F8}\t" +
                               $"{EtaDerivativeTable[3, i]:F8}");
-        }   Console.WriteLine("\n");
+        }
+
+        Console.WriteLine("\n");
     }
 
-    public static void PrintPointsSfList()
+    public static void PrintPointsSfMatrix()
     {
         for (int i = 0; i < IntegralPoints; i++)
         {
             for (int o = 0; o < IntegralPoints; o++)
             {
-                Console.WriteLine($"Shape function for point {i*IntegralPoints + o}:");
+                Console.WriteLine($"Shape function for point {i * IntegralPoints + o}:");
                 for (int j = 0; j < 4; j++)
                 {
                     for (int k = 0; k < 4; k++)
                     {
-                        PointsSfList[i, o][j, k] *= Conditions.SpecificHeat * Conditions.Density;
+                        PointsSfMatrix[i, o][j, k] *= Conditions.SpecificHeat * Conditions.Density;
 
-                        Console.Write(PointsSfList[i, o][j, k].ToString("F2", CultureInfo.InvariantCulture));
+                        Console.Write(PointsSfMatrix[i, o][j, k].ToString("F2", CultureInfo.InvariantCulture));
                         Console.Write("\t");
                     }
 
@@ -128,7 +137,7 @@ public static class DiscreteElement
             }
         }
     }
-    
+
     private static double[,] MakeKsiDerivativeTable()
     {
         int lenght = IntegralPoints * IntegralPoints;
@@ -144,7 +153,7 @@ public static class DiscreteElement
 
         return resultTable;
     }
-    
+
     private static double[,] MakeEtaDerivativeTable()
     {
         int lenght = IntegralPoints * IntegralPoints;
@@ -167,11 +176,12 @@ public static class DiscreteElement
         {
             Wages = new[] { 1.0, 1.0 };
         }
+
         if (IntegralPoints == 3)
         {
             Wages = new[] { 5.0 / 9.0, 8.0 / 9.0, 5.0 / 9.0 };
         }
-        
+
         if (IntegralPoints == 4)
         {
             Wages = new[]
@@ -182,10 +192,10 @@ public static class DiscreteElement
         }
     }
 
-    private static void MakePointsSfList()
+    private static void MakePointsSfMatrix()
     {
-        PointsSfList = new double[IntegralPoints, IntegralPoints][,];
-        
+        PointsSfMatrix = new double[IntegralPoints, IntegralPoints][,];
+
         for (int i = 0; i < IntegralPoints; i++)
         {
             for (int j = 0; j < IntegralPoints; j++)
@@ -198,7 +208,7 @@ public static class DiscreteElement
                     Functions.N4(_ksis[i], _etas[j])
                 };
 
-                PointsSfList[1, 1] = Functions.VectorsMultiplication(vector, vector);
+                PointsSfMatrix[i, j] = Functions.VectorsMultiplication(vector, vector);
             }
         }
     }
