@@ -2,8 +2,8 @@
 
 public static class Conditions
 {
-    public static int SimulationTime;
-    public static int SimulationStepTime;
+    public static double SimulationTime;
+    public static double SimulationStepTime;
     public static double Conductivity;
     public static double α;
     public static double TemperatureSurr;

@@ -30,12 +30,13 @@ public class SystemOfEquations
             double[,] hbcmatrix = element.HBCmatrix();
             double[] pVector = element.Pvector();
             double[,] cMatrix = element.Cmatrix();
+            double[,] cDevidedΔτ = Functions.MultiplyMatrix(element.Cmatrix(), 1 / Conditions.SimulationTime);
             
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    system[element.nodes[i].ID - 1, element.nodes[j].ID - 1] += hmatrix[i, j];
+                    system[element.nodes[i].ID - 1, element.nodes[j].ID - 1] += (hmatrix[i, j] + cDevidedΔτ[i, j]);
                     system[element.nodes[i].ID - 1, element.nodes[j].ID - 1] += hbcmatrix[i, j];
                 }
 

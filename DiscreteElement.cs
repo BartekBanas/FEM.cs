@@ -124,7 +124,7 @@ public static class DiscreteElement
                 {
                     for (int k = 0; k < 4; k++)
                     {
-                        PointsSfMatrix[i, o][j, k] *= Conditions.SpecificHeat * Conditions.Density;
+                        //PointsSfMatrix[i, o][j, k] *= Conditions.SpecificHeat * Conditions.Density;
 
                         Console.Write(PointsSfMatrix[i, o][j, k].ToString("F2", CultureInfo.InvariantCulture));
                         Console.Write("\t");
