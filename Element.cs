@@ -184,18 +184,20 @@ public class Element
         return pVector;
     }
 
-    public double[,] Cmatrix(int pointIndex)
+    public double[,] Cmatrix()
     {
-        double[,] jacobian = Jacobian(pointIndex);
-        double determinant = Functions.MatrixDeterminant(jacobian);
+        int pointIndex = 0;
 
         double[,] cMatrix = new double[4 ,4];
         double[,] temporary;
 
         for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
         {
-            for (int j = 0; j < DiscreteElement.IntegralPoints; j++)
+            for (int j = 0; j < DiscreteElement.IntegralPoints; j++, pointIndex++)
             {
+                double[,] jacobian = Jacobian(pointIndex);
+                double determinant = Functions.MatrixDeterminant(jacobian);
+                
                 temporary = Functions.CopyMatrix(cMatrix);
                 Functions.MultiplyMatrix(temporary,
                     DiscreteElement.Wages[i] * DiscreteElement.Wages[j] * determinant *

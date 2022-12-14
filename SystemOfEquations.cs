@@ -29,6 +29,8 @@ public class SystemOfEquations
             double[,] hmatrix = element.Hmatrix();
             double[,] hbcmatrix = element.HBCmatrix();
             double[] pVector = element.Pvector();
+            double[,] cMatrix = element.Cmatrix();
+            
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
