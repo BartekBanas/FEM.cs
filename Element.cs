@@ -46,7 +46,6 @@ public class Element
 
     private double[,] Jacobian (int number)
     {
-        //int iterations = discreteElement.integralPoints * discreteElement.integralPoints;
         double dxdξ = 0, dxdη = 0, dydξ = 0, dydη = 0;
 
         for (int i = 0; i < 4; i++)

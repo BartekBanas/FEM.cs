@@ -12,10 +12,10 @@ public class BCedge
         this.side = side;
         
         _jacobianDeterminant = Functions.GetDistance(node1, node2) / 2;
-        setIntegrationPoints();
+        SetIntegrationPoints();
     }
 
-    private void setIntegrationPoints()
+    private void SetIntegrationPoints()
     {
         switch (side)
         {
@@ -58,7 +58,7 @@ public class BCedge
         }
     }
     
-    private double[,] partialMatrix(double ξ, double η, int index)
+    private double[,] PartialMatrix(double ξ, double η, int index)
     {
         double[] row = { Functions.N1(ξ, η), Functions.N2(ξ, η), Functions.N3(ξ, η), Functions.N4(ξ, η) };
 
@@ -81,7 +81,7 @@ public class BCedge
         for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
         {
             HBCmatrix = Functions.MatrixSummation(HBCmatrix,
-                partialMatrix(integrationPoints[i, 0], integrationPoints[i, 1], i));
+                PartialMatrix(integrationPoints[i, 0], integrationPoints[i, 1], i));
         }
         
         for (int i = 0; i < 4; i++)

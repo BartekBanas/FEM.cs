@@ -6,7 +6,8 @@ public static class DiscreteElement
     public static double[,] EtaTable;
     public static double[] Wages = new double[] { };
     
-    public static double[] Points;
+    public static double[] Points = new double[] { };
+    public static double[] Ntable = new double[] { };
     
     private static double[] _etas = new double[] { };
     private static double[] _ksis = new double[] { };
@@ -22,8 +23,7 @@ public static class DiscreteElement
         KsiTable = MakeKsiTable();
         EtaTable = MakeEtaTable();
     }
-
-
+    
     private static void FillCoordinates()
     {
         if (IntegralPoints == 2)
