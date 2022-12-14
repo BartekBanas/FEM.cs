@@ -2,8 +2,10 @@
 
 public static class DiscreteElement
 {
-    public static double[,] KsiTable;
-    public static double[,] EtaTable;
+    public static int IntegralPoints;
+    
+    public static double[,] KsiDerivativeTable = new double[,] { };
+    public static double[,] EtaDerivativeTable = new double[,] { };
     public static double[] Wages = new double[] { };
     
     public static double[] Points = new double[] { };
@@ -11,17 +13,16 @@ public static class DiscreteElement
     
     private static double[] _etas = new double[] { };
     private static double[] _ksis = new double[] { };
-    public static int IntegralPoints;
-    
-    
+
+
     public static void Update(int size)
     {
         IntegralPoints = size;
         FillCoordinates();
         MakeWages();
 
-        KsiTable = MakeKsiTable();
-        EtaTable = MakeEtaTable();
+        KsiDerivativeTable = MakeKsiDerivativeTable();
+        EtaDerivativeTable = MakeEtaDerivativeTable();
     }
     
     private static void FillCoordinates()
@@ -72,7 +73,7 @@ public static class DiscreteElement
         }
     }
 
-    private static double[,] MakeKsiTable()
+    private static double[,] MakeKsiDerivativeTable()
     {
         int lenght = IntegralPoints * IntegralPoints;
         double[,] resultTable = new double [4, lenght];
@@ -88,7 +89,7 @@ public static class DiscreteElement
         return resultTable;
     }
     
-    private static double[,] MakeEtaTable()
+    private static double[,] MakeEtaDerivativeTable()
     {
         int lenght = IntegralPoints * IntegralPoints;
         double[,] resultTable = new double [4, lenght];
@@ -104,29 +105,29 @@ public static class DiscreteElement
         return resultTable;
     }
 
-    public static void PrintKsiTable()
+    public static void PrintKsiDerivativeTable()
     {
         Console.WriteLine("\nKsi table:");
         for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
         {
             Console.WriteLine($"{_etas[i]:F8}\t" +
-                              $"{KsiTable[0, i]:F8}\t" +
-                              $"{KsiTable[1, i]:F8}\t" +
-                              $"{KsiTable[2, i]:F8}\t" +
-                              $"{KsiTable[3, i]:F8}");
+                              $"{KsiDerivativeTable[0, i]:F8}\t" +
+                              $"{KsiDerivativeTable[1, i]:F8}\t" +
+                              $"{KsiDerivativeTable[2, i]:F8}\t" +
+                              $"{KsiDerivativeTable[3, i]:F8}");
         }   Console.WriteLine();
     }
     
-    public static void PrintEtaTable()
+    public static void PrintEtaDerivativeTable()
     {
         Console.WriteLine("\nEta table:");
         for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
         {
             Console.WriteLine($"{_ksis[i]:F8}\t" +
-                              $"{EtaTable[0, i]:F8}\t" +
-                              $"{EtaTable[1, i]:F8}\t" +
-                              $"{EtaTable[2, i]:F8}\t" +
-                              $"{EtaTable[3, i]:F8}");
+                              $"{EtaDerivativeTable[0, i]:F8}\t" +
+                              $"{EtaDerivativeTable[1, i]:F8}\t" +
+                              $"{EtaDerivativeTable[2, i]:F8}\t" +
+                              $"{EtaDerivativeTable[3, i]:F8}");
         }   Console.WriteLine("\n");
     }
 
@@ -149,5 +150,10 @@ public static class DiscreteElement
                 (18.0 + Math.Sqrt(30.0)) / 36.0, (18.0 - Math.Sqrt(30.0)) / 36.0
             };
         }
+    }
+
+    private static void MakeNtable()
+    {
+        
     }
 }
