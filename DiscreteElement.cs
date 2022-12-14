@@ -11,8 +11,7 @@ public static class DiscreteElement
     public static double[] Wages = new double[] { };
     
     public static double[] Points = new double[] { };
-    public static double[,][] Ntable = new double[,][]{ };
-    public static List<double[,]> PointsSfList = new List<double[,]>();
+    public static double[,][,] PointsSfList = new double[,][,] {};
 
     private static double[] _etas = new double[] { };
     private static double[] _ksis = new double[] { };
@@ -74,6 +73,8 @@ public static class DiscreteElement
                 _ksis[i + 8] =  Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
                 _ksis[i + 12] = Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
             }
+
+            
         }
     }
 
@@ -105,19 +106,26 @@ public static class DiscreteElement
 
     public static void PrintPointsSfList()
     {
-        for (int i = 0; i < IntegralPoints * IntegralPoints ; i++)
+        for (int i = 0; i < IntegralPoints; i++)
         {
-            Console.WriteLine($"Shape function for point {i}:");
-            for (int j = 0; j < 4; j++)
+            for (int o = 0; o < IntegralPoints; o++)
             {
-                for (int k = 0; k < 4; k++)
+                Console.WriteLine($"Shape function for point {i*IntegralPoints + o}:");
+                for (int j = 0; j < 4; j++)
                 {
-                    PointsSfList[i][j, k] *= Conditions.SpecificHeat * Conditions.Density;
-                    
-                    Console.Write(PointsSfList[i][j, k].ToString("F2", CultureInfo.InvariantCulture));
-                    Console.Write("\t");
-                }   Console.WriteLine();
-            }   Console.WriteLine();
+                    for (int k = 0; k < 4; k++)
+                    {
+                        PointsSfList[i, o][j, k] *= Conditions.SpecificHeat * Conditions.Density;
+
+                        Console.Write(PointsSfList[i, o][j, k].ToString("F2", CultureInfo.InvariantCulture));
+                        Console.Write("\t");
+                    }
+
+                    Console.WriteLine();
+                }
+
+                Console.WriteLine();
+            }
         }
     }
     
@@ -176,6 +184,8 @@ public static class DiscreteElement
 
     private static void MakePointsSfList()
     {
+        PointsSfList = new double[IntegralPoints, IntegralPoints][,];
+        
         for (int i = 0; i < IntegralPoints; i++)
         {
             for (int j = 0; j < IntegralPoints; j++)
@@ -187,11 +197,9 @@ public static class DiscreteElement
                     Functions.N3(_ksis[i], _etas[j]),
                     Functions.N4(_ksis[i], _etas[j])
                 };
-                
-                PointsSfList.Add(Functions.VectorsMultiplication(vector, vector));
+
+                PointsSfList[1, 1] = Functions.VectorsMultiplication(vector, vector);
             }
         }
     }
-    
-    
 }
