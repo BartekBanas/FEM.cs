@@ -150,4 +150,20 @@ public static class DiscreteElement
             };
         }
     }
+
+
+
+    private static double N0τ(double τ)
+    {
+        double Δτ = Conditions.SimulationStepTime;
+
+        return (Δτ - τ) / Δτ;
+    }
+    
+    private static double N1τ(double τ)
+    {
+        double Δτ = Conditions.SimulationStepTime;
+
+        return τ / Δτ;
+    }
 }
