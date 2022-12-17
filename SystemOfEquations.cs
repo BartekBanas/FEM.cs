@@ -4,19 +4,19 @@ namespace MES_Csharp;
 
 public class SystemOfEquations
 {
-    public double[,] system;
-    public double[] globalPvector;
-    private List<Element> elements;
-    private int amountOfNodes;
+    public double[,] System;
+    public double[] GlobalPvector;
+    private readonly List<Element> _elements;
+    private readonly int _amountOfNodes;
 
     public SystemOfEquations(List<Element> elements)
     {
-        this.elements = elements;
+        this._elements = elements;
 
-        amountOfNodes = elements[^1].nodes[2].ID;
+        _amountOfNodes = elements[^1].nodes[2].ID;
 
-        system = new double[amountOfNodes, amountOfNodes];
-        globalPvector = new double [amountOfNodes];
+        System = new double[_amountOfNodes, _amountOfNodes];
+        GlobalPvector = new double [_amountOfNodes];
 
         Aggregation();
     }
@@ -24,7 +24,7 @@ public class SystemOfEquations
 
     private void Aggregation()
     {
-        foreach (var element in elements)
+        foreach (var element in _elements)
         {
             double[,] hmatrix = element.Hmatrix();
             hmatrix = Functions.MatrixSummation(hmatrix, element.HBCmatrix());
@@ -40,7 +40,7 @@ public class SystemOfEquations
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    system[element.nodes[i].ID - 1, element.nodes[j].ID - 1] += hmatrix[i, j] + cPerΔτ[i, j];
+                    System[element.nodes[i].ID - 1, element.nodes[j].ID - 1] += hmatrix[i, j] + cPerΔτ[i, j];
                 }
             }
             
@@ -48,10 +48,10 @@ public class SystemOfEquations
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    system[element.nodes[i].ID - 1, element.nodes[j].ID - 1] -= cPerΔτ[i, j] * Conditions.TemperatureInitial;
+                    System[element.nodes[i].ID - 1, element.nodes[j].ID - 1] -= cPerΔτ[i, j] * Conditions.TemperatureInitial;
                 }
 
-                globalPvector[element.nodes[i].ID - 1] += pVector[i];
+                GlobalPvector[element.nodes[i].ID - 1] += pVector[i];
             }
         }
     }
@@ -59,19 +59,19 @@ public class SystemOfEquations
     public void PrintSystem()
     {
         Console.WriteLine("System of Equations:");
-        for (int i = 0; i < amountOfNodes; i++)
+        for (int i = 0; i < _amountOfNodes; i++)
         {
-            for (int j = 0; j < amountOfNodes; j++)
+            for (int j = 0; j < _amountOfNodes; j++)
             {
-                Console.Write(system[i, j] < 0 ? "-" : " ");
+                Console.Write(System[i, j] < 0 ? "-" : " ");
 
-                Console.Write(Math.Abs(system[i, j]).ToString("F2", CultureInfo.InvariantCulture));
+                Console.Write(Math.Abs(System[i, j]).ToString("F2", CultureInfo.InvariantCulture));
                 Console.Write("\t");
             }
 
             Console.Write("*  ");
-            Console.Write(globalPvector[i] < 0 ? "-" : " ");
-            Console.Write(Math.Abs(globalPvector[i]).ToString("F2", CultureInfo.InvariantCulture));
+            Console.Write(GlobalPvector[i] < 0 ? "-" : " ");
+            Console.Write(Math.Abs(GlobalPvector[i]).ToString("F2", CultureInfo.InvariantCulture));
             Console.WriteLine();
         }
 
@@ -84,14 +84,14 @@ public class SystemOfEquations
         double peak;
         int peakId = 0;
 
-        double[,] coefficients = new double [amountOfNodes, amountOfNodes + 1];
+        double[,] coefficients = new double [_amountOfNodes, _amountOfNodes + 1];
 
-        for (int i = 0; i < amountOfNodes; i++)
+        for (int i = 0; i < _amountOfNodes; i++)
         {
-            for (int j = 0; j < amountOfNodes; j++)
-                coefficients[i, j] = system[i, j];
+            for (int j = 0; j < _amountOfNodes; j++)
+                coefficients[i, j] = System[i, j];
 
-            coefficients[i, amountOfNodes] = globalPvector[i];
+            coefficients[i, _amountOfNodes] = GlobalPvector[i];
         }
 
         // Console.WriteLine("\nExtended matrix before Partial Pivoting:");
@@ -107,11 +107,11 @@ public class SystemOfEquations
         // }
 
         // Partial Pivoting
-        for (int i = 0; i < amountOfNodes; i++)
+        for (int i = 0; i < _amountOfNodes; i++)
         {
             peakId = i;
             peak = Math.Abs(coefficients[i, i]);
-            for (int j = i; j < amountOfNodes; j++)
+            for (int j = i; j < _amountOfNodes; j++)
             {
                 if (peak + epsilon < Math.Abs(coefficients[j, i]) && coefficients[j, i] != 0)
                 {
@@ -122,7 +122,7 @@ public class SystemOfEquations
 
             if (peakId != i)
             {
-                for (int j = 0; j < amountOfNodes + 1; j++)
+                for (int j = 0; j < _amountOfNodes + 1; j++)
                 {
                     (coefficients[i, j], coefficients[peakId, j]) = (coefficients[peakId, j], coefficients[i, j]);
                 }
@@ -144,8 +144,8 @@ public class SystemOfEquations
         // Console.WriteLine();
 
 
-        double[,] multiplier = new double[amountOfNodes, 2];
-        for (int i = 1; i < amountOfNodes; i++)
+        double[,] multiplier = new double[_amountOfNodes, 2];
+        for (int i = 1; i < _amountOfNodes; i++)
         {
             multiplier[i, 0] = coefficients[i, 0] / coefficients[0, 0];
             multiplier[i, 1] = coefficients[i, 1] / coefficients[1, 1];
@@ -153,17 +153,17 @@ public class SystemOfEquations
 
         Console.WriteLine();
 
-        for (int k = 0; k < amountOfNodes - 1; k++)
+        for (int k = 0; k < _amountOfNodes - 1; k++)
         {
-            for (int i = k + 1; i < amountOfNodes; i++) //Operations
+            for (int i = k + 1; i < _amountOfNodes; i++) //Operations
             {
-                for (int j = k; j <= amountOfNodes; j++)
+                for (int j = k; j <= _amountOfNodes; j++)
                 {
                     coefficients[i, j] -= (coefficients[k, j] * multiplier[i, 0]);
                 }
             }
 
-            for (int i = k + 2; i < amountOfNodes; i++) //multipliers
+            for (int i = k + 2; i < _amountOfNodes; i++) //multipliers
             {
                 multiplier[i, 0] = coefficients[i, k + 1] / coefficients[k + 1, k + 1];
             }
@@ -183,24 +183,24 @@ public class SystemOfEquations
         //
         // Console.WriteLine();
 
-        double[] xi = new double[amountOfNodes];
-        double[] sum = new double[amountOfNodes];
-        xi[amountOfNodes - 1] = coefficients[amountOfNodes - 1, amountOfNodes] /
-                                coefficients[amountOfNodes - 1, amountOfNodes - 1];
+        double[] xi = new double[_amountOfNodes];
+        double[] sum = new double[_amountOfNodes];
+        xi[_amountOfNodes - 1] = coefficients[_amountOfNodes - 1, _amountOfNodes] /
+                                coefficients[_amountOfNodes - 1, _amountOfNodes - 1];
         Console.WriteLine("Solution of the system of equations:");
 
-        for (int i = amountOfNodes - 2; i >= 0; i--)
+        for (int i = _amountOfNodes - 2; i >= 0; i--)
         {
             sum[i] = 0;
-            for (int k = i + 1; k < amountOfNodes; k++)
+            for (int k = i + 1; k < _amountOfNodes; k++)
             {
                 sum[i] += coefficients[i, k] * xi[k];
             }
 
-            xi[i] = (coefficients[i, amountOfNodes] - sum[i]) / coefficients[i, i];
+            xi[i] = (coefficients[i, _amountOfNodes] - sum[i]) / coefficients[i, i];
         }
 
-        for (int i = 0; i < amountOfNodes; i++)
+        for (int i = 0; i < _amountOfNodes; i++)
         {
             Console.WriteLine($"x{i + 1} = {xi[i]}");
         }

@@ -76,11 +76,11 @@ public class BCedge
 
     public double[,] HBCmatrix()
     {
-        double[,] HBCmatrix = new double[4,4];
+        double[,] hbcMatrix = new double[4,4];
         
         for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
         {
-            HBCmatrix = Functions.MatrixSummation(HBCmatrix,
+            hbcMatrix = Functions.MatrixSummation(hbcMatrix,
                 PartialMatrix(integrationPoints[i, 0], integrationPoints[i, 1], i));
         }
         
@@ -88,11 +88,11 @@ public class BCedge
         {
             for (int j = 0; j < 4; j++)
             {
-                HBCmatrix[i, j] *= Conditions.α * _jacobianDeterminant;
+                hbcMatrix[i, j] *= Conditions.α * _jacobianDeterminant;
             }
         }
 
-        return HBCmatrix;
+        return hbcMatrix;
     }
     
     private double[] PartialPvector(double ξ, double η, int index)
