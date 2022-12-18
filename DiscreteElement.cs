@@ -11,7 +11,7 @@ public static class DiscreteElement
     public static double[] Wages = new double[] { };
 
     public static double[] Points = new double[] { };
-    public static double[,][,] PointsSfMatrix = new double[,][,] { };
+    public static double[,][,] ShapeFunctionMatrix = new double[,][,] { };
 
     private static double[] _etas = new double[] { };
     private static double[] _ksis = new double[] { };
@@ -124,9 +124,9 @@ public static class DiscreteElement
                 {
                     for (int k = 0; k < 4; k++)
                     {
-                        //PointsSfMatrix[i, o][j, k] *= Conditions.SpecificHeat * Conditions.Density;
+                        //ShapeFunctionMatrix[i, o][j, k] *= Conditions.SpecificHeat * Conditions.Density;
 
-                        Console.Write(PointsSfMatrix[i, o][j, k].ToString("F2", CultureInfo.InvariantCulture));
+                        Console.Write(ShapeFunctionMatrix[i, o][j, k].ToString("F2", CultureInfo.InvariantCulture));
                         Console.Write("\t");
                     }
 
@@ -194,7 +194,7 @@ public static class DiscreteElement
 
     private static void MakePointsSfMatrix()
     {
-        PointsSfMatrix = new double[IntegralPoints, IntegralPoints][,];
+        ShapeFunctionMatrix = new double[IntegralPoints, IntegralPoints][,];
 
         for (int i = 0; i < IntegralPoints; i++)
         {
@@ -208,7 +208,7 @@ public static class DiscreteElement
                     Functions.N4(_ksis[i], _etas[j])
                 };
 
-                PointsSfMatrix[i, j] = Functions.VectorsMultiplication(vector, vector);
+                ShapeFunctionMatrix[i, j] = Functions.VectorsMultiplication(vector, vector);
             }
         }
     }

@@ -199,7 +199,7 @@ public class Element
                 double[,] jacobian = Jacobian(pointIndex);
                 double determinant = Functions.MatrixDeterminant(jacobian);
                 
-                temporary = Functions.CopyMatrix(DiscreteElement.PointsSfMatrix[i, j]);
+                temporary = Functions.CopyMatrix(DiscreteElement.ShapeFunctionMatrix[i, j]);
                 temporary = Functions.MultiplyMatrix(temporary,
                     DiscreteElement.Wages[i] * DiscreteElement.Wages[j] * determinant *
                     Conditions.SpecificHeat * Conditions.Density);

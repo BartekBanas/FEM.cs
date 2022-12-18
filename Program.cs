@@ -68,7 +68,7 @@ internal static class Example
         DiscreteElement.Update(2);
         DiscreteElement.PrintKsiDerivativeTable();
         DiscreteElement.PrintEtaDerivativeTable();
-        
+        DiscreteElement.PrintPointsSfMatrix();
 
         SystemOfEquations systemOfEquations = new SystemOfEquations(everyElement, everyNode);
         systemOfEquations.PrintSystem();
