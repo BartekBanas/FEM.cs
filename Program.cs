@@ -70,10 +70,12 @@ internal static class Example
         DiscreteElement.PrintEtaDerivativeTable();
         
 
-        SystemOfEquations systemOfEquations = new SystemOfEquations(everyElement);
+        SystemOfEquations systemOfEquations = new SystemOfEquations(everyElement, everyNode);
         systemOfEquations.PrintSystem();
 
         systemOfEquations.CalculateSystem();
+        
+        PrintNodeArray(everyNode);
         
         //DiscreteElement.PrintPointsSfMatrix();
 
@@ -97,7 +99,7 @@ internal static class Example
 
     static void PrintNodeArray(List<Node> array)
     {
-        for (int i = 1; i < Conditions.NodesNumber + 1; i++)
+        for (int i = 0; i < Conditions.NodesNumber; i++)
         {
             array[i].PrintNode();
         }   Console.WriteLine();

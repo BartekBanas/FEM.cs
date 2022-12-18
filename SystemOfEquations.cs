@@ -7,11 +7,13 @@ public class SystemOfEquations
     public double[,] System;
     public double[] GlobalPvector;
     private readonly List<Element> _elements;
+    private List<Node> _nodes;
     private readonly int _amountOfNodes;
 
-    public SystemOfEquations(List<Element> elements)
+    public SystemOfEquations(List<Element> elements, List<Node> nodes)
     {
-        this._elements = elements;
+        _elements = elements;
+        _nodes = nodes;
 
         _amountOfNodes = elements[^1].nodes[2].ID;
 
@@ -19,6 +21,9 @@ public class SystemOfEquations
         GlobalPvector = new double [_amountOfNodes];
 
         Aggregation();
+        
+        
+        //RunSimulation();
     }
 
 
@@ -208,5 +213,22 @@ public class SystemOfEquations
         //	Eliminacja Gaussa-Crouta maybe someday
 
         return xi;
+    }
+
+    public void RunSimulation()
+    {
+        double[] calculatedTemperature;
+        
+        for (int i = 0; i < Conditions.SimulationTime / Conditions.SimulationStepTime; i++)
+        {
+            Aggregation();
+
+            calculatedTemperature = CalculateSystem();
+
+            for (int j = 0; j < Conditions.NodesNumber; j++)
+            {
+                
+            }
+        }
     }
 }
