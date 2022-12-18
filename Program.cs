@@ -33,15 +33,15 @@ internal static class Example
             everyBC.Add(Convert.ToInt16(word.Trim()));
 
 
-        List<Node> everyNode = new List<Node> { new Node() };
+        List<Node> everyNode = new List<Node> {};
         List<Element> everyElement = new List<Element> {};
 
         for (int i = 0; i < Conditions.NodesNumber; i++)    //Filling list of nodes
         {
             everyNode.Add(new Node());
-            everyNode[i + 1].ID = Convert.ToInt16(readNodes[i][0].Trim());
-            everyNode[i + 1].x = Convert.ToDouble(readNodes[i][1].Trim());
-            everyNode[i + 1].y = Convert.ToDouble(readNodes[i][2].Trim());
+            everyNode[i].ID = Convert.ToInt16(readNodes[i][0].Trim());
+            everyNode[i].x = Convert.ToDouble(readNodes[i][1].Trim());
+            everyNode[i].y = Convert.ToDouble(readNodes[i][2].Trim());
         }
 
         for (int i = 0; i < Conditions.ElementsNumber; i++) //Filling list of Elements
@@ -50,15 +50,15 @@ internal static class Example
 
             everyElement[i].ID = Convert.ToInt16(readElements[i][0].Trim());
 
-            everyElement[i].AddNode(everyNode[Convert.ToInt16(readElements[i][1].Trim())]);
-            everyElement[i].AddNode(everyNode[Convert.ToInt16(readElements[i][2].Trim())]);
-            everyElement[i].AddNode(everyNode[Convert.ToInt16(readElements[i][3].Trim())]);
-            everyElement[i].AddNode(everyNode[Convert.ToInt16(readElements[i][4].Trim())]);
+            everyElement[i].AddNode(everyNode[Convert.ToInt16(readElements[i][1].Trim()) - 1]);
+            everyElement[i].AddNode(everyNode[Convert.ToInt16(readElements[i][2].Trim()) - 1]);
+            everyElement[i].AddNode(everyNode[Convert.ToInt16(readElements[i][3].Trim()) - 1]);
+            everyElement[i].AddNode(everyNode[Convert.ToInt16(readElements[i][4].Trim()) - 1]);
         }
 
         foreach (var id in everyBC) //Setting BC for eligible nodes
         {
-            everyNode[id].BC = true;
+            everyNode[id - 1].BC = true;
         }
 
         PrintNodeArray(everyNode);
