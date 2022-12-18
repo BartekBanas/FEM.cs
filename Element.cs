@@ -2,10 +2,11 @@
 
 public class Element
 {
-    private static int dimension = Conditions.dimension;
+    private static readonly int Dimension = Conditions.dimension;
+    private int _capacity = 0;
+    
     public int ID;
-    public int capacity = 0;
-    public Node[] nodes = new Node[4];
+    public Node[] Nodes = new Node[4];
     
     public Element()
     {
@@ -14,10 +15,10 @@ public class Element
 
     public void AddNode(Node newNode)
     {
-        if (capacity < 4)
+        if (_capacity < 4)
         {
-            nodes[capacity] = newNode;
-            capacity++;
+            Nodes[_capacity] = newNode;
+            _capacity++;
         }
         else
         {
@@ -30,7 +31,7 @@ public class Element
         Console.Write($"Element; ID:{ID}\tIncludes Nodes: ");
         for (int j = 0; j < 4; j++)
         {
-            Console.Write($"{nodes[j].ID}");
+            Console.Write($"{Nodes[j].ID}");
             if (j < 3)
                 Console.Write(", ");
         }   Console.Write("\n");
@@ -40,7 +41,7 @@ public class Element
     {
         for (int j = 0; j < 4; j++)
         {
-            nodes[j].PrintNode();
+            Nodes[j].PrintNode();
         }
     }
 
@@ -50,10 +51,10 @@ public class Element
 
         for (int i = 0; i < 4; i++)
         {   
-            dxdξ += DiscreteElement.KsiDerivativeTable[i, number] * this.nodes[i].x;
-            dxdη += DiscreteElement.EtaDerivativeTable[i, number] * this.nodes[i].x;
-            dydξ += DiscreteElement.KsiDerivativeTable[i, number] * this.nodes[i].y;
-            dydη += DiscreteElement.EtaDerivativeTable[i, number] * this.nodes[i].y;
+            dxdξ += DiscreteElement.KsiDerivativeTable[i, number] * this.Nodes[i].x;
+            dxdη += DiscreteElement.EtaDerivativeTable[i, number] * this.Nodes[i].x;
+            dydξ += DiscreteElement.KsiDerivativeTable[i, number] * this.Nodes[i].y;
+            dydη += DiscreteElement.EtaDerivativeTable[i, number] * this.Nodes[i].y;
         }
 
         return new[,]
@@ -74,9 +75,9 @@ public class Element
         //Console.WriteLine("Inversed Jacobian: ");
         //Functions.PrintMatrix(inversedJacobian, 2);
 
-        double[] dNdx = new double [dimension * dimension];
-        double[] dNdy = new double [dimension * dimension];
-        for (int i = 0; i < dimension * dimension; i++) 
+        double[] dNdx = new double [Dimension * Dimension];
+        double[] dNdy = new double [Dimension * Dimension];
+        for (int i = 0; i < Dimension * Dimension; i++) 
         {
             dNdx[i] = inversedJacobian[0, 0] * DiscreteElement.KsiDerivativeTable[i, pointIndex] +
                       inversedJacobian[0, 1] * DiscreteElement.EtaDerivativeTable[i, pointIndex];
@@ -115,7 +116,7 @@ public class Element
 
     public double[,] Hmatrix()
     {
-        double[,] hmatrix = new double[dimension * dimension, dimension * dimension];
+        double[,] hmatrix = new double[Dimension * Dimension, Dimension * Dimension];
 
         int pointIndex = 0;
         for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
@@ -124,9 +125,9 @@ public class Element
             {
                 double[,] partialHmatrix = HmatrixPartial(pointIndex);
 
-                for (int k = 0; k < dimension * dimension; k++)
+                for (int k = 0; k < Dimension * Dimension; k++)
                 {
-                    for (int l = 0; l < dimension * dimension; l++)
+                    for (int l = 0; l < Dimension * Dimension; l++)
                     {
                         partialHmatrix[k, l] *= DiscreteElement.Wages[i] * DiscreteElement.Wages[j];
                     }
@@ -144,16 +145,16 @@ public class Element
     {
         double[,] hBCmatrix = new double[4, 4];
 
-        if (nodes[3].BC && nodes[0].BC)
+        if (Nodes[3].BC && Nodes[0].BC)
         {
-            hBCmatrix = Functions.MatrixSummation(hBCmatrix, new BCedge(nodes[3], nodes[0], 4).HBCmatrix());
+            hBCmatrix = Functions.MatrixSummation(hBCmatrix, new BCedge(Nodes[3], Nodes[0], 4).HBCmatrix());
         }
 
-        for (int i = 0; i < nodes.Length - 1; i++)
+        for (int i = 0; i < Nodes.Length - 1; i++)
         {
-            if (nodes[i].BC && nodes[i + 1].BC)
+            if (Nodes[i].BC && Nodes[i + 1].BC)
             {
-                hBCmatrix = Functions.MatrixSummation(hBCmatrix, new BCedge(nodes[i], nodes[i + 1], i + 1).HBCmatrix());
+                hBCmatrix = Functions.MatrixSummation(hBCmatrix, new BCedge(Nodes[i], Nodes[i + 1], i + 1).HBCmatrix());
             }
         }
         
@@ -168,16 +169,16 @@ public class Element
     {
         double[] pVector = new double[4];
 
-        if (nodes[3].BC && nodes[0].BC)
+        if (Nodes[3].BC && Nodes[0].BC)
         {
-            pVector = Functions.VectorSummation(pVector, new BCedge(nodes[3], nodes[0], 4).Pvector());
+            pVector = Functions.VectorSummation(pVector, new BCedge(Nodes[3], Nodes[0], 4).Pvector());
         }
         
-        for (int i = 0; i < nodes.Length - 1; i++)
+        for (int i = 0; i < Nodes.Length - 1; i++)
         {
-            if (nodes[i].BC && nodes[i + 1].BC)
+            if (Nodes[i].BC && Nodes[i + 1].BC)
             {
-                pVector = Functions.VectorSummation(pVector, new BCedge(nodes[i], nodes[i + 1], i + 1).Pvector());
+                pVector = Functions.VectorSummation(pVector, new BCedge(Nodes[i], Nodes[i + 1], i + 1).Pvector());
             }
         }
 

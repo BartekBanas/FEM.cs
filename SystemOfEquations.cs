@@ -15,7 +15,7 @@ public class SystemOfEquations
         _elements = elements;
         _nodes = nodes;
 
-        _amountOfNodes = elements[^1].nodes[2].ID;
+        _amountOfNodes = elements[^1].Nodes[2].ID;
 
         System = new double[_amountOfNodes, _amountOfNodes];
         GlobalPvector = new double [_amountOfNodes];
@@ -45,7 +45,7 @@ public class SystemOfEquations
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    System[element.nodes[i].ID - 1, element.nodes[j].ID - 1] += hmatrix[i, j] + cPerΔτ[i, j];
+                    System[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += hmatrix[i, j] + cPerΔτ[i, j];
                 }
             }
             
@@ -53,10 +53,10 @@ public class SystemOfEquations
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    System[element.nodes[i].ID - 1, element.nodes[j].ID - 1] -= cPerΔτ[i, j] * Conditions.TemperatureInitial;
+                    System[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] -= cPerΔτ[i, j] * Conditions.TemperatureInitial;
                 }
 
-                GlobalPvector[element.nodes[i].ID - 1] += pVector[i];
+                GlobalPvector[element.Nodes[i].ID - 1] += pVector[i];
             }
         }
     }
@@ -217,17 +217,15 @@ public class SystemOfEquations
 
     public void RunSimulation()
     {
-        double[] calculatedTemperature;
-        
         for (int i = 0; i < Conditions.SimulationTime / Conditions.SimulationStepTime; i++)
         {
             Aggregation();
 
-            calculatedTemperature = CalculateSystem();
+            var calculatedTemperature = CalculateSystem();
 
             for (int j = 0; j < Conditions.NodesNumber; j++)
             {
-                
+                _nodes[j].temperature = calculatedTemperature[j];
             }
         }
     }
