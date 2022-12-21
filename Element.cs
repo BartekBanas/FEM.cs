@@ -67,13 +67,8 @@ public class Element
     private double[,] HmatrixPartial(int pointIndex)
     {
         double[,] jacobian = Jacobian(pointIndex);
-        // Console.WriteLine("Jacobian: ");
-        // Functions.PrintMatrix(jacobian, 2);
         double determinant = Functions.MatrixDeterminant(jacobian);
-        //Console.WriteLine($"Jacobian determinant: {determinant}");
         double[,] inversedJacobian = Functions.MatrixInversion(jacobian);
-        //Console.WriteLine("Inversed Jacobian: ");
-        //Functions.PrintMatrix(inversedJacobian, 2);
 
         double[] dNdx = new double [Dimension * Dimension];
         double[] dNdy = new double [Dimension * Dimension];
@@ -86,21 +81,10 @@ public class Element
                       inversedJacobian[1, 1] * DiscreteElement.EtaDerivativeTable[i, pointIndex];
         }
 
-        // for (int i = 0; i < 4; i++)
-        // {
-        //     Console.WriteLine($"dN{i}/dx: {dNdx[i]}");
-        // }   Console.WriteLine();
-        // for (int i = 0; i < 4; i++)
-        // {
-        //     Console.WriteLine($"dN{i}/dy: {dNdy[i]}");
-        // }   Console.WriteLine();
-        
-        
         double[,] hmatrixPartial = Functions.MatrixSummation(
             Functions.VectorsMultiplication(dNdx, dNdx),
             Functions.VectorsMultiplication(dNdy, dNdy));
-        //Functions.PrintMatrix(Hmatrix, ip);
-        
+
         for (int i = 0; i < 4; i++)
         {
             for (int j = 0; j < 4; j++)
@@ -108,9 +92,7 @@ public class Element
                 hmatrixPartial[i, j] *= Conditions.Conductivity * determinant;
             }
         }
-
-        //Console.WriteLine($"Hmatrix of point {pointIndex + 1}");
-        //Functions.PrintMatrix(hmatrixPartial, dimension * dimension);
+        
         return hmatrixPartial;
     }
 
