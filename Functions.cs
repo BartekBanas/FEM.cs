@@ -219,7 +219,20 @@ public static class Functions
         {
             for (int j = 0; j < size; j++)
             {
-                Console.Write($"{matrix[i, j].ToString("F8", CultureInfo.InvariantCulture)}\t");
+                Console.Write($"{matrix[i, j].ToString("F2", CultureInfo.InvariantCulture)}\t");
+            }   Console.WriteLine();
+        }   Console.WriteLine();
+    }
+    
+    public static void PrintMatrix(double[,] matrix)
+    {
+        int lenght = Convert.ToInt32(Math.Sqrt(matrix.Length));
+        
+        for (int i = 0; i < lenght; i++)
+        {
+            for (int j = 0; j < lenght; j++)
+            {
+                Console.Write($"{matrix[i, j].ToString("F2", CultureInfo.InvariantCulture)}\t");
             }   Console.WriteLine();
         }   Console.WriteLine();
     }

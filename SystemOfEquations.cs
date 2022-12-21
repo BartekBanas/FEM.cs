@@ -6,6 +6,9 @@ public class SystemOfEquations
 {
     public double[,] System;
     public double[] GlobalPvector;
+    private double[,] GlobalHmatrix;
+    private double[,] GlobalCmatrix;
+    
     private readonly List<Element> _elements;
     private List<Node> _nodes;
     private readonly int _amountOfNodes;
@@ -18,6 +21,8 @@ public class SystemOfEquations
         _amountOfNodes = elements[^1].Nodes[2].ID;
 
         System = new double[_amountOfNodes, _amountOfNodes];
+        GlobalHmatrix = new double[_amountOfNodes, _amountOfNodes];
+        GlobalCmatrix = new double[_amountOfNodes, _amountOfNodes];
         GlobalPvector = new double [_amountOfNodes];
 
         Aggregation();
@@ -32,11 +37,14 @@ public class SystemOfEquations
         foreach (var element in _elements)
         {
             double[,] hmatrix = element.Hmatrix();
-            hmatrix = Functions.MatrixSummation(hmatrix, element.HBCmatrix());
+            //hmatrix = Functions.MatrixSummation(hmatrix, element.HBCmatrix());
+            hmatrix = element.Hmatrix();
             
             double[,] cPerΔτ = Functions.MultiplyMatrix(element.Cmatrix(), 1 / Conditions.SimulationStepTime);
+            double[,] cMatrix = element.Cmatrix();
+            
             Console.WriteLine("C Matrix:");
-            Functions.PrintMatrix(cPerΔτ, 4);
+            Functions.PrintMatrix(cMatrix);
             
             double[] pVector = element.Pvector();
             
@@ -45,7 +53,9 @@ public class SystemOfEquations
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    System[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += hmatrix[i, j] + cPerΔτ[i, j];
+                    //System[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += hmatrix[i, j] + cPerΔτ[i, j];
+                    GlobalHmatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += hmatrix[i, j];
+                    GlobalCmatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += cMatrix[i, j];
                 }
             }
             
@@ -53,12 +63,15 @@ public class SystemOfEquations
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    System[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] -= cPerΔτ[i, j] * Conditions.TemperatureInitial;
+                    //System[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] -= cPerΔτ[i, j] * Conditions.TemperatureInitial;
                 }
 
                 GlobalPvector[element.Nodes[i].ID - 1] += pVector[i];
             }
         }
+        
+        Functions.PrintMatrix(GlobalHmatrix);
+        Functions.PrintMatrix(GlobalCmatrix);
     }
 
     public void PrintSystem()
