@@ -113,31 +113,6 @@ public static class DiscreteElement
         Console.WriteLine("\n");
     }
 
-    public static void PrintShapeFunctionMatrix()
-    {
-        for (int i = 0; i < IntegralPoints; i++)
-        {
-            for (int j = 0; j < IntegralPoints; j++)
-            {
-                Console.WriteLine($"Shape function for point {i * IntegralPoints + j}:");
-                for (int l = 0; l < 4; l++)
-                {
-                    for (int k = 0; k < 4; k++)
-                    {
-                        //ShapeFunctionMatrix[i, o][j, k] *= Conditions.SpecificHeat * Conditions.Density;
-
-                        Console.Write(ShapeFunctionMatrix[i, j][l, k].ToString("F4", CultureInfo.InvariantCulture));
-                        Console.Write("\t");
-                    }
-
-                    Console.WriteLine();
-                }
-
-                Console.WriteLine();
-            }
-        }
-    }
-
     private static double[,] MakeKsiDerivativeTable()
     {
         int lenght = IntegralPoints * IntegralPoints;
@@ -209,6 +184,31 @@ public static class DiscreteElement
                 };
 
                 ShapeFunctionMatrix[i, j] = Functions.VectorsMultiplication(vector, vector);
+            }
+        }
+    }
+    
+    public static void PrintShapeFunctionMatrix()
+    {
+        for (int i = 0; i < IntegralPoints; i++)
+        {
+            for (int j = 0; j < IntegralPoints; j++)
+            {
+                Console.WriteLine($"Shape function for point {i * IntegralPoints + j + 1}:");
+                for (int l = 0; l < 4; l++)
+                {
+                    for (int k = 0; k < 4; k++)
+                    {
+                        //ShapeFunctionMatrix[i, o][j, k] *= Conditions.SpecificHeat * Conditions.Density;
+
+                        Console.Write(ShapeFunctionMatrix[i, j][l, k].ToString("F4", CultureInfo.InvariantCulture));
+                        Console.Write("\t");
+                    }
+
+                    Console.WriteLine();
+                }
+
+                Console.WriteLine();
             }
         }
     }
