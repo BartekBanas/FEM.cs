@@ -5,12 +5,13 @@ namespace MES_Csharp;
 public class SystemOfEquations
 {
     public double[,] System;
-    public double[] GlobalPvector;
-    private double[,] GlobalHmatrix;
-    private double[,] GlobalCmatrix;
+    public double[] GlobalPVector;
+    private double[,] _globalHmatrix;
+    private double[,] _globalCmatrix;
+    private double[] _temperatureVector;
     
     private readonly List<Element> _elements;
-    private List<Node> _nodes;
+    private readonly List<Node> _nodes;
     private readonly int _amountOfNodes;
 
     public SystemOfEquations(List<Element> elements, List<Node> nodes)
@@ -21,9 +22,14 @@ public class SystemOfEquations
         _amountOfNodes = elements[^1].Nodes[2].ID;
 
         System = new double[_amountOfNodes, _amountOfNodes];
-        GlobalHmatrix = new double[_amountOfNodes, _amountOfNodes];
-        GlobalCmatrix = new double[_amountOfNodes, _amountOfNodes];
-        GlobalPvector = new double [_amountOfNodes];
+        _globalHmatrix = new double[_amountOfNodes, _amountOfNodes];
+        _globalCmatrix = new double[_amountOfNodes, _amountOfNodes];
+        GlobalPVector = new double [_amountOfNodes];
+        _temperatureVector = new double[_amountOfNodes];
+        foreach (var node in _nodes)
+        {
+            node.Temperature = Conditions.TemperatureInitial;
+        }
 
         Aggregation();
         
@@ -34,44 +40,50 @@ public class SystemOfEquations
 
     private void Aggregation()
     {
+        for (int i = 0; i < _amountOfNodes; i++)
+        {
+            _temperatureVector[i] = _nodes[i].Temperature;
+        }
+        
         foreach (var element in _elements)
         {
-            double[,] hmatrix = element.Hmatrix();
             //hmatrix = Functions.MatrixSummation(hmatrix, element.HBCmatrix());
-            hmatrix = element.Hmatrix();
-            
-            double[,] cPerΔτ = Functions.MultiplyMatrix(element.Cmatrix(), 1 / Conditions.SimulationStepTime);
+            double[,] hmatrix = element.Hmatrix();
             double[,] cMatrix = element.Cmatrix();
-            
-            Console.WriteLine("C Matrix:");
-            Functions.PrintMatrix(cMatrix);
-            
             double[] pVector = element.Pvector();
             
+            // Console.WriteLine("C Matrix:");
+            // Functions.PrintMatrix(cMatrix);
             
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
                 {
                     //System[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += hmatrix[i, j] + cPerΔτ[i, j];
-                    GlobalHmatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += hmatrix[i, j];
-                    GlobalCmatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += cMatrix[i, j];
-                }
-            }
-            
-            for (int i = 0; i < 4; i++)
-            {
-                for (int j = 0; j < 4; j++)
-                {
-                    //System[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] -= cPerΔτ[i, j] * Conditions.TemperatureInitial;
-                }
-
-                GlobalPvector[element.Nodes[i].ID - 1] += pVector[i];
+                    _globalHmatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += hmatrix[i, j];
+                    _globalCmatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += cMatrix[i, j];
+                }   GlobalPVector[element.Nodes[i].ID - 1] += pVector[i];
             }
         }
         
-        Functions.PrintMatrix(GlobalHmatrix);
-        Functions.PrintMatrix(GlobalCmatrix);
+        Functions.PrintMatrix(_globalHmatrix);
+        Console.WriteLine("C Matrix:");
+        Functions.PrintMatrix(_globalCmatrix);
+
+        double[,] cPerΔτ = Functions.MultiplyMatrix(_globalCmatrix, 1 / Conditions.SimulationStepTime);
+
+        double[,] HatMatrix = Functions.MatrixSummation(_globalHmatrix, cPerΔτ);
+
+        GlobalPVector = Functions.VectorSummation
+            (GlobalPVector, Functions.MultiplyMatrixByVector(cPerΔτ, _temperatureVector));
+
+        for (int i = 0; i < _amountOfNodes; i++)
+        {
+            for (int j = 0; j < _amountOfNodes; j++)
+            {
+                System[i, j] = HatMatrix[i, j];
+            }
+        }
     }
 
     public void PrintSystem()
@@ -88,8 +100,8 @@ public class SystemOfEquations
             }
 
             Console.Write("*  ");
-            Console.Write(GlobalPvector[i] < 0 ? "-" : " ");
-            Console.Write(Math.Abs(GlobalPvector[i]).ToString("F2", CultureInfo.InvariantCulture));
+            Console.Write(GlobalPVector[i] < 0 ? "-" : " ");
+            Console.Write(Math.Abs(GlobalPVector[i]).ToString("F2", CultureInfo.InvariantCulture));
             Console.WriteLine();
         }
 
@@ -109,7 +121,7 @@ public class SystemOfEquations
             for (int j = 0; j < _amountOfNodes; j++)
                 coefficients[i, j] = System[i, j];
 
-            coefficients[i, _amountOfNodes] = GlobalPvector[i];
+            coefficients[i, _amountOfNodes] = GlobalPVector[i];
         }
 
         // Console.WriteLine("\nExtended matrix before Partial Pivoting:");
@@ -223,7 +235,7 @@ public class SystemOfEquations
             Console.WriteLine($"x{i + 1} = {xi[i]}");
         }
 
-        //	Eliminacja Gaussa-Crouta maybe someday
+        //	Elimination Gauss-Crout maybe someday
 
         return xi;
     }
