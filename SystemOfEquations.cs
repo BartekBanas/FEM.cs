@@ -71,7 +71,7 @@ public class SystemOfEquations
 
         double[,] cPerΔτ = Functions.MultiplyMatrix(_globalCmatrix, 1 / Conditions.SimulationStepTime);
 
-        double[,] HatMatrix = Functions.MatrixSummation(_globalHmatrix, cPerΔτ);
+        double[,] dashMatrix = Functions.MatrixSummation(_globalHmatrix, cPerΔτ);
 
         GlobalPVector = Functions.VectorSummation
             (GlobalPVector, Functions.MultiplyMatrixByVector(cPerΔτ, _temperatureVector));
@@ -80,7 +80,7 @@ public class SystemOfEquations
         {
             for (int j = 0; j < _amountOfNodes; j++)
             {
-                System[i, j] = HatMatrix[i, j];
+                System[i, j] = dashMatrix[i, j];
             }
         }
     }
