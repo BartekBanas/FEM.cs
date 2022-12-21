@@ -33,7 +33,6 @@ public class SystemOfEquations
 
         Aggregation();
         
-        
         //RunSimulation();
     }
 
@@ -252,6 +251,8 @@ public class SystemOfEquations
             {
                 _nodes[j].Temperature = calculatedTemperature[j];
             }
+            
+            Console.WriteLine($"Simulation; Iteration nr: {i + 1}");
         }
     }
 }
