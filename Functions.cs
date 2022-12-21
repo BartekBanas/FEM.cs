@@ -265,4 +265,20 @@ public static class Functions
 
         return matrixToReturn;
     }
+
+    public static double[] MultiplyMatrixByVector(double[,] matrix, double[] vector)
+    {
+        int length = vector.Length;
+        double[] vectorToReturn = new double[length];
+
+        for (int i = 0; i < length; i++)
+        {
+            for (int j = 0; j < length; j++)
+            {
+                vectorToReturn[i] += matrix[i, j] * vector[j];
+            }
+        }
+
+        return vectorToReturn;
+    }
 }
