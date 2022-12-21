@@ -113,7 +113,7 @@ public static class DiscreteElement
         Console.WriteLine("\n");
     }
 
-    public static void PrintPointsSfMatrix()
+    public static void PrintShapeFunctionMatrix()
     {
         for (int i = 0; i < IntegralPoints; i++)
         {
@@ -126,7 +126,7 @@ public static class DiscreteElement
                     {
                         //ShapeFunctionMatrix[i, o][j, k] *= Conditions.SpecificHeat * Conditions.Density;
 
-                        Console.Write(ShapeFunctionMatrix[i, o][j, k].ToString("F2", CultureInfo.InvariantCulture));
+                        Console.Write(ShapeFunctionMatrix[i, o][j, k].ToString("F4", CultureInfo.InvariantCulture));
                         Console.Write("\t");
                     }
 
