@@ -5,6 +5,8 @@ namespace MES_Csharp;
 
 public static class Functions
 {
+    //  Probably garbage
+    
     public static double function11(double x)
     {
         return 2 * (Math.Pow(x, 2)) + 3 * x - 8;
@@ -75,6 +77,8 @@ public static class Functions
         return result;
     }
 
+    //  Shape functions
+    
     public static double N1(double ξ, double η)
     {
         return (1 - ξ) * (1 - η) / 4;
@@ -91,6 +95,8 @@ public static class Functions
     {
         return (1 - ξ) * (1 + η) / 4;
     }
+    
+    //  Derivatives of Shape Functions 
     
     public static double N1dξ(double η)
     {
@@ -109,7 +115,6 @@ public static class Functions
         return - (1 + η) / 4;
     }
     
-    //
     
     public static double N1dη(double ξ)
     {
@@ -127,6 +132,8 @@ public static class Functions
     {
         return (1 - ξ) / 4;
     }
+    
+    //  Mathematical functions
 
     public static double[,] MatrixInversion(double[,] matrix)
     {
