@@ -40,8 +40,8 @@ internal static class Example
         {
             everyNode.Add(new Node());
             everyNode[i].ID = Convert.ToInt16(readNodes[i][0].Trim());
-            everyNode[i].x = Convert.ToDouble(readNodes[i][1].Trim());
-            everyNode[i].y = Convert.ToDouble(readNodes[i][2].Trim());
+            everyNode[i].X = Convert.ToDouble(readNodes[i][1].Trim());
+            everyNode[i].Y = Convert.ToDouble(readNodes[i][2].Trim());
         }
 
         for (int i = 0; i < Conditions.ElementsNumber; i++) //Filling list of Elements
@@ -58,7 +58,7 @@ internal static class Example
 
         foreach (var id in everyBC) //Setting BC for eligible nodes
         {
-            everyNode[id - 1].BC = true;
+            everyNode[id - 1].Bc = true;
         }
 
         PrintNodeArray(everyNode);

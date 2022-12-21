@@ -238,7 +238,7 @@ public class SystemOfEquations
 
             for (int j = 0; j < Conditions.NodesNumber; j++)
             {
-                _nodes[j].temperature = calculatedTemperature[j];
+                _nodes[j].Temperature = calculatedTemperature[j];
             }
         }
     }

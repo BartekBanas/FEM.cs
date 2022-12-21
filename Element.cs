@@ -45,16 +45,16 @@ public class Element
         }
     }
 
-    private double[,] Jacobian (int number)
+    private double[,] Jacobian (int pointIndex)
     {
         double dxdξ = 0, dxdη = 0, dydξ = 0, dydη = 0;
 
         for (int i = 0; i < 4; i++)
         {   
-            dxdξ += DiscreteElement.KsiDerivativeTable[i, number] * this.Nodes[i].x;
-            dxdη += DiscreteElement.EtaDerivativeTable[i, number] * this.Nodes[i].x;
-            dydξ += DiscreteElement.KsiDerivativeTable[i, number] * this.Nodes[i].y;
-            dydη += DiscreteElement.EtaDerivativeTable[i, number] * this.Nodes[i].y;
+            dxdξ += DiscreteElement.KsiDerivativeTable[i, pointIndex] * this.Nodes[i].X;
+            dxdη += DiscreteElement.EtaDerivativeTable[i, pointIndex] * this.Nodes[i].X;
+            dydξ += DiscreteElement.KsiDerivativeTable[i, pointIndex] * this.Nodes[i].Y;
+            dydη += DiscreteElement.EtaDerivativeTable[i, pointIndex] * this.Nodes[i].Y;
         }
 
         return new[,]
@@ -127,14 +127,14 @@ public class Element
     {
         double[,] hBCmatrix = new double[4, 4];
 
-        if (Nodes[3].BC && Nodes[0].BC)
+        if (Nodes[3].Bc && Nodes[0].Bc)
         {
             hBCmatrix = Functions.MatrixSummation(hBCmatrix, new BCedge(Nodes[3], Nodes[0], 4).HBCmatrix());
         }
 
         for (int i = 0; i < Nodes.Length - 1; i++)
         {
-            if (Nodes[i].BC && Nodes[i + 1].BC)
+            if (Nodes[i].Bc && Nodes[i + 1].Bc)
             {
                 hBCmatrix = Functions.MatrixSummation(hBCmatrix, new BCedge(Nodes[i], Nodes[i + 1], i + 1).HBCmatrix());
             }
@@ -151,14 +151,14 @@ public class Element
     {
         double[] pVector = new double[4];
 
-        if (Nodes[3].BC && Nodes[0].BC)
+        if (Nodes[3].Bc && Nodes[0].Bc)
         {
             pVector = Functions.VectorSummation(pVector, new BCedge(Nodes[3], Nodes[0], 4).Pvector());
         }
         
         for (int i = 0; i < Nodes.Length - 1; i++)
         {
-            if (Nodes[i].BC && Nodes[i + 1].BC)
+            if (Nodes[i].Bc && Nodes[i + 1].Bc)
             {
                 pVector = Functions.VectorSummation(pVector, new BCedge(Nodes[i], Nodes[i + 1], i + 1).Pvector());
             }
@@ -192,4 +192,4 @@ public class Element
 
         return cMatrix;
     }
-};
+}

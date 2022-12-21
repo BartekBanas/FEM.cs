@@ -260,7 +260,7 @@ public static class Functions
     
     public static double GetDistance(Node node1, Node node2)
     {
-        return Math.Sqrt(Math.Pow(node2.x - node1.x, 2) + Math.Pow(node2.y - node1.y, 2));
+        return Math.Sqrt(Math.Pow(node2.X - node1.X, 2) + Math.Pow(node2.Y - node1.Y, 2));
     }
 
     public static double[,] CopyMatrix(double[,] matrix)
