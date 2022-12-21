@@ -25,7 +25,7 @@ public static class DiscreteElement
 
         KsiDerivativeTable = MakeKsiDerivativeTable();
         EtaDerivativeTable = MakeEtaDerivativeTable();
-        MakePointsSfMatrix();
+        MakeShapeFunctionMatrix();
     }
 
     private static void FillCoordinates()
@@ -117,16 +117,16 @@ public static class DiscreteElement
     {
         for (int i = 0; i < IntegralPoints; i++)
         {
-            for (int o = 0; o < IntegralPoints; o++)
+            for (int j = 0; j < IntegralPoints; j++)
             {
-                Console.WriteLine($"Shape function for point {i * IntegralPoints + o}:");
-                for (int j = 0; j < 4; j++)
+                Console.WriteLine($"Shape function for point {i * IntegralPoints + j}:");
+                for (int l = 0; l < 4; l++)
                 {
                     for (int k = 0; k < 4; k++)
                     {
                         //ShapeFunctionMatrix[i, o][j, k] *= Conditions.SpecificHeat * Conditions.Density;
 
-                        Console.Write(ShapeFunctionMatrix[i, o][j, k].ToString("F4", CultureInfo.InvariantCulture));
+                        Console.Write(ShapeFunctionMatrix[i, j][l, k].ToString("F4", CultureInfo.InvariantCulture));
                         Console.Write("\t");
                     }
 
@@ -192,7 +192,7 @@ public static class DiscreteElement
         }
     }
 
-    private static void MakePointsSfMatrix()
+    private static void MakeShapeFunctionMatrix()
     {
         ShapeFunctionMatrix = new double[IntegralPoints, IntegralPoints][,];
 
