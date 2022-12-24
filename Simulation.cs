@@ -2,7 +2,7 @@
 
 namespace MES_Csharp;
 
-public class SystemOfEquations
+public class Simulation
 {
     public double[,] System;
     public double[] GlobalPVector;
@@ -14,7 +14,7 @@ public class SystemOfEquations
     private readonly List<Node> _nodes;
     private readonly int _amountOfNodes;
 
-    public SystemOfEquations(List<Element> elements, List<Node> nodes)
+    public Simulation(List<Element> elements, List<Node> nodes)
     {
         _elements = elements;
         _nodes = nodes;

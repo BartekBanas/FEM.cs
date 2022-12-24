@@ -70,10 +70,10 @@ internal static class Example
         DiscreteElement.PrintEtaDerivativeTable();
         DiscreteElement.PrintShapeFunctionMatrix();
 
-        SystemOfEquations systemOfEquations = new SystemOfEquations(everyElement, everyNode);
-        systemOfEquations.PrintSystem();
+        Simulation simulation = new Simulation(everyElement, everyNode);
+        simulation.PrintSystem();
 
-        systemOfEquations.CalculateSystem();
+        simulation.CalculateSystem();
 
         //DiscreteElement.PrintShapeFunctionMatrix();
 
