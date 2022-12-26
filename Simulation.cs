@@ -31,9 +31,9 @@ public class Simulation
             node.Temperature = Conditions.TemperatureInitial;
         }
 
-        Aggregation();
+        //Aggregation();
         
-        //RunSimulation();
+        RunSimulation();
     }
 
 
@@ -65,9 +65,9 @@ public class Simulation
             }
         }
         
-        Functions.PrintMatrix(_globalHmatrix);
-        Console.WriteLine("C Matrix:");
-        Functions.PrintMatrix(_globalCmatrix);
+        // Functions.PrintMatrix(_globalHmatrix);
+        // Console.WriteLine("C Matrix:");
+        // Functions.PrintMatrix(_globalCmatrix);
 
         double[,] cPerΔτ = Functions.MultiplyMatrix(_globalCmatrix, 1 / Conditions.SimulationStepTime);
 
@@ -252,7 +252,23 @@ public class Simulation
                 _nodes[j].Temperature = calculatedTemperature[j];
             }
             
+            WriteResults(i);
             Console.WriteLine($"Simulation; Iteration nr: {i + 1}");
         }
+    }
+
+    public void WriteResults(int iteration)
+    {
+        int i = 0, index = 0;
+        string[] lines = new string[_nodes.Count + _elements.Count];
+
+        
+        
+        for (int j = 0; j < _nodes.Count; j++)
+        {
+            lines[index + j] = _nodes[j].ID + ", " + _nodes[j].X + ", " + _nodes[j].Y + ", " + 0;
+        }
+
+        File.WriteAllLines($"Data_{iteration}.txt", lines);
     }
 }
