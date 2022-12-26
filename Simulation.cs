@@ -239,7 +239,7 @@ public class Simulation
         return xi;
     }
 
-    public void RunSimulation()
+    private void RunSimulation()
     {
         for (int i = 0; i < Conditions.SimulationTime / Conditions.SimulationStepTime; i++)
         {
@@ -257,7 +257,7 @@ public class Simulation
         }
     }
 
-    public void WriteResults(int iteration)
+    private void WriteResults(int iteration)
     {
         int i = 0, index = 0;
         string[] lines = new string[_nodes.Count + _elements.Count];
@@ -269,6 +269,6 @@ public class Simulation
             lines[index + j] = _nodes[j].ID + ", " + _nodes[j].X + ", " + _nodes[j].Y + ", " + 0;
         }
 
-        File.WriteAllLines($"Data_{iteration}.txt", lines);
+        File.WriteAllLines($"../../../Results/Data_{iteration}.txt", lines);
     }
 }
