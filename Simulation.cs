@@ -284,6 +284,6 @@ public class Simulation
         }
         
         
-        File.WriteAllLines($"../../../Results/Data_{iteration}.txt", lines);
+        File.WriteAllLines($"../../../results/Data_{iteration}.txt", lines);
     }
 }
