@@ -259,16 +259,31 @@ public class Simulation
 
     private void WriteResults(int iteration)
     {
-        int i = 0, index = 0;
-        string[] lines = new string[_nodes.Count + _elements.Count];
+        int index = 0;
+        string[] lines = new string[_nodes.Count + _elements.Count + 20];
 
+
+        lines[index] = "*NODE";
+        index++;
         
-        
-        for (int j = 0; j < _nodes.Count; j++)
+        for (int i = 0; i < _nodes.Count; i++)
         {
-            lines[index + j] = _nodes[j].ID + ", " + _nodes[j].X + ", " + _nodes[j].Y + ", " + 0;
+            lines[index + i] = _nodes[i].ID + ", " + _nodes[i].X + ", " + _nodes[i].Y + ", " + 0;
         }
 
+        index += _nodes.Count;
+        index++;
+        
+        lines[index] = "*ELEMENT, TYPE=T2D2, ELSET=FRAME";
+        index++;
+
+        for (int i = 0; i < _elements.Count; i++)
+        {
+            lines[index + i] = _elements[i].ID + ", " + _elements[i].Nodes[0].ID + ", " + _elements[i].Nodes[1].ID +
+                               ", " + _elements[i].Nodes[2].ID + ", " + _elements[i].Nodes[3].ID;
+        }
+        
+        
         File.WriteAllLines($"../../../Results/Data_{iteration}.txt", lines);
     }
 }
