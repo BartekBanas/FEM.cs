@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "J:\\Programming\\C++\\MES\\MES Csharp\\MES Csharp.csproj": {}
+    "H:\\Szkoła\\Semestr V\\Metoda Elementów Skończonych\\MES Csharp\\MES Csharp.csproj": {}
   },
   "projects": {
-    "J:\\Programming\\C++\\MES\\MES Csharp\\MES Csharp.csproj": {
+    "H:\\Szkoła\\Semestr V\\Metoda Elementów Skończonych\\MES Csharp\\MES Csharp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "J:\\Programming\\C++\\MES\\MES Csharp\\MES Csharp.csproj",
+        "projectUniqueName": "H:\\Szkoła\\Semestr V\\Metoda Elementów Skończonych\\MES Csharp\\MES Csharp.csproj",
         "projectName": "MES Csharp",
-        "projectPath": "J:\\Programming\\C++\\MES\\MES Csharp\\MES Csharp.csproj",
+        "projectPath": "H:\\Szkoła\\Semestr V\\Metoda Elementów Skończonych\\MES Csharp\\MES Csharp.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "J:\\Programming\\C++\\MES\\MES Csharp\\obj\\",
+        "outputPath": "H:\\Szkoła\\Semestr V\\Metoda Elementów Skończonych\\MES Csharp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",

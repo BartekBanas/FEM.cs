@@ -9,9 +9,16 @@ public class Node
 
     public Node()
     {
-        ID = 0;
+        ID = -1;
         X = 0;
         Y = 0;
+    }
+    
+    public Node(double x, double y)
+    {
+        this.ID = -1;
+        this.X = x;
+        this.Y = y;
     }
 
     public Node(int id, double x, double y)

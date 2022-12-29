@@ -82,6 +82,16 @@ internal static class Example
         // testElement.AddNode(new Node(0, 0.025, 0));
         // testElement.AddNode(new Node(0, 0.025, 0.025));
         // testElement.AddNode(new Node(0, 0, 0.025));
+        
+        
+        Element testElement = new Element();
+        testElement.AddNode(new Node(0, 0));
+        testElement.AddNode(new Node(0, 0.025, 0));
+        testElement.AddNode(new Node(0, 0.025, 0.025));
+        testElement.AddNode(new Node(0, 0, 0.025));
+        
+        
+        
         //
         // BCedge testEdge = new BCedge(new Node(0, 0.025, 0.025), new Node(0, 0, 0.025), 4);
         // Functions.PrintMatrix(testEdge.HBCmatrix(), 4);

@@ -57,11 +57,13 @@ public class Element
             dydη += DiscreteElement.EtaDerivativeTable[i, pointIndex] * this.Nodes[i].Y;
         }
 
-        return new[,]
+        double[,] tableToReturn =
         {
             { dxdξ, dxdη },
             { dydξ, dydη }
         };
+
+        return tableToReturn;
     }
 
     private double[,] HmatrixPartial(int pointIndex)
