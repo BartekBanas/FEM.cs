@@ -65,15 +65,22 @@ internal static class Example
         PrintElementArray(everyElement);
         
 
-        DiscreteElement.Update(2);
+        DiscreteElement.Update(3);
         DiscreteElement.PrintKsiDerivativeTable();
         DiscreteElement.PrintEtaDerivativeTable();
+        Console.WriteLine($"\n\nIntegral points:");
+        for (int i = 0; i < DiscreteElement.Points.Length; i++)
+        {
+            Console.Write($"{DiscreteElement.Points[i]}\t");
+        }   Console.WriteLine("\n\n");
+        
         DiscreteElement.PrintShapeFunctionMatrix();
+        
 
-        Simulation simulation = new Simulation(everyElement, everyNode);
-        simulation.PrintSystem();
-
-        simulation.CalculateSystem();
+        //Simulation simulation = new Simulation(everyElement, everyNode);
+        // simulation.PrintSystem();
+        //
+        // simulation.CalculateSystem();
 
         //DiscreteElement.PrintShapeFunctionMatrix();
 
@@ -86,13 +93,37 @@ internal static class Example
         
         Element testElement = new Element();
         testElement.AddNode(new Node(0, 0));
-        testElement.AddNode(new Node(0, 0.025, 0));
-        testElement.AddNode(new Node(0, 0.025, 0.025));
-        testElement.AddNode(new Node(0, 0, 0.025));
+        testElement.AddNode(new Node(2, 0));
+        testElement.AddNode(new Node(3, 3));
+        testElement.AddNode(new Node(0, 4));
+
         
         
+        testElement.PrintElement();
+        foreach (var VARIABLE in testElement.Nodes)
+        {
+            VARIABLE.PrintNode();
+        }
         
-        //
+        Console.WriteLine($"input = {DiscreteElement.Points[1]}");
+        
+        double x = 0, y = 0;
+
+        x += Functions.N1(DiscreteElement.Points[1], DiscreteElement.Points[1]) * testElement.Nodes[0].X;
+        x += Functions.N2(DiscreteElement.Points[1], DiscreteElement.Points[1]) * testElement.Nodes[1].X;
+        x += Functions.N3(DiscreteElement.Points[1], DiscreteElement.Points[1]) * testElement.Nodes[2].X;
+        x += Functions.N4(DiscreteElement.Points[1], DiscreteElement.Points[1]) * testElement.Nodes[3].X;
+        y += Functions.N1(DiscreteElement.Points[1], DiscreteElement.Points[1]) * testElement.Nodes[0].Y;
+        y += Functions.N2(DiscreteElement.Points[1], DiscreteElement.Points[1]) * testElement.Nodes[1].Y;
+        y += Functions.N3(DiscreteElement.Points[1], DiscreteElement.Points[1]) * testElement.Nodes[2].Y;
+        y += Functions.N4(DiscreteElement.Points[1], DiscreteElement.Points[1]) * testElement.Nodes[3].Y;
+        
+        Console.WriteLine($"x = {x}, y = {y}");
+
+        double t3 = Functions.FindFromIntegralPoint(45, 122, -0.771);
+        Console.WriteLine($"Result is: {t3}");
+
+
         // BCedge testEdge = new BCedge(new Node(0, 0.025, 0.025), new Node(0, 0, 0.025), 4);
         // Functions.PrintMatrix(testEdge.HBCmatrix(), 4);
 

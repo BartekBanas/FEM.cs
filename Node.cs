@@ -16,9 +16,9 @@ public class Node
     
     public Node(double x, double y)
     {
-        this.ID = -1;
-        this.X = x;
-        this.Y = y;
+        ID = -1;
+        X = x;
+        Y = y;
     }
 
     public Node(int id, double x, double y)

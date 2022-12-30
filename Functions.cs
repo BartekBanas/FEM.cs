@@ -132,6 +132,14 @@ public static class Functions
     {
         return (1 - ξ) / 4;
     }
+
+    public static double FindFromIntegralPoint(double value1, double value2, double ksi)
+    {
+        double wage1 = Math.Abs(ksi - 1) / 2;
+        double wage2 = Math.Abs(ksi + 1) / 2;
+        
+        return value1 * wage1 + value2 * wage2;
+    }
     
     //  Mathematical functions
 
