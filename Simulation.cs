@@ -31,9 +31,9 @@ public class Simulation
             node.Temperature = Conditions.TemperatureInitial;
         }
 
-        //Aggregation();
-        
-        RunSimulation();
+        Aggregation();
+
+        //RunSimulation();
     }
 
 
