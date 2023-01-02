@@ -98,37 +98,37 @@ public static class Functions
     
     //  Derivatives of Shape Functions 
     
-    public static double N1dξ(double η)
+    public static double N1dξ(double? ξ, double η)
     {
         return - (1 - η) / 4;
     }
-    public static double N2dξ(double η)
+    public static double N2dξ(double? ξ, double η)
     {
         return  (1 - η) / 4;
     }
-    public static double N3dξ(double η)
+    public static double N3dξ(double? ξ, double η)
     {
         return (1 + η) / 4;
     }
-    public static double N4dξ(double η)
+    public static double N4dξ(double? ξ, double η)
     {
         return - (1 + η) / 4;
     }
     
     
-    public static double N1dη(double ξ)
+    public static double N1dη(double ξ, double? η)
     {
         return (1 - ξ) * - 1 / 4;
     }
-    public static double N2dη(double ξ)
+    public static double N2dη(double ξ, double? η)
     {
         return (1 + ξ) * - 1 / 4;
     }
-    public static double N3dη(double ξ)
+    public static double N3dη(double ξ, double? η)
     {
         return (1 + ξ) / 4;
     }
-    public static double N4dη(double ξ)
+    public static double N4dη(double ξ, double? η)
     {
         return (1 - ξ) / 4;
     }

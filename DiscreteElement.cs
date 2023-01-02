@@ -120,10 +120,10 @@ public static class DiscreteElement
 
         for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
         {
-            resultTable[0, i] = Functions.N1dξ(_etas[i]);
-            resultTable[1, i] = Functions.N2dξ(_etas[i]);
-            resultTable[2, i] = Functions.N3dξ(_etas[i]);
-            resultTable[3, i] = Functions.N4dξ(_etas[i]);
+            resultTable[0, i] = Functions.N1dξ(null, _etas[i]);
+            resultTable[1, i] = Functions.N2dξ(null,_etas[i]);
+            resultTable[2, i] = Functions.N3dξ(null,_etas[i]);
+            resultTable[3, i] = Functions.N4dξ(null,_etas[i]);
         }
 
         return resultTable;
@@ -136,10 +136,10 @@ public static class DiscreteElement
 
         for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
         {
-            resultTable[0, i] = Functions.N1dη(_ksis[i]);
-            resultTable[1, i] = Functions.N2dη(_ksis[i]);
-            resultTable[2, i] = Functions.N3dη(_ksis[i]);
-            resultTable[3, i] = Functions.N4dη(_ksis[i]);
+            resultTable[0, i] = Functions.N1dη(_ksis[i], null);
+            resultTable[1, i] = Functions.N2dη(_ksis[i], null);
+            resultTable[2, i] = Functions.N3dη(_ksis[i], null);
+            resultTable[3, i] = Functions.N4dη(_ksis[i], null);
         }
 
         return resultTable;
