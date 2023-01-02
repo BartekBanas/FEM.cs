@@ -116,19 +116,19 @@ public static class Functions
     }
     
     
-    public static double N1dη(double ξ, double? η)
+    public static double N1dη(double ξ, double? η = 0)
     {
         return (1 - ξ) * - 1 / 4;
     }
-    public static double N2dη(double ξ, double? η)
+    public static double N2dη(double ξ, double? η = 0)
     {
         return (1 + ξ) * - 1 / 4;
     }
-    public static double N3dη(double ξ, double? η)
+    public static double N3dη(double ξ, double? η = 0)
     {
         return (1 + ξ) / 4;
     }
-    public static double N4dη(double ξ, double? η)
+    public static double N4dη(double ξ, double? η = 0)
     {
         return (1 - ξ) / 4;
     }

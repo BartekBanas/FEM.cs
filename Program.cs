@@ -80,8 +80,7 @@ internal static class Example
         Simulation simulation = new Simulation(everyElement, everyNode);
         simulation.PrintSystem();
         
-        Console.WriteLine($"\n" +
-                          $"{Functions.N3dξ(0.8, -0.6)}");
+        //Console.WriteLine($"\n" + $"{Functions.N3dη(0.8, -0.6)}");        Calculate derivative
         
         // simulation.CalculateSystem();
 
