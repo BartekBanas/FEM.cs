@@ -65,7 +65,7 @@ internal static class Example
         PrintElementArray(everyElement);
         
 
-        DiscreteElement.Update(3);
+        DiscreteElement.Update(2);
         DiscreteElement.PrintKsiDerivativeTable();
         DiscreteElement.PrintEtaDerivativeTable();
         Console.WriteLine($"\n\nIntegral points:");
@@ -99,8 +99,6 @@ internal static class Example
         // testElement.AddNode(new Node(3, 3));
         // testElement.AddNode(new Node(0, 4));
         //
-        //
-        //
         // testElement.PrintElement();
         // foreach (var VARIABLE in testElement.Nodes)
         // {
@@ -121,7 +119,9 @@ internal static class Example
         // y += Functions.N4(DiscreteElement.Points[1], DiscreteElement.Points[1]) * testElement.Nodes[3].Y;
         //
         // Console.WriteLine($"x = {x}, y = {y}");
-        //
+        
+        
+        
         // double t3 = Functions.FindFromIntegralPoint(45, 122, -0.771);
         // Console.WriteLine($"Result is: {t3}");
 

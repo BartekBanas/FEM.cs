@@ -120,7 +120,7 @@ public static class DiscreteElement
 
         for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
         {
-            resultTable[0, i] = Functions.N1dξ(null, _etas[i]);
+            resultTable[0, i] = Functions.N1dξ(null,_etas[i]);
             resultTable[1, i] = Functions.N2dξ(null,_etas[i]);
             resultTable[2, i] = Functions.N3dξ(null,_etas[i]);
             resultTable[3, i] = Functions.N4dξ(null,_etas[i]);
