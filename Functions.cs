@@ -205,7 +205,7 @@ public static class Functions
         return matrixToReturn;
     }
     
-    public static double[,] MultiplyMatrix(double[,] matrix, double multiplier)
+    public static double[,] MultiplyMatrix(this double[,] matrix, double multiplier)
     {
         int lenght = Convert.ToInt32(Math.Sqrt(matrix.Length));
         double[,] matrixToReturn = new double[lenght, lenght];
@@ -271,7 +271,7 @@ public static class Functions
         return Math.Sqrt(Math.Pow(node2.X - node1.X, 2) + Math.Pow(node2.Y - node1.Y, 2));
     }
 
-    public static double[,] CopyMatrix(double[,] matrix)
+    public static double[,] CopyMatrix(this double[,] matrix)
     {
         int lenght = Convert.ToInt32(Math.Sqrt(matrix.Length));
         double[,] matrixToReturn = new double[lenght, lenght];
