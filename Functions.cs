@@ -221,7 +221,7 @@ public static class Functions
         return matrixToReturn;
     }
     
-    public static void PrintMatrix(double[,] matrix, int size)
+    public static void PrintMatrix(this double[,] matrix, int size)
     {
         for (int i = 0; i < size; i++)
         {
@@ -232,7 +232,7 @@ public static class Functions
         }   Console.WriteLine();
     }
     
-    public static void PrintMatrix(double[,] matrix)
+    public static void PrintMatrix(this double[,] matrix)
     {
         int lenght = Convert.ToInt32(Math.Sqrt(matrix.Length));
         

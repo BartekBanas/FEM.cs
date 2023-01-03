@@ -140,7 +140,7 @@ internal static class Example
         // double[] randomRow = new[] { 0.0578, 0.1122, 0.5478, 0.2822 };
         //
         // double[,] m = Functions.VectorsMultiplication(randomRow, randomRow);
-        // Functions.PrintMatrix(m);
+        // m.PrintMatrix();
     }
     
 
