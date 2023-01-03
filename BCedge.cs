@@ -2,14 +2,14 @@
 
 public class BCedge
 {
-    private int side;
+    private readonly int _side;
 
-    private double _jacobianDeterminant;
-    private double[,] integrationPoints = new double[DiscreteElement.IntegralPoints, 2];
+    private readonly double _jacobianDeterminant;
+    private readonly double[,] _integrationPoints = new double[DiscreteElement.IntegralPoints, 2];
 
     public BCedge(Node node1, Node node2, int side)
     {
-        this.side = side;
+        this._side = side;
         
         _jacobianDeterminant = Functions.GetDistance(node1, node2) / 2;
         SetIntegrationPoints();
@@ -17,14 +17,14 @@ public class BCedge
 
     private void SetIntegrationPoints()
     {
-        switch (side)
+        switch (_side)
         {
             case 1:
             {
                 for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
                 {
-                    integrationPoints[i, 0] = DiscreteElement.Points[i];
-                    integrationPoints[i, 1] = -1;
+                    _integrationPoints[i, 0] = DiscreteElement.Points[i];
+                    _integrationPoints[i, 1] = -1;
                 }
                 break;
             }
@@ -32,8 +32,8 @@ public class BCedge
             {
                 for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
                 {
-                    integrationPoints[i, 0] = 1;
-                    integrationPoints[i, 1] = DiscreteElement.Points[i];
+                    _integrationPoints[i, 0] = 1;
+                    _integrationPoints[i, 1] = DiscreteElement.Points[i];
                 }
                 break;
             }
@@ -41,8 +41,8 @@ public class BCedge
             {
                 for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
                 {
-                    integrationPoints[i, 0] = -DiscreteElement.Points[i];
-                    integrationPoints[i, 1] = 1;
+                    _integrationPoints[i, 0] = -DiscreteElement.Points[i];
+                    _integrationPoints[i, 1] = 1;
                 }
                 break;
             }
@@ -50,8 +50,8 @@ public class BCedge
             {
                 for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
                 {
-                    integrationPoints[i, 0] = -1;
-                    integrationPoints[i, 1] = -DiscreteElement.Points[i];
+                    _integrationPoints[i, 0] = -1;
+                    _integrationPoints[i, 1] = -DiscreteElement.Points[i];
                 }
                 break;
             }
@@ -81,7 +81,7 @@ public class BCedge
         for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
         {
             hbcMatrix = Functions.MatrixSummation(hbcMatrix,
-                PartialMatrix(integrationPoints[i, 0], integrationPoints[i, 1], i));
+                PartialMatrix(_integrationPoints[i, 0], _integrationPoints[i, 1], i));
         }
         
         for (int i = 0; i < 4; i++)
@@ -114,7 +114,7 @@ public class BCedge
         for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
         {
             pVector = Functions.VectorSummation(pVector,
-                PartialPVector(integrationPoints[i, 0], integrationPoints[i, 1], i));
+                PartialPVector(_integrationPoints[i, 0], _integrationPoints[i, 1], i));
         }
         
         for (int i = 0; i < 4; i++)
