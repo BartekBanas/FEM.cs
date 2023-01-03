@@ -79,7 +79,7 @@ internal static class Example
 
         Simulation simulation = new Simulation(everyElement, everyNode);
         simulation.PrintSystem();
-        
+
         //Console.WriteLine($"\n" + $"{Functions.N3dη(0.8, -0.6)}");        Calculate derivative
         
         // simulation.CalculateSystem();
@@ -135,6 +135,12 @@ internal static class Example
         //     Console.WriteLine($"Matrix nr: {i}");
         //     Functions.PrintMatrix(everyElement[i].Hmatrix(discreteElement), 4);
         // }
+
+        //      LICZENIE MACIERZY C
+        // double[] randomRow = new[] { 0.0578, 0.1122, 0.5478, 0.2822 };
+        //
+        // double[,] m = Functions.VectorsMultiplication(randomRow, randomRow);
+        // Functions.PrintMatrix(m);
     }
     
 

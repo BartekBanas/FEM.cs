@@ -2,7 +2,7 @@
 
 public class Element
 {
-    private static readonly int Dimension = Conditions.dimension;
+    private static readonly int Dimension = Conditions.Dimension;
     private int _capacity = 0;
     
     public int ID;

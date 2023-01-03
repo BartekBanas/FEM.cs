@@ -12,7 +12,7 @@ public static class Conditions
     public static double SpecificHeat;
     public static int NodesNumber;
     public static int ElementsNumber;
-    public static int dimension = 2;
+    public static int Dimension = 2;
 
     public static void PrintConditions()
     {
