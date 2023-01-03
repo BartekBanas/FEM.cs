@@ -143,7 +143,7 @@ public static class Functions
     
     //  Mathematical functions
 
-    public static double[,] MatrixInversion(double[,] matrix)
+    public static double[,] MatrixInversion(this double[,] matrix)
     {
         double inverseDeterminant = 1 / MatrixDeterminant(matrix);
 
@@ -154,7 +154,7 @@ public static class Functions
         };
     }
 
-    public static double MatrixDeterminant(double[,] matrix)
+    public static double MatrixDeterminant(this double[,] matrix)
     {
         return matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0];
     }
