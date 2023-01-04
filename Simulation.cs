@@ -4,8 +4,8 @@ namespace MES_Csharp;
 
 public class Simulation
 {
-    public double[,] System;
-    public double[] GlobalPVector;
+    private double[,] _system;
+    private double[] _globalPVector;
     private double[,] _globalHmatrix;
     private double[,] _globalHbcMatrix;
     private double[,] _globalCmatrix;
@@ -22,20 +22,45 @@ public class Simulation
 
         _amountOfNodes = elements[^1].Nodes[2].ID;
 
-        System = new double[_amountOfNodes, _amountOfNodes];
+        _system = new double[_amountOfNodes, _amountOfNodes];
         _globalHmatrix = new double[_amountOfNodes, _amountOfNodes];
         _globalCmatrix = new double[_amountOfNodes, _amountOfNodes];
         _globalHbcMatrix = new double[_amountOfNodes, _amountOfNodes];
-        GlobalPVector = new double [_amountOfNodes];
+        _globalPVector = new double [_amountOfNodes];
         _temperatureVector = new double[_amountOfNodes];
         foreach (var node in _nodes)
         {
             node.Temperature = Conditions.TemperatureInitial;
         }
     }
+    
+    public void PrintSystem()
+    {
+        Console.WriteLine("System of Equations:");
+        for (int i = 0; i < _amountOfNodes; i++)
+        {
+            for (int j = 0; j < _amountOfNodes; j++)
+            {
+                Console.Write(_system[i, j] < 0 ? "-" : " ");
 
+                Console.Write(Math.Abs(_system[i, j]).ToString("F1", CultureInfo.InvariantCulture));
+                Console.Write("\t");
+            }
 
-    public void Aggregation()
+            Console.Write("*  ");
+            Console.Write(_globalPVector[i] < 0 ? "-" : " ");
+            Console.Write(Math.Abs(_globalPVector[i]).ToString("F2", CultureInfo.InvariantCulture));
+            
+            Console.Write(",\tt = ");
+            Console.Write(Math.Abs(_temperatureVector[i]).ToString("F2", CultureInfo.InvariantCulture));
+            
+            Console.WriteLine();
+        }
+
+        Console.WriteLine();
+    }
+    
+    private void Aggregation()
     {
         ClearGlobalStructures();
         
@@ -59,7 +84,7 @@ public class Simulation
                     _globalCmatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += cMatrix[i, j];
                     _globalHbcMatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += hbcMatrix[i, j];
 
-                }   GlobalPVector[element.Nodes[i].ID - 1] += pVector[i];
+                }   _globalPVector[element.Nodes[i].ID - 1] += pVector[i];
             }
         }
 
@@ -67,46 +92,19 @@ public class Simulation
 
         double[,] dashMatrix = Functions.MatrixSummation(_globalHmatrix, cPerΔτ, _globalHbcMatrix);
 
-        GlobalPVector = Functions.VectorSummation
-            (GlobalPVector, Functions.MultiplyMatrixByVector(cPerΔτ, _temperatureVector));
+        _globalPVector = Functions.VectorSummation
+            (_globalPVector, Functions.MultiplyMatrixByVector(cPerΔτ, _temperatureVector));
 
         for (int i = 0; i < _amountOfNodes; i++)
         {
             for (int j = 0; j < _amountOfNodes; j++)
             {
-                System[i, j] += dashMatrix[i, j];
-                //System[i, j] += _globalCmatrix[i, j];
+                _system[i, j] += dashMatrix[i, j];
             }
         }
     }
-
-    public void PrintSystem()
-    {
-        Console.WriteLine("System of Equations:");
-        for (int i = 0; i < _amountOfNodes; i++)
-        {
-            for (int j = 0; j < _amountOfNodes; j++)
-            {
-                Console.Write(System[i, j] < 0 ? "-" : " ");
-
-                Console.Write(Math.Abs(System[i, j]).ToString("F1", CultureInfo.InvariantCulture));
-                Console.Write("\t");
-            }
-
-            Console.Write("*  ");
-            Console.Write(GlobalPVector[i] < 0 ? "-" : " ");
-            Console.Write(Math.Abs(GlobalPVector[i]).ToString("F2", CultureInfo.InvariantCulture));
-            
-            Console.Write(",\tt = ");
-            Console.Write(Math.Abs(_temperatureVector[i]).ToString("F2", CultureInfo.InvariantCulture));
-            
-            Console.WriteLine();
-        }
-
-        Console.WriteLine();
-    }
-
-    public double[] CalculateSystem()
+    
+    private double[] CalculateSystem()
     {
         double epsilon = 1;
         double peak;
@@ -117,9 +115,9 @@ public class Simulation
         for (int i = 0; i < _amountOfNodes; i++)
         {
             for (int j = 0; j < _amountOfNodes; j++)
-                coefficients[i, j] = System[i, j];
+                coefficients[i, j] = _system[i, j];
 
-            coefficients[i, _amountOfNodes] = GlobalPVector[i];
+            coefficients[i, _amountOfNodes] = _globalPVector[i];
         }
 
         // Console.WriteLine("\nExtended matrix before Partial Pivoting:");
@@ -292,11 +290,11 @@ public class Simulation
 
     private void ClearGlobalStructures()
     {
-        System.Clear();
+        _system.Clear();
         _globalHmatrix.Clear();
         _globalCmatrix.Clear();
         _globalHbcMatrix.Clear();
-        GlobalPVector.Clear();
+        _globalPVector.Clear();
         _temperatureVector.Clear();
     }
 }
