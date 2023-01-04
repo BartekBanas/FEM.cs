@@ -21,13 +21,7 @@ public class Simulation
         _nodes = nodes;
 
         _amountOfNodes = elements[^1].Nodes[2].ID;
-
-        System = new double[_amountOfNodes, _amountOfNodes];
-        _globalHmatrix = new double[_amountOfNodes, _amountOfNodes];
-        _globalCmatrix = new double[_amountOfNodes, _amountOfNodes];
-        _globalHbcMatrix = new double[_amountOfNodes, _amountOfNodes];
-        GlobalPVector = new double [_amountOfNodes];
-        _temperatureVector = new double[_amountOfNodes];
+        
         foreach (var node in _nodes)
         {
             node.Temperature = Conditions.TemperatureInitial;
@@ -240,7 +234,7 @@ public class Simulation
 
     public void RunSimulation()
     {
-        for (int i = 0; i <= Conditions.SimulationTime / Conditions.SimulationStepTime; i++)
+        for (int i = 0; i < Conditions.SimulationTime / Conditions.SimulationStepTime; i++)
         {
             Aggregation();
 
@@ -250,16 +244,18 @@ public class Simulation
             {
                 _nodes[j].Temperature = calculatedTemperature[j];
             }
-            
-            // Console.WriteLine("Solution of the system of equations:");
-            // for (int j = 0; j < _amountOfNodes; j++)
-            // {
-            //     Console.WriteLine($"x{j + 1} = {calculatedTemperature[j]}");
-            // }
 
             Console.WriteLine($"Simulation; Iteration nr: {i + 1}");
             PrintSystem();
             WriteResults(i);
+        }
+        
+        Aggregation();
+        
+        Console.WriteLine("Result of the simulation:");
+        for (int j = 0; j < _amountOfNodes; j++)
+        {
+            Console.WriteLine($"t{j + 1} = {_temperatureVector[j]}");
         }
     }
 
