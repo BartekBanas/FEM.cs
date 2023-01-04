@@ -319,17 +319,16 @@ public static class Functions
     public static void CopyMatrix(this double[,] matrix, double[,] copiedMatrix)
     {
         int lenght = Convert.ToInt32(Math.Sqrt(copiedMatrix.Length));
-        double[,] matrixToReturn = new double[lenght, lenght];
 
         for (int i = 0; i < lenght; i++)
         {
             for (int j = 0; j < lenght; j++)
             {
-                matrixToReturn[i, j] = copiedMatrix[i, j];
+                matrix[i, j] = copiedMatrix[i, j];
             }
         }
 
-        matrix = matrixToReturn;
+        //matrix = matrixToReturn;
     }
 
     public static void Clear(this double[,] matrix)
