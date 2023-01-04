@@ -205,6 +205,19 @@ public static class Functions
         return matrixToReturn;
     }
     
+    public static void AddMatrix(this double[,] matrixA, double[,] matrixB)
+    {
+        int lenght = Convert.ToInt32(Math.Sqrt(matrixA.Length));
+
+        for (int i = 0; i < lenght; i++)
+        {
+            for (int j = 0; j < lenght; j++)
+            {
+                matrixA[i, j] += matrixB[i, j];
+            }
+        }
+    }
+    
     public static double[,] MatrixSummation(double[,] matrixA, double[,] matrixB, double[,] matrixC)
     {
         int lenght = Convert.ToInt32(Math.Sqrt(matrixA.Length));

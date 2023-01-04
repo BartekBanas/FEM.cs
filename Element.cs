@@ -127,18 +127,18 @@ public class Element
 
     public double[,] HbcMatrix()
     {
-        double[,] hBCmatrix = new double[4, 4];
+        double[,] hbcMatrix = new double[4, 4];
 
         if (Nodes[3].Bc && Nodes[0].Bc)
         {
-            hBCmatrix = Functions.MatrixSummation(hBCmatrix, new BCedge(Nodes[3], Nodes[0], 4).HBCmatrix());
+            hbcMatrix = Functions.MatrixSummation(hbcMatrix, new BCedge(Nodes[3], Nodes[0], 4).HBCmatrix());
         }
 
         for (int i = 0; i < Nodes.Length - 1; i++)
         {
             if (Nodes[i].Bc && Nodes[i + 1].Bc)
             {
-                hBCmatrix = Functions.MatrixSummation(hBCmatrix, new BCedge(Nodes[i], Nodes[i + 1], i + 1).HBCmatrix());
+                hbcMatrix = Functions.MatrixSummation(hbcMatrix, new BCedge(Nodes[i], Nodes[i + 1], i + 1).HBCmatrix());
             }
         }
         
@@ -146,7 +146,7 @@ public class Element
         // Console.WriteLine($"HBCMatrix nr {ID}");
         // Functions.PrintMatrix(hBCmatrix, 4);
 
-        return hBCmatrix;
+        return hbcMatrix;
     }
 
     public double[] PVector()
@@ -187,7 +187,7 @@ public class Element
                 temporary = temporary.MultiplyMatrix(DiscreteElement.Wages[i] * DiscreteElement.Wages[j] * 
                                                      determinant * Conditions.SpecificHeat * Conditions.Density);
                 
-                cMatrix = Functions.MatrixSummation(cMatrix, temporary);
+                cMatrix.AddMatrix(temporary);
             }
         }
 

@@ -54,8 +54,8 @@ public class Simulation
             double[,] cMatrix = element.CMatrix();
             double[] pVector = element.PVector();
             
-            // Console.WriteLine("C Matrix:");
-            // Functions.PrintMatrix(cMatrix);
+            Console.WriteLine($"C Matrix {element.ID}:");
+            cMatrix.PrintMatrix();
             
             for (int i = 0; i < 4; i++)
             {
