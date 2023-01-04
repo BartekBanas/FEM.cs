@@ -48,9 +48,9 @@ public class Simulation
         
         foreach (var element in _elements)
         {
-            //hmatrix = Functions.MatrixSummation(hmatrix, element.HBCmatrix());
+            //hmatrix = Functions.MatrixSummation(hmatrix, element.HBCMatrix());
             double[,] hmatrix = element.Hmatrix();
-            double[,] hbcMatrix = element.HBCmatrix();
+            double[,] hbcMatrix = element.HbcMatrix();
             double[,] cMatrix = element.CMatrix();
             double[] pVector = element.PVector();
             

@@ -145,7 +145,7 @@ internal static class Example
         // Console.WriteLine($"{Functions.FindFromIntegralPoint(45, 122, -0.577)}");
 
         // BCedge testEdge = new BCedge(new Node(0, 0.025, 0.025), new Node(0, 0, 0.025), 4);
-        // Functions.PrintMatrix(testEdge.HBCmatrix(), 4);
+        // Functions.PrintMatrix(testEdge.HBCMatrix(), 4);
 
         // Console.WriteLine($"\n\n");
         // for (int i = 1; i < everyElement.Count; i++)

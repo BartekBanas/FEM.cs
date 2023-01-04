@@ -69,8 +69,8 @@ public class Element
     private double[,] HmatrixPartial(int pointIndex)
     {
         double[,] jacobian = Jacobian(pointIndex);
-        double determinant = Functions.MatrixDeterminant(jacobian);
-        double[,] inversedJacobian = Functions.MatrixInversion(jacobian);
+        double determinant = jacobian.MatrixDeterminant();
+        double[,] inversedJacobian = jacobian.MatrixInversion();
 
         double[] dNdx = new double [Dimension * Dimension];
         double[] dNdy = new double [Dimension * Dimension];
@@ -125,7 +125,7 @@ public class Element
         return hmatrix;
     }
 
-    public double[,] HBCmatrix()
+    public double[,] HbcMatrix()
     {
         double[,] hBCmatrix = new double[4, 4];
 
@@ -143,7 +143,7 @@ public class Element
         }
         
         //  Printing for debugging
-        // Console.WriteLine($"HBCmatrix nr {ID}");
+        // Console.WriteLine($"HBCMatrix nr {ID}");
         // Functions.PrintMatrix(hBCmatrix, 4);
 
         return hBCmatrix;
