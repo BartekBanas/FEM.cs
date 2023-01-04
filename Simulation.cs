@@ -7,7 +7,7 @@ public class Simulation
     public double[,] System;
     public double[] GlobalPVector;
     private double[,] _globalHmatrix;
-    private double[,] _globalHBCMatrix;
+    private double[,] _globalHbcMatrix;
     private double[,] _globalCmatrix;
     private double[] _temperatureVector;
     
@@ -25,22 +25,25 @@ public class Simulation
         System = new double[_amountOfNodes, _amountOfNodes];
         _globalHmatrix = new double[_amountOfNodes, _amountOfNodes];
         _globalCmatrix = new double[_amountOfNodes, _amountOfNodes];
-        _globalHBCMatrix = new double[_amountOfNodes, _amountOfNodes];
+        _globalHbcMatrix = new double[_amountOfNodes, _amountOfNodes];
         GlobalPVector = new double [_amountOfNodes];
         _temperatureVector = new double[_amountOfNodes];
         foreach (var node in _nodes)
         {
             node.Temperature = Conditions.TemperatureInitial;
         }
-
-        //Aggregation();
-
-        //RunSimulation();
     }
 
 
     public void Aggregation()
     {
+        System = new double[_amountOfNodes, _amountOfNodes];
+        _globalHmatrix = new double[_amountOfNodes, _amountOfNodes];
+        _globalCmatrix = new double[_amountOfNodes, _amountOfNodes];
+        _globalHbcMatrix = new double[_amountOfNodes, _amountOfNodes];
+        GlobalPVector = new double [_amountOfNodes];
+        _temperatureVector = new double[_amountOfNodes];
+        
         for (int i = 0; i < _amountOfNodes; i++)
         {
             _temperatureVector[i] = _nodes[i].Temperature;
@@ -52,30 +55,22 @@ public class Simulation
             double[,] hbcMatrix = element.HbcMatrix();
             double[,] cMatrix = element.CMatrix();
             double[] pVector = element.PVector();
-            
-            // Console.WriteLine($"C Matrix {element.ID}:");
-            // cMatrix.PrintMatrix();
-            
+
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
-                { 
-                    //System[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += hmatrix[i, j] + cPerΔτ[i, j];
+                {
                     _globalHmatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += hmatrix[i, j];
                     _globalCmatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += cMatrix[i, j];
-                    _globalHBCMatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += hbcMatrix[i, j];
+                    _globalHbcMatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += hbcMatrix[i, j];
 
                 }   GlobalPVector[element.Nodes[i].ID - 1] += pVector[i];
             }
         }
-        
-        // Functions.PrintMatrix(_globalHmatrix);
-        // Console.WriteLine("C Matrix:");
-        // Functions.PrintMatrix(_globalCmatrix);
 
         double[,] cPerΔτ = _globalCmatrix.MultiplyMatrix(1 / Conditions.SimulationStepTime);
 
-        double[,] dashMatrix = Functions.MatrixSummation(_globalHmatrix, cPerΔτ, _globalHBCMatrix);
+        double[,] dashMatrix = Functions.MatrixSummation(_globalHmatrix, cPerΔτ, _globalHbcMatrix);
 
         GlobalPVector = Functions.VectorSummation
             (GlobalPVector, Functions.MultiplyMatrixByVector(cPerΔτ, _temperatureVector));
@@ -225,8 +220,8 @@ public class Simulation
         double[] sum = new double[_amountOfNodes];
         xi[_amountOfNodes - 1] = coefficients[_amountOfNodes - 1, _amountOfNodes] /
                                 coefficients[_amountOfNodes - 1, _amountOfNodes - 1];
-        Console.WriteLine("Solution of the system of equations:");
-
+        
+        
         for (int i = _amountOfNodes - 2; i >= 0; i--)
         {
             sum[i] = 0;
@@ -234,13 +229,8 @@ public class Simulation
             {
                 sum[i] += coefficients[i, k] * xi[k];
             }
-
+        
             xi[i] = (coefficients[i, _amountOfNodes] - sum[i]) / coefficients[i, i];
-        }
-
-        for (int i = 0; i < _amountOfNodes; i++)
-        {
-            Console.WriteLine($"x{i + 1} = {xi[i]}");
         }
 
         //	Elimination Gauss-Crout maybe someday
@@ -250,7 +240,7 @@ public class Simulation
 
     public void RunSimulation()
     {
-        for (int i = 0; i < Conditions.SimulationTime / Conditions.SimulationStepTime; i++)
+        for (int i = 0; i <= Conditions.SimulationTime / Conditions.SimulationStepTime; i++)
         {
             Aggregation();
 
@@ -261,7 +251,14 @@ public class Simulation
                 _nodes[j].Temperature = calculatedTemperature[j];
             }
             
+            // Console.WriteLine("Solution of the system of equations:");
+            // for (int j = 0; j < _amountOfNodes; j++)
+            // {
+            //     Console.WriteLine($"x{j + 1} = {calculatedTemperature[j]}");
+            // }
+
             Console.WriteLine($"Simulation; Iteration nr: {i + 1}");
+            PrintSystem();
             WriteResults(i);
         }
     }
