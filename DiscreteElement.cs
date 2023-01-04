@@ -177,10 +177,10 @@ public static class DiscreteElement
             {
                 double[] vector =
                 {
-                    Functions.N1(_ksis[i], _etas[j]),
-                    Functions.N2(_ksis[i], _etas[j]),
-                    Functions.N3(_ksis[i], _etas[j]),
-                    Functions.N4(_ksis[i], _etas[j])
+                    Functions.N1(Points[i], Points[j]),
+                    Functions.N2(Points[i], Points[j]),
+                    Functions.N3(Points[i], Points[j]),
+                    Functions.N4(Points[i], Points[j])
                 };
 
                 ShapeFunctionMatrix[i, j] = Functions.VectorsMultiplication(vector, vector);

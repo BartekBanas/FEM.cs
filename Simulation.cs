@@ -48,14 +48,13 @@ public class Simulation
         
         foreach (var element in _elements)
         {
-            //hmatrix = Functions.MatrixSummation(hmatrix, element.HBCMatrix());
             double[,] hmatrix = element.Hmatrix();
             double[,] hbcMatrix = element.HbcMatrix();
             double[,] cMatrix = element.CMatrix();
             double[] pVector = element.PVector();
             
-            Console.WriteLine($"C Matrix {element.ID}:");
-            cMatrix.PrintMatrix();
+            // Console.WriteLine($"C Matrix {element.ID}:");
+            // cMatrix.PrintMatrix();
             
             for (int i = 0; i < 4; i++)
             {
@@ -86,6 +85,7 @@ public class Simulation
             for (int j = 0; j < _amountOfNodes; j++)
             {
                 System[i, j] += dashMatrix[i, j];
+                //System[i, j] += _globalCmatrix[i, j];
             }
         }
     }
@@ -99,13 +99,17 @@ public class Simulation
             {
                 Console.Write(System[i, j] < 0 ? "-" : " ");
 
-                Console.Write(Math.Abs(System[i, j]).ToString("F2", CultureInfo.InvariantCulture));
+                Console.Write(Math.Abs(System[i, j]).ToString("F1", CultureInfo.InvariantCulture));
                 Console.Write("\t");
             }
 
             Console.Write("*  ");
             Console.Write(GlobalPVector[i] < 0 ? "-" : " ");
             Console.Write(Math.Abs(GlobalPVector[i]).ToString("F2", CultureInfo.InvariantCulture));
+            
+            Console.Write(",\tt = ");
+            Console.Write(Math.Abs(_temperatureVector[i]).ToString("F2", CultureInfo.InvariantCulture));
+            
             Console.WriteLine();
         }
 
@@ -257,8 +261,8 @@ public class Simulation
                 _nodes[j].Temperature = calculatedTemperature[j];
             }
             
-            WriteResults(i);
             Console.WriteLine($"Simulation; Iteration nr: {i + 1}");
+            WriteResults(i);
         }
     }
 

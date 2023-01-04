@@ -78,7 +78,7 @@ internal static class Example
         
 
         Simulation simulation = new Simulation(everyElement, everyNode);
-        simulation.Aggregation();
+        simulation.RunSimulation();
         simulation.PrintSystem();
 
         //Console.WriteLine($"\n" + $"{Functions.N3dη(0.2, 0.6)}");      //Calculate derivative
