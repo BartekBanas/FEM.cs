@@ -7,6 +7,7 @@ public class Simulation
     public double[,] System;
     public double[] GlobalPVector;
     private double[,] _globalHmatrix;
+    private double[,] _globalHBCMatrix;
     private double[,] _globalCmatrix;
     private double[] _temperatureVector;
     
@@ -24,6 +25,7 @@ public class Simulation
         System = new double[_amountOfNodes, _amountOfNodes];
         _globalHmatrix = new double[_amountOfNodes, _amountOfNodes];
         _globalCmatrix = new double[_amountOfNodes, _amountOfNodes];
+        _globalHBCMatrix = new double[_amountOfNodes, _amountOfNodes];
         GlobalPVector = new double [_amountOfNodes];
         _temperatureVector = new double[_amountOfNodes];
         foreach (var node in _nodes)
@@ -48,8 +50,9 @@ public class Simulation
         {
             //hmatrix = Functions.MatrixSummation(hmatrix, element.HBCmatrix());
             double[,] hmatrix = element.Hmatrix();
-            double[,] cMatrix = element.Cmatrix();
-            double[] pVector = element.Pvector();
+            double[,] hbcMatrix = element.HBCmatrix();
+            double[,] cMatrix = element.CMatrix();
+            double[] pVector = element.PVector();
             
             // Console.WriteLine("C Matrix:");
             // Functions.PrintMatrix(cMatrix);
@@ -57,10 +60,12 @@ public class Simulation
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
-                {
+                { 
                     //System[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += hmatrix[i, j] + cPerΔτ[i, j];
                     _globalHmatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += hmatrix[i, j];
-                    //_globalCmatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += cMatrix[i, j];
+                    _globalCmatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += cMatrix[i, j];
+                    _globalHBCMatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += hbcMatrix[i, j];
+
                 }   GlobalPVector[element.Nodes[i].ID - 1] += pVector[i];
             }
         }
@@ -69,9 +74,9 @@ public class Simulation
         // Console.WriteLine("C Matrix:");
         // Functions.PrintMatrix(_globalCmatrix);
 
-        double[,] cPerΔτ = Functions.MultiplyMatrix(_globalCmatrix, 1 / Conditions.SimulationStepTime);
+        double[,] cPerΔτ = _globalCmatrix.MultiplyMatrix(1 / Conditions.SimulationStepTime);
 
-        double[,] dashMatrix = Functions.MatrixSummation(_globalHmatrix, cPerΔτ);
+        double[,] dashMatrix = Functions.MatrixSummation(_globalHmatrix, cPerΔτ, _globalHBCMatrix);
 
         GlobalPVector = Functions.VectorSummation
             (GlobalPVector, Functions.MultiplyMatrixByVector(cPerΔτ, _temperatureVector));
@@ -80,7 +85,7 @@ public class Simulation
         {
             for (int j = 0; j < _amountOfNodes; j++)
             {
-                System[i, j] = dashMatrix[i, j];
+                System[i, j] += dashMatrix[i, j];
             }
         }
     }

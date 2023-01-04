@@ -149,7 +149,7 @@ public class Element
         return hBCmatrix;
     }
 
-    public double[] Pvector()
+    public double[] PVector()
     {
         double[] pVector = new double[4];
 
@@ -169,7 +169,7 @@ public class Element
         return pVector;
     }
 
-    public double[,] Cmatrix()
+    public double[,] CMatrix()
     {
         int pointIndex = 0;
 
