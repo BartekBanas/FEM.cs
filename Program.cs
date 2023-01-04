@@ -65,10 +65,10 @@ internal static class Example
         PrintElementArray(everyElement);
         
 
-        DiscreteElement.Update(4);
+        DiscreteElement.Update(2);
         DiscreteElement.PrintKsiDerivativeTable();
         DiscreteElement.PrintEtaDerivativeTable();
-        Console.WriteLine($"\n\nIntegral points:");
+        Console.WriteLine($"\nIntegral points:");
         for (int i = 0; i < DiscreteElement.Points.Length; i++)
         {
             Console.Write($"{DiscreteElement.Points[i]}\t");
@@ -78,6 +78,7 @@ internal static class Example
         
 
         Simulation simulation = new Simulation(everyElement, everyNode);
+        simulation.Aggregation();
         simulation.PrintSystem();
 
         //Console.WriteLine($"\n" + $"{Functions.N3dη(0.2, 0.6)}");      //Calculate derivative

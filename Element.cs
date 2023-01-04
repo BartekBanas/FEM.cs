@@ -181,7 +181,7 @@ public class Element
             for (int j = 0; j < DiscreteElement.IntegralPoints; j++, pointIndex++)
             {
                 double[,] jacobian = Jacobian(pointIndex);
-                double determinant = Functions.MatrixDeterminant(jacobian);
+                double determinant = jacobian.MatrixDeterminant();
                 
                 temporary = DiscreteElement.ShapeFunctionMatrix[i, j].CopyMatrix();
                 temporary = temporary.MultiplyMatrix(DiscreteElement.Wages[i] * DiscreteElement.Wages[j] * 

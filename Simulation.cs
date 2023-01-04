@@ -31,13 +31,13 @@ public class Simulation
             node.Temperature = Conditions.TemperatureInitial;
         }
 
-        Aggregation();
+        //Aggregation();
 
         //RunSimulation();
     }
 
 
-    private void Aggregation()
+    public void Aggregation()
     {
         for (int i = 0; i < _amountOfNodes; i++)
         {
@@ -60,7 +60,7 @@ public class Simulation
                 {
                     //System[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += hmatrix[i, j] + cPerΔτ[i, j];
                     _globalHmatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += hmatrix[i, j];
-                    _globalCmatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += cMatrix[i, j];
+                    //_globalCmatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += cMatrix[i, j];
                 }   GlobalPVector[element.Nodes[i].ID - 1] += pVector[i];
             }
         }
@@ -239,7 +239,7 @@ public class Simulation
         return xi;
     }
 
-    private void RunSimulation()
+    public void RunSimulation()
     {
         for (int i = 0; i < Conditions.SimulationTime / Conditions.SimulationStepTime; i++)
         {
