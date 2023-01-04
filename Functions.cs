@@ -332,6 +332,29 @@ public static class Functions
         matrix = matrixToReturn;
     }
 
+    public static void Clear(this double[,] matrix)
+    {
+        int lenght = Convert.ToInt32(Math.Sqrt(matrix.Length));
+
+        for (int i = 0; i < lenght; i++)
+        {
+            for (int j = 0; j < lenght; j++)
+            {
+                matrix[i, j] = 0;
+            }
+        }
+    }
+    
+    public static void Clear(this double[] vector)
+    {
+        int lenght = vector.Length;
+
+        for (int i = 0; i < lenght; i++)
+        {
+            vector[i] = 0;
+        }
+    }
+
     public static double[] MultiplyMatrixByVector(double[,] matrix, double[] vector)
     {
         int length = vector.Length;

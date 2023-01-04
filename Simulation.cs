@@ -21,7 +21,13 @@ public class Simulation
         _nodes = nodes;
 
         _amountOfNodes = elements[^1].Nodes[2].ID;
-        
+
+        System = new double[_amountOfNodes, _amountOfNodes];
+        _globalHmatrix = new double[_amountOfNodes, _amountOfNodes];
+        _globalCmatrix = new double[_amountOfNodes, _amountOfNodes];
+        _globalHbcMatrix = new double[_amountOfNodes, _amountOfNodes];
+        GlobalPVector = new double [_amountOfNodes];
+        _temperatureVector = new double[_amountOfNodes];
         foreach (var node in _nodes)
         {
             node.Temperature = Conditions.TemperatureInitial;
@@ -31,12 +37,7 @@ public class Simulation
 
     public void Aggregation()
     {
-        System = new double[_amountOfNodes, _amountOfNodes];
-        _globalHmatrix = new double[_amountOfNodes, _amountOfNodes];
-        _globalCmatrix = new double[_amountOfNodes, _amountOfNodes];
-        _globalHbcMatrix = new double[_amountOfNodes, _amountOfNodes];
-        GlobalPVector = new double [_amountOfNodes];
-        _temperatureVector = new double[_amountOfNodes];
+        ClearGlobalStructures();
         
         for (int i = 0; i < _amountOfNodes; i++)
         {
@@ -287,5 +288,15 @@ public class Simulation
         
         
         File.WriteAllLines($"../../../results/Data_{iteration}.txt", lines);
+    }
+
+    private void ClearGlobalStructures()
+    {
+        System.Clear();
+        _globalHmatrix.Clear();
+        _globalCmatrix.Clear();
+        _globalHbcMatrix.Clear();
+        GlobalPVector.Clear();
+        _temperatureVector.Clear();
     }
 }
