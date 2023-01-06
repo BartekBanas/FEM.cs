@@ -264,6 +264,13 @@ public class Simulation
         string[] lines = new string[_nodes.Count + _elements.Count + 20];
 
 
+        lines[index] = "# vtk DataFile Version 2.0";
+        index++;
+        lines[index] = "Unstructured Grid Example";
+        index++;
+        
+        
+        
         lines[index] = "*NODE";
         index++;
         

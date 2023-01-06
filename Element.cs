@@ -131,14 +131,14 @@ public class Element
 
         if (Nodes[3].Bc && Nodes[0].Bc)
         {
-            hbcMatrix = Functions.MatrixSummation(hbcMatrix, new BCedge(Nodes[3], Nodes[0], 4).HBCmatrix());
+            hbcMatrix = Functions.MatrixSummation(hbcMatrix, new BcEdge(Nodes[3], Nodes[0], 4).HbcMatrix());
         }
 
         for (int i = 0; i < Nodes.Length - 1; i++)
         {
             if (Nodes[i].Bc && Nodes[i + 1].Bc)
             {
-                hbcMatrix = Functions.MatrixSummation(hbcMatrix, new BCedge(Nodes[i], Nodes[i + 1], i + 1).HBCmatrix());
+                hbcMatrix = Functions.MatrixSummation(hbcMatrix, new BcEdge(Nodes[i], Nodes[i + 1], i + 1).HbcMatrix());
             }
         }
         
@@ -155,14 +155,14 @@ public class Element
 
         if (Nodes[3].Bc && Nodes[0].Bc)
         {
-            pVector = Functions.VectorSummation(pVector, new BCedge(Nodes[3], Nodes[0], 4).PVector());
+            pVector = Functions.VectorSummation(pVector, new BcEdge(Nodes[3], Nodes[0], 4).PVector());
         }
         
         for (int i = 0; i < Nodes.Length - 1; i++)
         {
             if (Nodes[i].Bc && Nodes[i + 1].Bc)
             {
-                pVector = Functions.VectorSummation(pVector, new BCedge(Nodes[i], Nodes[i + 1], i + 1).PVector());
+                pVector = Functions.VectorSummation(pVector, new BcEdge(Nodes[i], Nodes[i + 1], i + 1).PVector());
             }
         }
 

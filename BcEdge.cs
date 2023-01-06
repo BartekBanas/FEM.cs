@@ -1,13 +1,13 @@
 ﻿namespace MES_Csharp;
 
-public class BCedge
+public class BcEdge
 {
     private readonly int _side;
 
     private readonly double _jacobianDeterminant;
     private readonly double[,] _integrationPoints = new double[DiscreteElement.IntegralPoints, 2];
 
-    public BCedge(Node node1, Node node2, int side)
+    public BcEdge(Node node1, Node node2, int side)
     {
         this._side = side;
         
@@ -74,7 +74,7 @@ public class BCedge
         return matrix;
     }
 
-    public double[,] HBCmatrix()
+    public double[,] HbcMatrix()
     {
         double[,] hbcMatrix = new double[4,4];
         
