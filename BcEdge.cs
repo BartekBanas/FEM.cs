@@ -84,13 +84,7 @@ public class BcEdge
                 PartialHbcMatrix(_integrationPoints[i, 0], _integrationPoints[i, 1], i));
         }
         
-        for (int i = 0; i < 4; i++)
-        {
-            for (int j = 0; j < 4; j++)
-            {
-                hbcMatrix[i, j] *= Conditions.α * _jacobianDeterminant;
-            }
-        }
+        hbcMatrix = hbcMatrix.MultiplyMatrix(Conditions.α * _jacobianDeterminant);
 
         return hbcMatrix;
     }
