@@ -17,7 +17,7 @@ public static class DiscreteElement
     private static double[] _ksis = new double[] { };
 
 
-    public static void Update(int size)
+    public static void Initiate(int size)
     {
         IntegralPoints = size;
         FillCoordinates();

@@ -65,7 +65,7 @@ internal static class Example
         PrintElementArray(everyElement);
         
 
-        DiscreteElement.Update(2);
+        DiscreteElement.Initiate(2);
         DiscreteElement.PrintKsiDerivativeTable();
         DiscreteElement.PrintEtaDerivativeTable();
         Console.WriteLine($"\nIntegral points:");
