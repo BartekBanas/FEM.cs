@@ -65,16 +65,17 @@ internal static class Example
         PrintElementArray(everyElement);
         
 
-        DiscreteElement.Initiate(2);
-        DiscreteElement.PrintKsiDerivativeTable();
-        DiscreteElement.PrintEtaDerivativeTable();
-        Console.WriteLine($"\nIntegral points:");
-        for (int i = 0; i < DiscreteElement.Points.Length; i++)
-        {
-            Console.Write($"{DiscreteElement.Points[i]}\t");
-        }   Console.WriteLine("\n\n");
+        DiscreteElement.Initiate(4);
         
-        DiscreteElement.PrintShapeFunctionMatrix();
+        // DiscreteElement.PrintKsiDerivativeTable();
+        // DiscreteElement.PrintEtaDerivativeTable();
+        // Console.WriteLine($"\nIntegral points:");
+        // for (int i = 0; i < DiscreteElement.Points.Length; i++)
+        // {
+        //     Console.Write($"{DiscreteElement.Points[i]}\t");
+        // }   Console.WriteLine("\n\n");
+        //
+        // DiscreteElement.PrintShapeFunctionMatrix();
         
 
         Simulation simulation = new Simulation(everyElement, everyNode);

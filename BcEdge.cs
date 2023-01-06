@@ -58,7 +58,7 @@ public class BcEdge
         }
     }
     
-    private double[,] PartialMatrix(double ξ, double η, int index)
+    private double[,] PartialHbcMatrix(double ξ, double η, int index)
     {
         double[] row = { Functions.N1(ξ, η), Functions.N2(ξ, η), Functions.N3(ξ, η), Functions.N4(ξ, η) };
 
@@ -81,7 +81,7 @@ public class BcEdge
         for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
         {
             hbcMatrix = Functions.MatrixSummation(hbcMatrix,
-                PartialMatrix(_integrationPoints[i, 0], _integrationPoints[i, 1], i));
+                PartialHbcMatrix(_integrationPoints[i, 0], _integrationPoints[i, 1], i));
         }
         
         for (int i = 0; i < 4; i++)
