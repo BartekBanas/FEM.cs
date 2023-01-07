@@ -142,9 +142,9 @@ public class Element
             }
         }
         
-        //  Printing for debugging
+         // Printing for debugging
         // Console.WriteLine($"HBCMatrix nr {ID}");
-        // Functions.PrintMatrix(hBCmatrix, 4);
+        // hbcMatrix.PrintMatrix(4);
 
         return hbcMatrix;
     }
