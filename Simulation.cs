@@ -233,7 +233,8 @@ public class Simulation
 
     public void RunSimulation()
     {
-        for (int i = 0; i < Conditions.SimulationTime / Conditions.SimulationStepTime; i++)
+        int i;
+        for (i = 0; i < Conditions.SimulationTime / Conditions.SimulationStepTime; i++)
         {
             Aggregation();
 
@@ -250,6 +251,7 @@ public class Simulation
         }
         
         Aggregation();
+        WriteResults(i);
         
         Console.WriteLine("Result of the simulation:");
         for (int j = 0; j < _amountOfNodes; j++)
