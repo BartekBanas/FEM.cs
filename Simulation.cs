@@ -319,8 +319,8 @@ public class Simulation
             //lines[index] = _nodes[i].Temperature.ToString(CultureInfo.CurrentCulture);
             lines[index] = _temperatureVector[i].ToString(CultureInfo.InvariantCulture);
         }
-        
-        File.WriteAllLines($"../../../results/Data_{iteration}.vtk", lines);
+
+        File.WriteAllLines($"../../../results/Data_" + iteration.ToString("D3") + ".vtk", lines);
     }
 
     private void ClearGlobalStructures()
