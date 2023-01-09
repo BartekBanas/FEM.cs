@@ -295,11 +295,16 @@ public class Simulation
         }
         
         index++;
+        lines[index] = $"CELL_TYPES {_elements.Count}";
+        index++;
 
         for (int i = 0; i < _elements.Count; i++, index++)
         {
             lines[index] = _elements.Count.ToString();
         }
+
+        index++;
+        lines[index] = $"POINT_DATA {_nodes.Count}";
         
         
         File.WriteAllLines($"../../../results/Data_{iteration}.vtk", lines);
