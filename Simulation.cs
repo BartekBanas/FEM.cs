@@ -268,10 +268,13 @@ public class Simulation
         index++;
         lines[index] = "Unstructured Grid Example";
         index++;
+        lines[index] = "ASCII";
+        index++;
+        lines[index] = "DATASET UNSTRUCTURED_GRID";
+        index++;
+        index++;
         
-        
-        
-        lines[index] = "*NODE";
+        lines[index] = $"POINTS {_nodes.Count} float";
         index++;
         
         for (int i = 0; i < _nodes.Count; i++)
@@ -282,17 +285,24 @@ public class Simulation
         index += _nodes.Count;
         index++;
         
-        lines[index] = "*ELEMENT, TYPE=T2D2, ELSET=FRAME";
+        lines[index] = $"CELLS {_elements.Count} {_elements.Count * 5}";
         index++;
 
-        for (int i = 0; i < _elements.Count; i++)
+        for (int i = 0; i < _elements.Count; i++, index++)
         {
-            lines[index + i] = _elements[i].ID + ", " + _elements[i].Nodes[0].ID + ", " + _elements[i].Nodes[1].ID +
+            lines[index] = _elements[i].ID + ", " + _elements[i].Nodes[0].ID + ", " + _elements[i].Nodes[1].ID +
                                ", " + _elements[i].Nodes[2].ID + ", " + _elements[i].Nodes[3].ID;
         }
         
+        index++;
+
+        for (int i = 0; i < _elements.Count; i++, index++)
+        {
+            lines[index] = _elements.Count.ToString();
+        }
         
-        File.WriteAllLines($"../../../results/Data_{iteration}.txt", lines);
+        
+        File.WriteAllLines($"../../../results/Data_{iteration}.vtk", lines);
     }
 
     private void ClearGlobalStructures()
