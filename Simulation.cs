@@ -261,7 +261,7 @@ public class Simulation
     private void WriteResults(int iteration)
     {
         int index = 0;
-        string[] lines = new string[_nodes.Count + _elements.Count + 20];
+        string[] lines = new string[_nodes.Count * 2 + _elements.Count * 2 + 15];
 
 
         lines[index] = "# vtk DataFile Version 2.0";
@@ -279,7 +279,7 @@ public class Simulation
         
         for (int i = 0; i < _nodes.Count; i++)
         {
-            lines[index + i] = _nodes[i].ID + ", " + _nodes[i].X + ", " + _nodes[i].Y + ", " + 0;
+            lines[index + i] = _nodes[i].X + " " + _nodes[i].Y + " " + 0;
         }
 
         index += _nodes.Count;
@@ -290,8 +290,9 @@ public class Simulation
 
         for (int i = 0; i < _elements.Count; i++, index++)
         {
-            lines[index] = _elements[i].ID + ", " + _elements[i].Nodes[0].ID + ", " + _elements[i].Nodes[1].ID +
-                               ", " + _elements[i].Nodes[2].ID + ", " + _elements[i].Nodes[3].ID;
+            lines[index] = _elements[i].Nodes.Length + " " + (_elements[i].Nodes[0].ID - 1) + " " +
+                           (_elements[i].Nodes[1].ID - 1) + " " + (_elements[i].Nodes[2].ID - 1) + " " + 
+                           (_elements[i].Nodes[3].ID - 1);
         }
         
         index++;
@@ -305,7 +306,17 @@ public class Simulation
 
         index++;
         lines[index] = $"POINT_DATA {_nodes.Count}";
+        index++;
+        lines[index] = "SCALARS Temp float 1";
+        index++;
+        lines[index] = "LOOKUP_TABLE default";
+        index++;
         
+        for (int i = 0; i < _nodes.Count; i++, index++)
+        {
+            //lines[index] = _nodes[i].Temperature.ToString(CultureInfo.CurrentCulture);
+            lines[index] = _temperatureVector[i].ToString(CultureInfo.InvariantCulture);
+        }
         
         File.WriteAllLines($"../../../results/Data_{iteration}.vtk", lines);
     }
