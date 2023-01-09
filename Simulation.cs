@@ -246,7 +246,7 @@ public class Simulation
             }
 
             Console.WriteLine($"Simulation; Iteration nr: {i + 1}");
-            PrintSystem();
+            //PrintSystem();
             WriteResults(i);
         }
         
@@ -303,7 +303,7 @@ public class Simulation
 
         for (int i = 0; i < _elements.Count; i++, index++)
         {
-            lines[index] = _elements.Count.ToString();
+            lines[index] = "9";
         }
 
         index++;
