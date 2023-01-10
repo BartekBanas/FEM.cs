@@ -177,8 +177,6 @@ public class Simulation
             multiplier[i, 1] = coefficients[i, 1] / coefficients[1, 1];
         }
 
-        Console.WriteLine();
-
         for (int k = 0; k < _amountOfNodes - 1; k++)
         {
             for (int i = k + 1; i < _amountOfNodes; i++) //Operations
@@ -245,9 +243,13 @@ public class Simulation
                 _nodes[j].Temperature = calculatedTemperature[j];
             }
 
-            Console.WriteLine($"Simulation; Iteration nr: {i + 1}");
+            //Console.WriteLine($"Simulation; Iteration nr: {i + 1}");
+
+            Console.Write(
+                $"Time = {(i+1) * Conditions.SimulationStepTime} min_T = {calculatedTemperature.Min()}, max_T = {calculatedTemperature.Max()}");
+            
             //PrintSystem();
-            WriteResults(i);
+            //WriteResults(i);
         }
         
         Aggregation();
