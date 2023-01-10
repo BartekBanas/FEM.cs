@@ -231,6 +231,8 @@ public class Simulation
 
     public void RunSimulation()
     {
+        Console.WriteLine("Time[s]\tMinTemp\tMaxTemp");
+        
         int i;
         for (i = 0; i < Conditions.SimulationTime / Conditions.SimulationStepTime; i++)
         {
@@ -244,22 +246,26 @@ public class Simulation
             }
 
             //Console.WriteLine($"Simulation; Iteration nr: {i + 1}");
-
-            Console.Write(
-                $"Time = {(i+1) * Conditions.SimulationStepTime} min_T = {calculatedTemperature.Min()}, max_T = {calculatedTemperature.Max()}");
+            // Console.WriteLine(
+            //     $"Time = {(i+1) * Conditions.SimulationStepTime} min_T = {calculatedTemperature.Min()},\tmax_T = {calculatedTemperature.Max()}");
             
+            Console.WriteLine(
+                ((i+1) * Conditions.SimulationStepTime).ToString(CultureInfo.InvariantCulture) + "\t" +
+                calculatedTemperature.Min().ToString("F2", CultureInfo.InvariantCulture) + "\t" +
+                calculatedTemperature.Max().ToString("F2", CultureInfo.InvariantCulture));
+
             //PrintSystem();
-            //WriteResults(i);
+            WriteResults(i);
         }
         
         Aggregation();
         WriteResults(i);
         
-        Console.WriteLine("Result of the simulation:");
-        for (int j = 0; j < _amountOfNodes; j++)
-        {
-            Console.WriteLine($"t{j + 1} = {_temperatureVector[j]}");
-        }
+        // Console.WriteLine("\nResult of the simulation:");
+        // for (int j = 0; j < _amountOfNodes; j++)
+        // {
+        //     Console.WriteLine($"t{j + 1} = {_temperatureVector[j]}");
+        // }
     }
 
     private void WriteResults(int iteration)

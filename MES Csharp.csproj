@@ -12,4 +12,8 @@
       <Folder Include="Results" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="data\Extension.cs" />
+    </ItemGroup>
+
 </Project>
