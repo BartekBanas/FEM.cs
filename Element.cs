@@ -170,7 +170,7 @@ public class Element
         int pointIndex = 0;
 
         double[,] cMatrix = new double[4 ,4];
-        double[,] temporary = new double[4 ,4];
+        double[,] partialMatrix = new double[4 ,4];
 
         for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
         {
@@ -179,11 +179,11 @@ public class Element
                 double[,] jacobian = Jacobian(pointIndex);
                 double determinant = jacobian.MatrixDeterminant();
                 
-                temporary.CopyMatrix(DiscreteElement.ShapeFunctionMatrix[i, j]);
-                temporary = temporary.MultiplyMatrix(DiscreteElement.Wages[i] * DiscreteElement.Wages[j] * 
+                partialMatrix.CopyMatrix(DiscreteElement.ShapeFunctionMatrix[i, j]);
+                partialMatrix = partialMatrix.MultiplyMatrix(DiscreteElement.Wages[i] * DiscreteElement.Wages[j] * 
                                                      determinant * Conditions.SpecificHeat * Conditions.Density);
                 
-                cMatrix.AddMatrix(temporary);
+                cMatrix.AddMatrix(partialMatrix);
             }
         }
 

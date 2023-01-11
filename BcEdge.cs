@@ -63,6 +63,7 @@ public class BcEdge
         double[] row = { Functions.N1(ξ, η), Functions.N2(ξ, η), Functions.N3(ξ, η), Functions.N4(ξ, η) };
 
         double[,] matrix = Functions.VectorsMultiplication(row, row);
+        
         matrix = matrix.MultiplyMatrix(DiscreteElement.Wages[index]);
 
         return matrix;
