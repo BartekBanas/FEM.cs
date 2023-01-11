@@ -141,10 +141,6 @@ public class Element
                 hbcMatrix = Functions.MatrixSummation(hbcMatrix, new BcEdge(Nodes[i], Nodes[i + 1], i + 1).HbcMatrix());
             }
         }
-        
-         // Printing for debugging
-        // Console.WriteLine($"HBCMatrix nr {ID}");
-        // hbcMatrix.PrintMatrix(4);
 
         return hbcMatrix;
     }
