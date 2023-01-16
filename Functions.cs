@@ -354,6 +354,14 @@ public static class Functions
         }
     }
 
+    public static void Print(this double[] vector)
+    {
+        for (int i = 0; i < vector.Length; i++)
+        {
+            Console.WriteLine($"{vector[i]}");
+        }
+    }
+    
     public static double[] MultiplyMatrixByVector(double[,] matrix, double[] vector)
     {
         int length = vector.Length;
