@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using Math = System.Math;
 
-namespace MES_Csharp;
+namespace FEM_cs;
 
 public static class Functions
 {

@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MES Csharp", "MES Csharp.csproj", "{2E1B831A-9930-42F6-9786-5F1E17F63C52}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FEM cs", "FEM cs.csproj", "{2E1B831A-9930-42F6-9786-5F1E17F63C52}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
