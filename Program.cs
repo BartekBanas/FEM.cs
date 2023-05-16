@@ -4,7 +4,7 @@ namespace FEM_cs;
 
 internal static class Example
 {
-    static void Main()
+    private static void Main()
     {
         CultureInfo.CurrentCulture = new CultureInfo("en-US");
         
@@ -28,9 +28,9 @@ internal static class Example
             readElements[i] = lines[i + 12 + Conditions.NodesNumber].Trim().Split(',');
 
         
-        List<int> everyBC = new List<int>();                //Getting a proper bunch of words that'll become BCs
+        List<int> everyBc = new List<int>();                //Getting a proper bunch of words that'll become BCs
         foreach (var word in lines[13 + Conditions.NodesNumber + Conditions.ElementsNumber].Trim().Split(','))
-            everyBC.Add(Convert.ToInt16(word.Trim()));
+            everyBc.Add(Convert.ToInt16(word.Trim()));
 
 
         List<Node> everyNode = new List<Node> {};
@@ -56,7 +56,7 @@ internal static class Example
             everyElement[i].AddNode(everyNode[Convert.ToInt16(readElements[i][4].Trim()) - 1]);
         }
 
-        foreach (var id in everyBC) //Setting BC for eligible nodes
+        foreach (var id in everyBc) //Setting BC for eligible nodes
         {
             everyNode[id - 1].Bc = true;
         }
@@ -81,8 +81,8 @@ internal static class Example
         Simulation simulation = new Simulation(everyElement, everyNode);
         simulation.RunSimulation();
     }
-    
-    static void PrintNodeArray(List<Node> array)
+
+    private static void PrintNodeArray(IReadOnlyList<Node> array)
     {
         for (int i = 0; i < Conditions.NodesNumber; i++)
         {
@@ -90,7 +90,7 @@ internal static class Example
         }   Console.WriteLine();
     }
 
-    static void PrintElementArray(List<Element> array)
+    private static void PrintElementArray(IReadOnlyList<Element> array)
     {
         for (int i = 0; i < Conditions.ElementsNumber; i++)
         {
