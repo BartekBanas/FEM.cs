@@ -199,8 +199,6 @@ public static class DiscreteElement
                 {
                     for (int k = 0; k < 4; k++)
                     {
-                        //ShapeFunctionMatrix[i, o][j, k] *= Conditions.SpecificHeat * Conditions.Density;
-
                         Console.Write(ShapeFunctionMatrix[i, j][l, k].ToString("F4", CultureInfo.InvariantCulture));
                         Console.Write("\t");
                     }

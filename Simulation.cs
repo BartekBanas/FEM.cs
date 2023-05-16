@@ -260,12 +260,6 @@ public class Simulation
         
         Aggregation();
         WriteResults(i);
-        
-        // Console.WriteLine("\nResult of the simulation:");
-        // for (int j = 0; j < _amountOfNodes; j++)
-        // {
-        //     Console.WriteLine($"t{j + 1} = {_temperatureVector[j]}");
-        // }
     }
 
     private void WriteResults(int iteration)
@@ -324,7 +318,6 @@ public class Simulation
         
         for (int i = 0; i < _nodes.Count; i++, index++)
         {
-            //lines[index] = _nodes[i].Temperature.ToString(CultureInfo.CurrentCulture);
             lines[index] = _temperatureVector[i].ToString(CultureInfo.InvariantCulture);
         }
 
