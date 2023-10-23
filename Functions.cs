@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using Math = System.Math;
 
 namespace FEM_cs;
 
@@ -9,17 +8,17 @@ public static class Functions
     
     public static double function11(double x)
     {
-        return 2 * (Math.Pow(x, 2)) + 3 * x - 8;
+        return 2 * Math.Pow(x, 2) + 3 * x - 8;
     }
     
     public static double function21(double x, double y)
     {
-        return (-2 * Math.Pow(x, 2) * y) + 2 * x * y + 4;
+        return -2 * Math.Pow(x, 2) * y + 2 * x * y + 4;
     }
     
     static double Integrate1d2(Func<double, double> function)
     {
-        double[] nodes = new double[] { 0, -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
+        double[] nodes = { 0, -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
         
         double result = 0;
         for (int i = 1; i < 3; i++)
@@ -45,8 +44,8 @@ public static class Functions
 
     static double Integrate2d2(Func<double, double, double> function)
     {
-        double[] nodes = new double[] { 0, -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
-        double[] coefficients = new double[] { 0, 1, 1 };
+        double[] nodes = { 0, -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
+        double[] coefficients = { 0, 1, 1 };
         double result = 0;
 
         for (int i = 1; i <= 2; i++)
@@ -62,8 +61,8 @@ public static class Functions
 
     static double Integrate2d3(Func<double, double, double> function)
     {
-        double[] nodes = new double[] { 0, -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0) };
-        double[] coefficients = new double[] { 0, 5.0 / 9.0, 8.0 / 9.0, 5.0 / 9.0 };
+        double[] nodes = { 0, -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0) };
+        double[] coefficients = { 0, 5.0 / 9.0, 8.0 / 9.0, 5.0 / 9.0 };
         double result = 0;
 
         for (int i = 1; i <= 3; i++)
@@ -135,8 +134,8 @@ public static class Functions
 
     public static double FindFromIntegralPoint(double value1, double value2, double ksi)
     {
-        double wage1 = Math.Abs(ksi - 1) / 2;
-        double wage2 = Math.Abs(ksi + 1) / 2;
+        var wage1 = Math.Abs(ksi - 1) / 2;
+        var wage2 = Math.Abs(ksi + 1) / 2;
         
         return value1 * wage1 + value2 * wage2;
     }
@@ -145,9 +144,9 @@ public static class Functions
 
     public static double[,] MatrixInversion(this double[,] matrix)
     {
-        double inverseDeterminant = 1 / MatrixDeterminant(matrix);
+        var inverseDeterminant = 1 / MatrixDeterminant(matrix);
 
-        return new double[,]
+        return new[,]
         {
             { matrix[1, 1] * inverseDeterminant, -matrix[0, 1] * inverseDeterminant },
             { -matrix[1, 0] * inverseDeterminant, matrix[0, 0] * inverseDeterminant }
@@ -161,7 +160,7 @@ public static class Functions
 
     public static double[,] VectorsMultiplication(double[] column, double[] row)
     {
-        double[,] matrixToReturn = new double[column.Length, column.Length];
+        var matrixToReturn = new double[column.Length, column.Length];
 
         for (int i = 0; i < column.Length; i++)
         {
@@ -176,7 +175,7 @@ public static class Functions
 
     public static double[,] MatrixSummation(double[,] matrixA, double[,] matrixB, int size)
     {
-        double[,] matrixToReturn = new double[size, size];
+        var matrixToReturn = new double[size, size];
     
         for (int i = 0; i < size; i++)
         {
@@ -191,8 +190,8 @@ public static class Functions
     
     public static double[,] MatrixSummation(double[,] matrixA, double[,] matrixB)
     {
-        int lenght = Convert.ToInt32(Math.Sqrt(matrixA.Length));
-        double[,] matrixToReturn = new double[lenght, lenght];
+        var lenght = Convert.ToInt32(Math.Sqrt(matrixA.Length));
+        var matrixToReturn = new double[lenght, lenght];
 
         for (int i = 0; i < lenght; i++)
         {
@@ -207,7 +206,7 @@ public static class Functions
     
     public static void AddMatrix(this double[,] matrixA, double[,] matrixB)
     {
-        int lenght = Convert.ToInt32(Math.Sqrt(matrixA.Length));
+        var lenght = Convert.ToInt32(Math.Sqrt(matrixA.Length));
 
         for (int i = 0; i < lenght; i++)
         {
@@ -220,8 +219,8 @@ public static class Functions
     
     public static double[,] MatrixSummation(double[,] matrixA, double[,] matrixB, double[,] matrixC)
     {
-        int lenght = Convert.ToInt32(Math.Sqrt(matrixA.Length));
-        double[,] matrixToReturn = new double[lenght, lenght];
+        var lenght = Convert.ToInt32(Math.Sqrt(matrixA.Length));
+        var matrixToReturn = new double[lenght, lenght];
 
         for (int i = 0; i < lenght; i++)
         {
@@ -236,8 +235,8 @@ public static class Functions
     
     public static double[,] MultiplyMatrix(this double[,] matrix, double multiplier)
     {
-        int lenght = Convert.ToInt32(Math.Sqrt(matrix.Length));
-        double[,] matrixToReturn = new double[lenght, lenght];
+        var lenght = Convert.ToInt32(Math.Sqrt(matrix.Length));
+        var matrixToReturn = new double[lenght, lenght];
 
         for (int i = 0; i < lenght; i++)
         {
@@ -263,7 +262,7 @@ public static class Functions
     
     public static void PrintMatrix(this double[,] matrix)
     {
-        int lenght = Convert.ToInt32(Math.Sqrt(matrix.Length));
+        var lenght = Convert.ToInt32(Math.Sqrt(matrix.Length));
         
         for (int i = 0; i < lenght; i++)
         {
@@ -276,7 +275,7 @@ public static class Functions
 
     public static double[] VectorSummation(double[] vectorA, double[] vectorB)
     {
-        double[] vectorToReturn = new double [vectorA.Length];
+        var vectorToReturn = new double [vectorA.Length];
         for (int i = 0; i < vectorA.Length; i++)
         {
             vectorToReturn[i] = vectorA[i] + vectorB[i];
@@ -302,8 +301,8 @@ public static class Functions
 
     public static double[,] CopyMatrix(this double[,] matrix)
     {
-        int lenght = Convert.ToInt32(Math.Sqrt(matrix.Length));
-        double[,] matrixToReturn = new double[lenght, lenght];
+        var lenght = Convert.ToInt32(Math.Sqrt(matrix.Length));
+        var matrixToReturn = new double[lenght, lenght];
 
         for (int i = 0; i < lenght; i++)
         {
@@ -318,7 +317,7 @@ public static class Functions
     
     public static void CopyMatrix(this double[,] matrix, double[,] copiedMatrix)
     {
-        int lenght = Convert.ToInt32(Math.Sqrt(copiedMatrix.Length));
+        var lenght = Convert.ToInt32(Math.Sqrt(copiedMatrix.Length));
 
         for (int i = 0; i < lenght; i++)
         {
@@ -333,7 +332,7 @@ public static class Functions
 
     public static void Clear(this double[,] matrix)
     {
-        int lenght = Convert.ToInt32(Math.Sqrt(matrix.Length));
+        var lenght = Convert.ToInt32(Math.Sqrt(matrix.Length));
 
         for (int i = 0; i < lenght; i++)
         {
@@ -346,7 +345,7 @@ public static class Functions
     
     public static void Clear(this double[] vector)
     {
-        int lenght = vector.Length;
+        var lenght = vector.Length;
 
         for (int i = 0; i < lenght; i++)
         {
@@ -354,18 +353,18 @@ public static class Functions
         }
     }
 
-    public static void Print(this double[] vector)
+    public static void Print(this IEnumerable<double> vector)
     {
-        for (int i = 0; i < vector.Length; i++)
+        foreach (var number in vector)
         {
-            Console.WriteLine($"{vector[i]}");
+            Console.WriteLine($"{number}");
         }
     }
     
     public static double[] MultiplyMatrixByVector(double[,] matrix, double[] vector)
     {
-        int length = vector.Length;
-        double[] vectorToReturn = new double[length];
+        var length = vector.Length;
+        var vectorToReturn = new double[length];
 
         for (int i = 0; i < length; i++)
         {
