@@ -2,17 +2,17 @@
 
 public static class Conditions
 {
-    public static double SimulationTime;
-    public static double SimulationStepTime;
-    public static double Conductivity;
-    public static double α;
-    public static double TemperatureSurr;
-    public static double TemperatureInitial;
-    public static double Density;
-    public static double SpecificHeat;
-    public static int NodesNumber;
-    public static int ElementsNumber;
-    public static int Dimension = 2;
+    public static double SimulationTime { get; set; }
+    public static double SimulationStepTime { get; set; }
+    public static double Conductivity { get; set; }
+    public static double α { get; set; }
+    public static double TemperatureSurr { get; set; }
+    public static double TemperatureInitial { get; set; }
+    public static double Density { get; set; }
+    public static double SpecificHeat { get; set; }
+    public static int NodesNumber { get; set; }
+    public static int ElementsNumber { get; set; }
+    public static int Dimension { get; set; } = 2;
 
     public static void PrintConditions()
     {
