@@ -7,26 +7,28 @@ public class SimulationModel
 
     public void Initialize(string pathToDataFile)
     {
-        var fileText = File.ReadAllText(pathToDataFile);          //Preparation for file absorption
+        var fileText = File.ReadAllText(pathToDataFile);       //Preparation for file absorption
         var lines = fileText.Split(Environment.NewLine);
 
-        string[][]
-            readNodes = new string[Conditions.NodesNumber][]; //Getting a proper bunch of text that'll become nodes
+        var readNodes = new string[Conditions.NodesNumber][];       //Getting a proper bunch of text that'll become nodes
         for (int i = 0; i < Conditions.NodesNumber; i++)
+        {
             readNodes[i] = lines[i + 11].Trim().Split(',');
-
+        }
         
-        string[][] readElements =
-            new string[Conditions.ElementsNumber][];    //Getting a proper bunch of text that'll become Elements
+        var readElements = new string[Conditions.ElementsNumber][];    //Getting a proper bunch of text that'll become Elements
         for (int i = 0; i < Conditions.ElementsNumber; i++)
+        {
             readElements[i] = lines[i + 12 + Conditions.NodesNumber].Trim().Split(',');
+        }
 
-        
-        List<int> everyBc = new List<int>();                //Getting a proper bunch of words that'll become BCs
-        foreach (var word in lines[13 + Conditions.NodesNumber + Conditions.ElementsNumber].Trim().Split(','))
-            everyBc.Add(Convert.ToInt16(word.Trim()));
-        
-        for (int i = 0; i < Conditions.NodesNumber; i++)    //Filling list of nodes
+        var everyBc = lines[13 + Conditions.NodesNumber + Conditions.ElementsNumber]
+            .Trim()
+            .Split(',')
+            .Select(expression => Convert.ToInt16(expression.Trim()))
+            .Select(point => (int)point).ToList();            //Getting a proper bunch of words that'll become BCs
+
+        for (int i = 0; i < Conditions.NodesNumber; i++)            //Filling list of nodes
         {
             Nodes.Add(new Node());
             Nodes[i].ID = Convert.ToInt16(readNodes[i][0].Trim());
@@ -34,7 +36,7 @@ public class SimulationModel
             Nodes[i].Y = Convert.ToDouble(readNodes[i][2].Trim());
         }
 
-        for (int i = 0; i < Conditions.ElementsNumber; i++) //Filling list of Elements
+        for (int i = 0; i < Conditions.ElementsNumber; i++)         //Filling list of Elements
         {
             Elements.Add(new Element());
 
@@ -46,13 +48,13 @@ public class SimulationModel
             Elements[i].AddNode(Nodes[Convert.ToInt16(readElements[i][4].Trim()) - 1]);
         }
 
-        foreach (var id in everyBc) //Setting BC for eligible nodes
+        foreach (var id in everyBc)         //Setting BC for eligible nodes
         {
             Nodes[id - 1].Bc = true;
         }
     }
     
-    public void PrintNodeArray()
+    public void PrintNodes()
     {
         for (int i = 0; i < Conditions.NodesNumber; i++)
         {
@@ -60,7 +62,7 @@ public class SimulationModel
         }   Console.WriteLine();
     }
 
-    public void PrintElementArray()
+    public void PrintElements()
     {
         for (int i = 0; i < Conditions.ElementsNumber; i++)
         {

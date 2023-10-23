@@ -17,8 +17,8 @@ internal static class Example
         
         simulationModel.Initialize(data);
         
-        simulationModel.PrintNodeArray();
-        simulationModel.PrintElementArray();
+        simulationModel.PrintNodes();
+        simulationModel.PrintElements();
 
         UniversalElement.Initiate(4);
         
