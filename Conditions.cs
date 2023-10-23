@@ -18,16 +18,16 @@ public static class Conditions
     {
         Console.WriteLine("Conditions of the Simulation:\t_____");
         
-        Console.WriteLine($"Simulation Time:\t\t{Conditions.SimulationTime}");
-        Console.WriteLine($"Simulation Step Time: \t\t{Conditions.SimulationStepTime}");
-        Console.WriteLine($"Conductivity: \t\t\t{Conditions.Conductivity}");
-        Console.WriteLine($"Heat transfer coefficient alfa: {Conditions.α}");
-        Console.WriteLine($"Ambient Temperature: \t\t{Conditions.TemperatureSurr}");
-        Console.WriteLine($"Initial Temperature: \t\t{Conditions.TemperatureInitial}");
-        Console.WriteLine($"Density of the material: \t{Conditions.Density}");
-        Console.WriteLine($"Specific Heat: \t\t\t{Conditions.SpecificHeat}");
-        Console.WriteLine($"Amount of Nodes: \t\t{Conditions.NodesNumber}");
-        Console.WriteLine($"Amount of Elements: \t\t{Conditions.ElementsNumber}\n");
+        Console.WriteLine($"Simulation Time:\t\t{SimulationTime}");
+        Console.WriteLine($"Simulation Step Time: \t\t{SimulationStepTime}");
+        Console.WriteLine($"Conductivity: \t\t\t{Conductivity}");
+        Console.WriteLine($"Heat transfer coefficient alfa: {α}");
+        Console.WriteLine($"Ambient Temperature: \t\t{TemperatureSurr}");
+        Console.WriteLine($"Initial Temperature: \t\t{TemperatureInitial}");
+        Console.WriteLine($"Density of the material: \t{Density}");
+        Console.WriteLine($"Specific Heat: \t\t\t{SpecificHeat}");
+        Console.WriteLine($"Amount of Nodes: \t\t{NodesNumber}");
+        Console.WriteLine($"Amount of Elements: \t\t{ElementsNumber}\n");
     }
     
     public static void ReadConditions(string dataPath)
@@ -44,15 +44,15 @@ public static class Conditions
             words[i] = lines[i].Trim().Split(' ');
         }
 
-        Conditions.SimulationTime =     Convert.ToInt16(words[0][1]);
-        Conditions.SimulationStepTime = Convert.ToInt16(words[1][1]);
-        Conditions.Conductivity =       Convert.ToInt16(words[2][1]);
-        Conditions.α =                  Convert.ToInt16(words[3][1]);
-        Conditions.TemperatureSurr =    Convert.ToInt16(words[4][1]);
-        Conditions.TemperatureInitial = Convert.ToInt16(words[5][1]);
-        Conditions.Density =            Convert.ToInt16(words[6][1]);
-        Conditions.SpecificHeat =       Convert.ToInt16(words[7][1]);
-        Conditions.NodesNumber =        Convert.ToInt16(words[8][2]);
-        Conditions.ElementsNumber =     Convert.ToInt16(words[9][2]);
+        SimulationTime =     Convert.ToInt16(words[0][1]);
+        SimulationStepTime = Convert.ToInt16(words[1][1]);
+        Conductivity =       Convert.ToInt16(words[2][1]);
+        α =                  Convert.ToInt16(words[3][1]);
+        TemperatureSurr =    Convert.ToInt16(words[4][1]);
+        TemperatureInitial = Convert.ToInt16(words[5][1]);
+        Density =            Convert.ToInt16(words[6][1]);
+        SpecificHeat =       Convert.ToInt16(words[7][1]);
+        NodesNumber =        Convert.ToInt16(words[8][2]);
+        ElementsNumber =     Convert.ToInt16(words[9][2]);
     }
 }
