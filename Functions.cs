@@ -4,78 +4,6 @@ namespace FEM_cs;
 
 public static class Functions
 {
-    //  Probably garbage
-    
-    public static double function11(double x)
-    {
-        return 2 * Math.Pow(x, 2) + 3 * x - 8;
-    }
-    
-    public static double function21(double x, double y)
-    {
-        return -2 * Math.Pow(x, 2) * y + 2 * x * y + 4;
-    }
-    
-    static double Integrate1d2(Func<double, double> function)
-    {
-        double[] nodes = { 0, -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
-        
-        double result = 0;
-        for (int i = 1; i < 3; i++)
-        {
-            result += function(nodes[i]);
-        }
-        
-        return result;
-    }
-
-    static double Integrate1d3(Func<double, double> function)
-    {
-        double[] nodes = { 0,-Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0) };
-        double[] coefficients = { 0, 5.0 / 9.0, 8.0 / 9.0, 5.0 / 9.0 };
-        double result = 0;
-
-        for (int i = 1; i <= 3; i++)
-        {
-            result += function(nodes[i]) * coefficients[i];
-        }
-        return result;
-    }
-
-    static double Integrate2d2(Func<double, double, double> function)
-    {
-        double[] nodes = { 0, -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
-        double[] coefficients = { 0, 1, 1 };
-        double result = 0;
-
-        for (int i = 1; i <= 2; i++)
-        {
-            for (int j = 1; j <= 2; j++)
-            {
-                result += function(nodes[j], nodes[i]) * coefficients[i] * coefficients[j];
-            }
-        }
-
-        return result;
-    }
-
-    static double Integrate2d3(Func<double, double, double> function)
-    {
-        double[] nodes = { 0, -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0) };
-        double[] coefficients = { 0, 5.0 / 9.0, 8.0 / 9.0, 5.0 / 9.0 };
-        double result = 0;
-
-        for (int i = 1; i <= 3; i++)
-        {
-            for (int j = 1; j <= 3; j++)
-            {
-                result += function(nodes[i], nodes[j]) * coefficients[i] * coefficients[j];
-            }
-        }
-
-        return result;
-    }
-
     //  Shape functions
     
     public static double N1(double ξ, double η)
@@ -140,7 +68,7 @@ public static class Functions
         return value1 * wage1 + value2 * wage2;
     }
     
-    //  Mathematical functions
+    //  Mathematical operations
 
     public static double[,] MatrixInversion(this double[,] matrix)
     {
@@ -172,20 +100,18 @@ public static class Functions
 
         return matrixToReturn;
     }
-
-    public static double[,] MatrixSummation(double[,] matrixA, double[,] matrixB, int size)
-    {
-        var matrixToReturn = new double[size, size];
     
-        for (int i = 0; i < size; i++)
+    public static void AddMatrix(this double[,] matrixA, double[,] matrixB)
+    {
+        var lenght = Convert.ToInt32(Math.Sqrt(matrixA.Length));
+
+        for (int i = 0; i < lenght; i++)
         {
-            for (int j = 0; j < size; j++)
+            for (int j = 0; j < lenght; j++)
             {
-                matrixToReturn[i, j] = matrixA[i, j] + matrixB[i, j];
+                matrixA[i, j] += matrixB[i, j];
             }
         }
-    
-        return matrixToReturn;
     }
     
     public static double[,] MatrixSummation(double[,] matrixA, double[,] matrixB)
@@ -202,19 +128,6 @@ public static class Functions
         }
 
         return matrixToReturn;
-    }
-    
-    public static void AddMatrix(this double[,] matrixA, double[,] matrixB)
-    {
-        var lenght = Convert.ToInt32(Math.Sqrt(matrixA.Length));
-
-        for (int i = 0; i < lenght; i++)
-        {
-            for (int j = 0; j < lenght; j++)
-            {
-                matrixA[i, j] += matrixB[i, j];
-            }
-        }
     }
     
     public static double[,] MatrixSummation(double[,] matrixA, double[,] matrixB, double[,] matrixC)
@@ -249,17 +162,6 @@ public static class Functions
         return matrixToReturn;
     }
     
-    public static void PrintMatrix(this double[,] matrix, int size)
-    {
-        for (int i = 0; i < size; i++)
-        {
-            for (int j = 0; j < size; j++)
-            {
-                Console.Write($"{matrix[i, j].ToString("F2", CultureInfo.InvariantCulture)}\t");
-            }   Console.WriteLine();
-        }   Console.WriteLine();
-    }
-    
     public static void PrintMatrix(this double[,] matrix)
     {
         var lenght = Convert.ToInt32(Math.Sqrt(matrix.Length));
@@ -284,7 +186,7 @@ public static class Functions
         return vectorToReturn;
     }
 
-    public static double[] MultiplyVector(double[] vector, double multiplier)
+    public static double[] MultiplyVector(this double[] vector, double multiplier)
     {
         for (int i = 0; i < vector.Length; i++)
         {
@@ -326,8 +228,6 @@ public static class Functions
                 matrix[i, j] = copiedMatrix[i, j];
             }
         }
-
-        //matrix = matrixToReturn;
     }
 
     public static void Clear(this double[,] matrix)
