@@ -14,13 +14,13 @@ public class Simulation
     private readonly List<Element> _elements;
     private readonly List<Node> _nodes;
     private readonly int _amountOfNodes;
-
-    public Simulation(List<Element> elements, List<Node> nodes)
+    
+    public Simulation(SimulationModel simulationModel)
     {
-        _elements = elements;
-        _nodes = nodes;
+        _elements = simulationModel.Elements;
+        _nodes = simulationModel.Nodes;
 
-        _amountOfNodes = elements[^1].Nodes[2].ID;
+        _amountOfNodes = simulationModel.Elements[^1].Nodes[2].ID;
 
         _system = new double[_amountOfNodes, _amountOfNodes];
         _globalHmatrix = new double[_amountOfNodes, _amountOfNodes];
