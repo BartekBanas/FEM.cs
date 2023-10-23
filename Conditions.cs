@@ -2,17 +2,17 @@
 
 public static class Conditions
 {
-    public static double SimulationTime { get; set; }
-    public static double SimulationStepTime { get; set; }
-    public static double Conductivity { get; set; }
-    public static double α { get; set; }
-    public static double TemperatureSurr { get; set; }
-    public static double TemperatureInitial { get; set; }
-    public static double Density { get; set; }
-    public static double SpecificHeat { get; set; }
-    public static int NodesNumber { get; set; }
-    public static int ElementsNumber { get; set; }
-    public static int Dimension { get; set; } = 2;
+    public static double SimulationTime { get; private set; }
+    public static double SimulationStepTime { get; private set; }
+    public static double Conductivity { get; private set; }
+    public static double α { get; private set; }
+    public static double TemperatureSurr { get; private set; }
+    public static double TemperatureInitial { get; private set; }
+    public static double Density { get; private set; }
+    public static double SpecificHeat { get; private set; }
+    public static int NodesNumber { get; private set; }
+    public static int ElementsNumber { get; private set; }
+    public static int Dimension { get; private set; } = 2;
 
     public static void PrintConditions()
     {
@@ -32,12 +32,10 @@ public static class Conditions
     
     public static void ReadConditions(string dataPath)
     {
-        string data = dataPath;
-    
-        var fileText = File.ReadAllText(data);
+        var fileText = File.ReadAllText(dataPath);
         var lines = fileText.Split(Environment.NewLine);
 
-        string[][] words = new string[10][];
+        var words = new string[10][];
     
         for (int i = 0; i < 10; i++)
         {
