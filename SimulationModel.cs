@@ -4,9 +4,13 @@ public class SimulationModel
 {
     public List<Node> Nodes { get; } = new();
     public List<Element> Elements { get; } = new();
+    
+    public Conditions Conditions { get; } = new();
 
     public void Initialize(string pathToDataFile)
     {
+        Conditions.ReadConditions(pathToDataFile);
+        
         var fileText = File.ReadAllText(pathToDataFile);       //Preparation for file absorption
         var lines = fileText.Split(Environment.NewLine);
 
@@ -38,7 +42,7 @@ public class SimulationModel
 
         for (int i = 0; i < Conditions.ElementsNumber; i++)         //Filling list of Elements
         {
-            Elements.Add(new Element());
+            Elements.Add(new Element(Conditions));
 
             Elements[i].Id = Convert.ToInt16(readElements[i][0].Trim());
 
@@ -68,5 +72,10 @@ public class SimulationModel
         {
             Elements[i].PrintElement();
         }   Console.WriteLine();
+    }
+
+    public void PrintConditions()
+    {
+        Conditions.PrintConditions();
     }
 }

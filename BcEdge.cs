@@ -2,14 +2,16 @@
 
 public class BcEdge
 {
+    private readonly Conditions _conditions;
+    
     private readonly int _side;
-
     private readonly double _jacobianDeterminant;
     private readonly double[,] _integrationPoints = new double[UniversalElement.IntegralPoints, 2];
 
-    public BcEdge(Node node1, Node node2, int side)
+    public BcEdge(Node node1, Node node2, int side, Conditions conditions)
     {
-        this._side = side;
+        _conditions = conditions;
+        _side = side;
         
         _jacobianDeterminant = Functions.GetDistance(node1, node2) / 2;
         SetIntegrationPoints();
@@ -79,7 +81,7 @@ public class BcEdge
                 PartialHbcMatrix(_integrationPoints[i, 0], _integrationPoints[i, 1], i));
         }
         
-        hbcMatrix = hbcMatrix.MultiplyMatrix(Conditions.α * _jacobianDeterminant);
+        hbcMatrix = hbcMatrix.MultiplyMatrix(_conditions.α * _jacobianDeterminant);
 
         return hbcMatrix;
     }
@@ -107,7 +109,7 @@ public class BcEdge
         
         for (int i = 0; i < 4; i++)
         {
-            pVector[i] *= Conditions.α * _jacobianDeterminant * Conditions.TemperatureSurr;
+            pVector[i] *= _conditions.α * _jacobianDeterminant * _conditions.TemperatureSurr;
         }
 
         return pVector;

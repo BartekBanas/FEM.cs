@@ -4,9 +4,16 @@ public class Element
 {
     public int Id = -1;
     public readonly Node[] Nodes = new Node[4];
-    
-    private static readonly int Dimension = Conditions.Dimension;
+
+    private readonly Conditions _conditions;
+    private readonly int _dimension;
     private int _capacity;
+
+    public Element(Conditions conditions)
+    {
+        _conditions = conditions;
+        _dimension = _conditions.Dimension;
+    }
 
     public void AddNode(Node newNode)
     {
@@ -67,10 +74,10 @@ public class Element
         double determinant = jacobian.MatrixDeterminant();
         double[,] inversedJacobian = jacobian.MatrixInversion();
 
-        double[] dNdx = new double [Dimension * Dimension];
-        double[] dNdy = new double [Dimension * Dimension];
+        double[] dNdx = new double [_dimension * _dimension];
+        double[] dNdy = new double [_dimension * _dimension];
         
-        for (int i = 0; i < Dimension * Dimension; i++) 
+        for (int i = 0; i < _dimension * _dimension; i++) 
         {
             dNdx[i] = inversedJacobian[0, 0] * UniversalElement.KsiDerivativeTable[i, pointIndex] +
                       inversedJacobian[0, 1] * UniversalElement.EtaDerivativeTable[i, pointIndex];
@@ -87,7 +94,7 @@ public class Element
         {
             for (int j = 0; j < 4; j++)
             {
-                hmatrixPartial[i, j] *= Conditions.Conductivity * determinant;
+                hmatrixPartial[i, j] *= _conditions.Conductivity * determinant;
             }
         }
         
@@ -96,7 +103,7 @@ public class Element
 
     public double[,] Hmatrix()
     {
-        double[,] hMatrix = new double[Dimension * Dimension, Dimension * Dimension];
+        double[,] hMatrix = new double[_dimension * _dimension, _dimension * _dimension];
 
         int pointIndex = 0;
         for (int i = 0; i < UniversalElement.IntegralPoints; i++)
@@ -105,9 +112,9 @@ public class Element
             {
                 double[,] partialHmatrix = HmatrixPartial(pointIndex);
 
-                for (int k = 0; k < Dimension * Dimension; k++)
+                for (int k = 0; k < _dimension * _dimension; k++)
                 {
-                    for (int l = 0; l < Dimension * Dimension; l++)
+                    for (int l = 0; l < _dimension * _dimension; l++)
                     {
                         partialHmatrix[k, l] *= UniversalElement.Wages[i] * UniversalElement.Wages[j];
                     }
@@ -127,14 +134,14 @@ public class Element
 
         if (Nodes[3].Bc && Nodes[0].Bc)
         {
-            hbcMatrix.AddMatrix(new BcEdge(Nodes[3], Nodes[0], 4).HbcMatrix());
+            hbcMatrix.AddMatrix(new BcEdge(Nodes[3], Nodes[0], 4, _conditions).HbcMatrix());
         }
 
         for (int i = 0; i < Nodes.Length - 1; i++)
         {
             if (Nodes[i].Bc && Nodes[i + 1].Bc)
             {
-                hbcMatrix.AddMatrix(new BcEdge(Nodes[i], Nodes[i + 1], i + 1).HbcMatrix());
+                hbcMatrix.AddMatrix(new BcEdge(Nodes[i], Nodes[i + 1], i + 1, _conditions).HbcMatrix());
             }
         }
 
@@ -147,14 +154,14 @@ public class Element
 
         if (Nodes[3].Bc && Nodes[0].Bc)
         {
-            pVector.AddVector(new BcEdge(Nodes[3], Nodes[0], 4).PVector());
+            pVector.AddVector(new BcEdge(Nodes[3], Nodes[0], 4, _conditions).PVector());
         }
         
         for (int i = 0; i < Nodes.Length - 1; i++)
         {
             if (Nodes[i].Bc && Nodes[i + 1].Bc)
             {
-                pVector.AddVector(new BcEdge(Nodes[i], Nodes[i + 1], i + 1).PVector());
+                pVector.AddVector(new BcEdge(Nodes[i], Nodes[i + 1], i + 1, _conditions).PVector());
             }
         }
 
@@ -177,7 +184,7 @@ public class Element
                 
                 partialMatrix.CopyMatrix(UniversalElement.ShapeFunctionMatrix[i, j]);
                 partialMatrix = partialMatrix.MultiplyMatrix(UniversalElement.Wages[i] * UniversalElement.Wages[j] * 
-                                                     determinant * Conditions.SpecificHeat * Conditions.Density);
+                                                     determinant * _conditions.SpecificHeat * _conditions.Density);
                 
                 cMatrix.AddMatrix(partialMatrix);
             }

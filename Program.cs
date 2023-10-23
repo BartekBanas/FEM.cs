@@ -12,17 +12,15 @@ internal static class Example
         
         const string data = "../../../data/dane.txt";       //Path to data
         
-        Conditions.ReadConditions(data);
-        Conditions.PrintConditions();
-        
         simulationModel.Initialize(data);
         
+        simulationModel.PrintConditions();
         simulationModel.PrintNodes();
         simulationModel.PrintElements();
 
         UniversalElement.Initiate(4);
         
-        Simulation simulation = new Simulation(simulationModel);
+        var simulation = new Simulation(simulationModel);
         simulation.RunSimulation();
     }
 }

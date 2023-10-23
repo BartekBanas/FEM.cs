@@ -4,19 +4,22 @@ namespace FEM_cs;
 
 public class Simulation
 {
-    private double[,] _system;
-    private double[] _globalPVector;
-    private double[,] _globalHmatrix;
-    private double[,] _globalHbcMatrix;
-    private double[,] _globalCmatrix;
-    private double[] _temperatureVector;
-    
+    private readonly Conditions _conditions;
     private readonly List<Element> _elements;
     private readonly List<Node> _nodes;
     private readonly int _amountOfNodes;
     
+    private readonly double[,] _system;
+    private readonly double[] _globalPVector;
+    private readonly double[,] _globalHmatrix;
+    private readonly double[,] _globalHbcMatrix;
+    private readonly double[,] _globalCMatrix;
+    private readonly double[] _temperatureVector;
+    
     public Simulation(SimulationModel simulationModel)
     {
+        _conditions = simulationModel.Conditions;
+        
         _elements = simulationModel.Elements;
         _nodes = simulationModel.Nodes;
 
@@ -24,13 +27,13 @@ public class Simulation
 
         _system = new double[_amountOfNodes, _amountOfNodes];
         _globalHmatrix = new double[_amountOfNodes, _amountOfNodes];
-        _globalCmatrix = new double[_amountOfNodes, _amountOfNodes];
+        _globalCMatrix = new double[_amountOfNodes, _amountOfNodes];
         _globalHbcMatrix = new double[_amountOfNodes, _amountOfNodes];
         _globalPVector = new double [_amountOfNodes];
         _temperatureVector = new double[_amountOfNodes];
         foreach (var node in _nodes)
         {
-            node.Temperature = Conditions.TemperatureInitial;
+            node.Temperature = _conditions.TemperatureInitial;
         }
     }
     
@@ -81,14 +84,14 @@ public class Simulation
                 for (int j = 0; j < 4; j++)
                 {
                     _globalHmatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += hmatrix[i, j];
-                    _globalCmatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += cMatrix[i, j];
+                    _globalCMatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += cMatrix[i, j];
                     _globalHbcMatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += hbcMatrix[i, j];
 
                 }   _globalPVector[element.Nodes[i].ID - 1] += pVector[i];
             }
         }
 
-        double[,] cPerΔτ = _globalCmatrix.MultiplyMatrix(1 / Conditions.SimulationStepTime);
+        double[,] cPerΔτ = _globalCMatrix.MultiplyMatrix(1 / _conditions.SimulationStepTime);
 
         double[,] dashMatrix = Functions.MatrixSummation(_globalHmatrix, cPerΔτ, _globalHbcMatrix);
 
@@ -233,13 +236,13 @@ public class Simulation
         Console.WriteLine("Time[s]\tMinTemp\tMaxTemp");
         
         int i;
-        for (i = 0; i < Conditions.SimulationTime / Conditions.SimulationStepTime; i++)
+        for (i = 0; i < _conditions.SimulationTime / _conditions.SimulationStepTime; i++)
         {
             Aggregation();
 
             var calculatedTemperature = CalculateSystem();
 
-            for (int j = 0; j < Conditions.NodesNumber; j++)
+            for (int j = 0; j < _conditions.NodesNumber; j++)
             {
                 _nodes[j].Temperature = calculatedTemperature[j];
             }
@@ -249,7 +252,7 @@ public class Simulation
             //     $"Time = {(i+1) * Conditions.SimulationStepTime} min_T = {calculatedTemperature.Min()},\tmax_T = {calculatedTemperature.Max()}");
             
             Console.WriteLine(
-                ((i+1) * Conditions.SimulationStepTime).ToString(CultureInfo.InvariantCulture) + "\t" +
+                ((i+1) * _conditions.SimulationStepTime).ToString(CultureInfo.InvariantCulture) + "\t" +
                 calculatedTemperature.Min().ToString("F2", CultureInfo.InvariantCulture) + "\t" +
                 calculatedTemperature.Max().ToString("F2", CultureInfo.InvariantCulture));
 
@@ -327,7 +330,7 @@ public class Simulation
     {
         _system.Clear();
         _globalHmatrix.Clear();
-        _globalCmatrix.Clear();
+        _globalCMatrix.Clear();
         _globalHbcMatrix.Clear();
         _globalPVector.Clear();
         _temperatureVector.Clear();

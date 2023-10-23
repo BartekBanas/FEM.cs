@@ -1,20 +1,20 @@
 ﻿namespace FEM_cs;
 
-public static class Conditions
+public class Conditions
 {
-    public static double SimulationTime { get; private set; }
-    public static double SimulationStepTime { get; private set; }
-    public static double Conductivity { get; private set; }
-    public static double α { get; private set; }
-    public static double TemperatureSurr { get; private set; }
-    public static double TemperatureInitial { get; private set; }
-    public static double Density { get; private set; }
-    public static double SpecificHeat { get; private set; }
-    public static int NodesNumber { get; private set; }
-    public static int ElementsNumber { get; private set; }
-    public static int Dimension { get; private set; } = 2;
+    public double SimulationTime { get; private set; }
+    public double SimulationStepTime { get; private set; }
+    public double Conductivity { get; private set; }
+    public double α { get; private set; }
+    public double TemperatureSurr { get; private set; }
+    public double TemperatureInitial { get; private set; }
+    public double Density { get; private set; }
+    public double SpecificHeat { get; private set; }
+    public int NodesNumber { get; private set; }
+    public int ElementsNumber { get; private set; }
+    public int Dimension { get; private set; } = 2;
 
-    public static void PrintConditions()
+    public void PrintConditions()
     {
         Console.WriteLine("Conditions of the Simulation:\t_____");
         
@@ -30,7 +30,7 @@ public static class Conditions
         Console.WriteLine($"Amount of Elements: \t\t{ElementsNumber}\n");
     }
     
-    public static void ReadConditions(string dataPath)
+    public void ReadConditions(string dataPath)
     {
         var fileText = File.ReadAllText(dataPath);
         var lines = fileText.Split(Environment.NewLine);
