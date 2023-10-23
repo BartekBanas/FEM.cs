@@ -48,7 +48,7 @@ internal static class Example
         {
             everyElement.Add(new Element());
 
-            everyElement[i].ID = Convert.ToInt16(readElements[i][0].Trim());
+            everyElement[i].Id = Convert.ToInt16(readElements[i][0].Trim());
 
             everyElement[i].AddNode(everyNode[Convert.ToInt16(readElements[i][1].Trim()) - 1]);
             everyElement[i].AddNode(everyNode[Convert.ToInt16(readElements[i][2].Trim()) - 1]);
@@ -65,7 +65,7 @@ internal static class Example
         PrintElementArray(everyElement);
         
 
-        DiscreteElement.Initiate(4);
+        UniversalElement.Initiate(4);
         
         // DiscreteElement.PrintKsiDerivativeTable();
         // DiscreteElement.PrintEtaDerivativeTable();

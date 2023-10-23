@@ -5,7 +5,7 @@ public class BcEdge
     private readonly int _side;
 
     private readonly double _jacobianDeterminant;
-    private readonly double[,] _integrationPoints = new double[DiscreteElement.IntegralPoints, 2];
+    private readonly double[,] _integrationPoints = new double[UniversalElement.IntegralPoints, 2];
 
     public BcEdge(Node node1, Node node2, int side)
     {
@@ -21,37 +21,37 @@ public class BcEdge
         {
             case 1:
             {
-                for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
+                for (int i = 0; i < UniversalElement.IntegralPoints; i++)
                 {
-                    _integrationPoints[i, 0] = DiscreteElement.Points[i];
+                    _integrationPoints[i, 0] = UniversalElement.Points[i];
                     _integrationPoints[i, 1] = -1;
                 }
                 break;
             }
             case 2:
             {
-                for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
+                for (int i = 0; i < UniversalElement.IntegralPoints; i++)
                 {
                     _integrationPoints[i, 0] = 1;
-                    _integrationPoints[i, 1] = DiscreteElement.Points[i];
+                    _integrationPoints[i, 1] = UniversalElement.Points[i];
                 }
                 break;
             }
             case 3:
             {
-                for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
+                for (int i = 0; i < UniversalElement.IntegralPoints; i++)
                 {
-                    _integrationPoints[i, 0] = -DiscreteElement.Points[i];
+                    _integrationPoints[i, 0] = -UniversalElement.Points[i];
                     _integrationPoints[i, 1] = 1;
                 }
                 break;
             }
             case 4:
             {
-                for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
+                for (int i = 0; i < UniversalElement.IntegralPoints; i++)
                 {
                     _integrationPoints[i, 0] = -1;
-                    _integrationPoints[i, 1] = -DiscreteElement.Points[i];
+                    _integrationPoints[i, 1] = -UniversalElement.Points[i];
                 }
                 break;
             }
@@ -64,7 +64,7 @@ public class BcEdge
 
         double[,] matrix = Functions.VectorsMultiplication(row, row);
         
-        matrix = matrix.MultiplyMatrix(DiscreteElement.Wages[index]);
+        matrix = matrix.MultiplyMatrix(UniversalElement.Wages[index]);
 
         return matrix;
     }
@@ -73,7 +73,7 @@ public class BcEdge
     {
         double[,] hbcMatrix = new double[4,4];
         
-        for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
+        for (int i = 0; i < UniversalElement.IntegralPoints; i++)
         {
             hbcMatrix = Functions.MatrixSummation(hbcMatrix,
                 PartialHbcMatrix(_integrationPoints[i, 0], _integrationPoints[i, 1], i));
@@ -90,7 +90,7 @@ public class BcEdge
         
         for (int i = 0; i < 4; i++)
         {
-            vector[i] *= DiscreteElement.Wages[index];
+            vector[i] *= UniversalElement.Wages[index];
         }
 
         return vector;
@@ -100,7 +100,7 @@ public class BcEdge
     {
         double[] pVector = new double[4];
 
-        for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
+        for (int i = 0; i < UniversalElement.IntegralPoints; i++)
         {
             pVector.AddVector(PartialPVector(_integrationPoints[i, 0], _integrationPoints[i, 1], i));
         }

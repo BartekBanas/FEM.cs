@@ -2,20 +2,19 @@
 
 namespace FEM_cs;
 
-public static class DiscreteElement
+public static class UniversalElement
 {
     public static int IntegralPoints;
 
-    public static double[,] KsiDerivativeTable = new double[,] { };
-    public static double[,] EtaDerivativeTable = new double[,] { };
-    public static double[] Wages = new double[] { };
+    public static double[,] KsiDerivativeTable = { };
+    public static double[,] EtaDerivativeTable = { };
+    public static double[] Wages = { };
 
-    public static double[] Points = new double[] { };
-    public static double[,][,] ShapeFunctionMatrix = new double[,][,] { };
+    public static double[] Points = { };
+    public static double[,][,] ShapeFunctionMatrix = { };
 
-    private static double[] _etas = new double[] { };
-    private static double[] _ksis = new double[] { };
-
+    private static double[] _etas = { };
+    private static double[] _ksis = { };
 
     public static void Initiate(int size)
     {
@@ -30,55 +29,63 @@ public static class DiscreteElement
 
     private static void FillCoordinates()
     {
-        if (IntegralPoints == 2)
+        switch (IntegralPoints)
         {
-            Points = new[] { -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
-            _etas = new double[] { -1 / Math.Sqrt(3), -1 / Math.Sqrt(3), 1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
-            _ksis = new double[] { -1 / Math.Sqrt(3), 1 / Math.Sqrt(3), -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
-        }
-        else if (IntegralPoints == 3)
-        {
-            Points = new[] { -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0) };
-
-            _etas = new double[9]
+            case 2:
             {
-                -Math.Sqrt(3.0 / 5.0), -Math.Sqrt(3.0 / 5.0), -Math.Sqrt(3.0 / 5.0), 0, 0, 0,
-                Math.Sqrt(3.0 / 5.0), Math.Sqrt(3.0 / 5.0), Math.Sqrt(3.0 / 5.0)
-            };
-
-            _ksis = new double[9]
-            {
-                -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0),
-                -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0), -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0)
-            };
-        }
-
-        if (IntegralPoints == 4)
-        {
-            Points = new[]
-            {
-                -Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0)),
-                -Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0)),
-                Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0)),
-                Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0))
-            };
-
-            _etas = new double[16];
-            for (int i = 0; i < 4; i++)
-            {
-                _etas[i * 4 + 0] = -Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
-                _etas[i * 4 + 1] = -Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
-                _etas[i * 4 + 2] = Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
-                _etas[i * 4 + 3] = Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
+                Points = new[] { -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
+                _etas = new[] { -1 / Math.Sqrt(3), -1 / Math.Sqrt(3), 1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
+                _ksis = new[] { -1 / Math.Sqrt(3), 1 / Math.Sqrt(3), -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
+                break;
             }
-
-            _ksis = new double[16];
-            for (int i = 0; i < 4; i++)
+            
+            case 3:
             {
-                _ksis[i + 0] = -Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
-                _ksis[i + 4] = -Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
-                _ksis[i + 8] = Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
-                _ksis[i + 12] = Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
+                Points = new[] { -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0) };
+
+                _etas = new[]
+                {
+                    -Math.Sqrt(3.0 / 5.0), -Math.Sqrt(3.0 / 5.0), -Math.Sqrt(3.0 / 5.0), 0, 0, 0,
+                    Math.Sqrt(3.0 / 5.0), Math.Sqrt(3.0 / 5.0), Math.Sqrt(3.0 / 5.0)
+                };
+
+                _ksis = new[]
+                {
+                    -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0),
+                    -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0), -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0)
+                };
+                break;
+            }
+            
+            case 4:
+            {
+                Points = new[]
+                {
+                    -Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0)),
+                    -Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0)),
+                    Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0)),
+                    Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0))
+                };
+
+                _etas = new double[16];
+                for (int i = 0; i < 4; i++)
+                {
+                    _etas[i * 4 + 0] = -Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
+                    _etas[i * 4 + 1] = -Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
+                    _etas[i * 4 + 2] = Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
+                    _etas[i * 4 + 3] = Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
+                }
+
+                _ksis = new double[16];
+                for (int i = 0; i < 4; i++)
+                {
+                    _ksis[i + 0] = -Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
+                    _ksis[i + 4] = -Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
+                    _ksis[i + 8] = Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
+                    _ksis[i + 12] = Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0));
+                }
+
+                break;
             }
         }
     }
@@ -147,23 +154,23 @@ public static class DiscreteElement
 
     private static void MakeWages()
     {
-        if (IntegralPoints == 2)
+        switch (IntegralPoints)
         {
-            Wages = new[] { 1.0, 1.0 };
-        }
-
-        if (IntegralPoints == 3)
-        {
-            Wages = new[] { 5.0 / 9.0, 8.0 / 9.0, 5.0 / 9.0 };
-        }
-
-        if (IntegralPoints == 4)
-        {
-            Wages = new[]
-            {
-                (18.0 - Math.Sqrt(30.0)) / 36.0, (18.0 + Math.Sqrt(30.0)) / 36.0,
-                (18.0 + Math.Sqrt(30.0)) / 36.0, (18.0 - Math.Sqrt(30.0)) / 36.0
-            };
+            case 2:
+                Wages = new[] { 1.0, 1.0 };
+                break;
+            
+            case 3:
+                Wages = new[] { 5.0 / 9.0, 8.0 / 9.0, 5.0 / 9.0 };
+                break;
+            
+            case 4:
+                Wages = new[]
+                {
+                    (18.0 - Math.Sqrt(30.0)) / 36.0, (18.0 + Math.Sqrt(30.0)) / 36.0,
+                    (18.0 + Math.Sqrt(30.0)) / 36.0, (18.0 - Math.Sqrt(30.0)) / 36.0
+                };
+                break;
         }
     }
 

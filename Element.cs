@@ -46,10 +46,10 @@ public class Element
 
         for (int i = 0; i < 4; i++)
         {   
-            dxdξ += DiscreteElement.KsiDerivativeTable[i, pointIndex] * Nodes[i].X;
-            dxdη += DiscreteElement.EtaDerivativeTable[i, pointIndex] * Nodes[i].X;
-            dydξ += DiscreteElement.KsiDerivativeTable[i, pointIndex] * Nodes[i].Y;
-            dydη += DiscreteElement.EtaDerivativeTable[i, pointIndex] * Nodes[i].Y;
+            dxdξ += UniversalElement.KsiDerivativeTable[i, pointIndex] * Nodes[i].X;
+            dxdη += UniversalElement.EtaDerivativeTable[i, pointIndex] * Nodes[i].X;
+            dydξ += UniversalElement.KsiDerivativeTable[i, pointIndex] * Nodes[i].Y;
+            dydη += UniversalElement.EtaDerivativeTable[i, pointIndex] * Nodes[i].Y;
         }
 
         double[,] tableToReturn =
@@ -72,11 +72,11 @@ public class Element
         
         for (int i = 0; i < Dimension * Dimension; i++) 
         {
-            dNdx[i] = inversedJacobian[0, 0] * DiscreteElement.KsiDerivativeTable[i, pointIndex] +
-                      inversedJacobian[0, 1] * DiscreteElement.EtaDerivativeTable[i, pointIndex];
+            dNdx[i] = inversedJacobian[0, 0] * UniversalElement.KsiDerivativeTable[i, pointIndex] +
+                      inversedJacobian[0, 1] * UniversalElement.EtaDerivativeTable[i, pointIndex];
 
-            dNdy[i] = inversedJacobian[1, 0] * DiscreteElement.KsiDerivativeTable[i, pointIndex] +
-                      inversedJacobian[1, 1] * DiscreteElement.EtaDerivativeTable[i, pointIndex];
+            dNdy[i] = inversedJacobian[1, 0] * UniversalElement.KsiDerivativeTable[i, pointIndex] +
+                      inversedJacobian[1, 1] * UniversalElement.EtaDerivativeTable[i, pointIndex];
         }
 
         double[,] hmatrixPartial = Functions.MatrixSummation(
@@ -99,9 +99,9 @@ public class Element
         double[,] hMatrix = new double[Dimension * Dimension, Dimension * Dimension];
 
         int pointIndex = 0;
-        for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
+        for (int i = 0; i < UniversalElement.IntegralPoints; i++)
         {
-            for (int j = 0; j < DiscreteElement.IntegralPoints; j++)
+            for (int j = 0; j < UniversalElement.IntegralPoints; j++)
             {
                 double[,] partialHmatrix = HmatrixPartial(pointIndex);
 
@@ -109,7 +109,7 @@ public class Element
                 {
                     for (int l = 0; l < Dimension * Dimension; l++)
                     {
-                        partialHmatrix[k, l] *= DiscreteElement.Wages[i] * DiscreteElement.Wages[j];
+                        partialHmatrix[k, l] *= UniversalElement.Wages[i] * UniversalElement.Wages[j];
                     }
                 }
                 
@@ -168,15 +168,15 @@ public class Element
         double[,] cMatrix = new double[4 ,4];
         double[,] partialMatrix = new double[4 ,4];
 
-        for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
+        for (int i = 0; i < UniversalElement.IntegralPoints; i++)
         {
-            for (int j = 0; j < DiscreteElement.IntegralPoints; j++, pointIndex++)
+            for (int j = 0; j < UniversalElement.IntegralPoints; j++, pointIndex++)
             {
                 double[,] jacobian = Jacobian(pointIndex);
                 double determinant = jacobian.MatrixDeterminant();
                 
-                partialMatrix.CopyMatrix(DiscreteElement.ShapeFunctionMatrix[i, j]);
-                partialMatrix = partialMatrix.MultiplyMatrix(DiscreteElement.Wages[i] * DiscreteElement.Wages[j] * 
+                partialMatrix.CopyMatrix(UniversalElement.ShapeFunctionMatrix[i, j]);
+                partialMatrix = partialMatrix.MultiplyMatrix(UniversalElement.Wages[i] * UniversalElement.Wages[j] * 
                                                      determinant * Conditions.SpecificHeat * Conditions.Density);
                 
                 cMatrix.AddMatrix(partialMatrix);
