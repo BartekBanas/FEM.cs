@@ -16,9 +16,9 @@ public static class UniversalElement
     private static double[] _etas = { };
     private static double[] _ksis = { };
 
-    public static void Initiate(int size)
+    public static void Initialize(int integralPoints)
     {
-        IntegralPoints = size;
+        IntegralPoints = integralPoints;
         FillCoordinates();
         MakeWages();
 
