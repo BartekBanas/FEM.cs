@@ -2,16 +2,11 @@
 
 public class Element
 {
+    public int Id = -1;
+    public readonly Node[] Nodes = new Node[4];
+    
     private static readonly int Dimension = Conditions.Dimension;
-    private int _capacity = 0;
-    
-    public int ID;
-    public Node[] Nodes = new Node[4];
-    
-    public Element()
-    {
-        ID = -1;
-    }
+    private int _capacity;
 
     public void AddNode(Node newNode)
     {
@@ -22,13 +17,13 @@ public class Element
         }
         else
         {
-            throw new Exception($"Element {ID} has been overloaded");
+            throw new Exception($"Element {Id} has been overloaded");
         }
     }
 
     public void PrintElement()
     {
-        Console.Write($"Element; ID:{ID}\tIncludes Nodes: ");
+        Console.Write($"Element; ID:{Id}\tIncludes Nodes: ");
         for (int j = 0; j < 4; j++)
         {
             Console.Write($"{Nodes[j].ID}");
@@ -51,10 +46,10 @@ public class Element
 
         for (int i = 0; i < 4; i++)
         {   
-            dxdξ += DiscreteElement.KsiDerivativeTable[i, pointIndex] * this.Nodes[i].X;
-            dxdη += DiscreteElement.EtaDerivativeTable[i, pointIndex] * this.Nodes[i].X;
-            dydξ += DiscreteElement.KsiDerivativeTable[i, pointIndex] * this.Nodes[i].Y;
-            dydη += DiscreteElement.EtaDerivativeTable[i, pointIndex] * this.Nodes[i].Y;
+            dxdξ += DiscreteElement.KsiDerivativeTable[i, pointIndex] * Nodes[i].X;
+            dxdη += DiscreteElement.EtaDerivativeTable[i, pointIndex] * Nodes[i].X;
+            dydξ += DiscreteElement.KsiDerivativeTable[i, pointIndex] * Nodes[i].Y;
+            dydη += DiscreteElement.EtaDerivativeTable[i, pointIndex] * Nodes[i].Y;
         }
 
         double[,] tableToReturn =
@@ -74,6 +69,7 @@ public class Element
 
         double[] dNdx = new double [Dimension * Dimension];
         double[] dNdy = new double [Dimension * Dimension];
+        
         for (int i = 0; i < Dimension * Dimension; i++) 
         {
             dNdx[i] = inversedJacobian[0, 0] * DiscreteElement.KsiDerivativeTable[i, pointIndex] +
@@ -100,7 +96,7 @@ public class Element
 
     public double[,] Hmatrix()
     {
-        double[,] hmatrix = new double[Dimension * Dimension, Dimension * Dimension];
+        double[,] hMatrix = new double[Dimension * Dimension, Dimension * Dimension];
 
         int pointIndex = 0;
         for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
@@ -117,12 +113,12 @@ public class Element
                     }
                 }
                 
-                hmatrix = Functions.MatrixSummation(hmatrix, partialHmatrix);
+                hMatrix.AddMatrix(partialHmatrix);
                 pointIndex++;
             }
         }
 
-        return hmatrix;
+        return hMatrix;
     }
 
     public double[,] HbcMatrix()
@@ -131,14 +127,14 @@ public class Element
 
         if (Nodes[3].Bc && Nodes[0].Bc)
         {
-            hbcMatrix = Functions.MatrixSummation(hbcMatrix, new BcEdge(Nodes[3], Nodes[0], 4).HbcMatrix());
+            hbcMatrix.AddMatrix(new BcEdge(Nodes[3], Nodes[0], 4).HbcMatrix());
         }
 
         for (int i = 0; i < Nodes.Length - 1; i++)
         {
             if (Nodes[i].Bc && Nodes[i + 1].Bc)
             {
-                hbcMatrix = Functions.MatrixSummation(hbcMatrix, new BcEdge(Nodes[i], Nodes[i + 1], i + 1).HbcMatrix());
+                hbcMatrix.AddMatrix(new BcEdge(Nodes[i], Nodes[i + 1], i + 1).HbcMatrix());
             }
         }
 
