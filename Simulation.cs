@@ -92,8 +92,7 @@ public class Simulation
 
         double[,] dashMatrix = Functions.MatrixSummation(_globalHmatrix, cPerΔτ, _globalHbcMatrix);
 
-        _globalPVector = Functions.VectorSummation
-            (_globalPVector, Functions.MultiplyMatrixByVector(cPerΔτ, _temperatureVector));
+        _globalPVector.AddVector(Functions.MultiplyMatrixByVector(cPerΔτ, _temperatureVector));
 
         for (int i = 0; i < _amountOfNodes; i++)
         {

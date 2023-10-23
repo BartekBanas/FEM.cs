@@ -175,6 +175,14 @@ public static class Functions
         }   Console.WriteLine();
     }
 
+    public static void AddVector(this double[] vector, double[] vectorToAdd)
+    {
+        for (int i = 0; i < vector.Length; i++)
+        {
+            vector[i] += vectorToAdd[i];
+        }
+    }
+
     public static double[] VectorSummation(double[] vectorA, double[] vectorB)
     {
         var vectorToReturn = new double [vectorA.Length];

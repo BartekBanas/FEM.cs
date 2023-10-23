@@ -102,8 +102,7 @@ public class BcEdge
 
         for (int i = 0; i < DiscreteElement.IntegralPoints; i++)
         {
-            pVector = Functions.VectorSummation(pVector,
-                PartialPVector(_integrationPoints[i, 0], _integrationPoints[i, 1], i));
+            pVector.AddVector(PartialPVector(_integrationPoints[i, 0], _integrationPoints[i, 1], i));
         }
         
         for (int i = 0; i < 4; i++)
