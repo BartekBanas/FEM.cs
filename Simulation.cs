@@ -322,8 +322,16 @@ public class Simulation
         {
             lines[index] = _temperatureVector[i].ToString(CultureInfo.InvariantCulture);
         }
-
-        File.WriteAllLines($"../../../results/Data_" + iteration.ToString("D3") + ".vtk", lines);
+        
+        const string directoryPath = "../../../results/";
+        
+        if (!Directory.Exists(directoryPath))
+        {
+            Directory.CreateDirectory(directoryPath);
+        }
+        
+        var filePath = Path.Combine(directoryPath, $"Data_{iteration:D3}.vtk");
+        File.WriteAllLines(filePath, lines);
     }
 
     private void ClearGlobalStructures()
