@@ -41,51 +41,53 @@ public class SimulationModel
 
     private void ReadNodes(IReadOnlyList<string> dataFile)
     {
-        var readNodes = new string[Conditions.NodesNumber][];       //Getting a proper bunch of text that'll become nodes
+        var nodes = new string[Conditions.NodesNumber][];
+        
         for (int i = 0; i < Conditions.NodesNumber; i++)
         {
-            readNodes[i] = dataFile[i + 11].Trim().Split(',');
+            nodes[i] = dataFile[i + 11].Trim().Split(',');
         }
         
-        for (int i = 0; i < Conditions.NodesNumber; i++)            //Filling list of nodes
+        for (int i = 0; i < Conditions.NodesNumber; i++)
         {
             Nodes.Add(new Node());
-            Nodes[i].ID = Convert.ToInt16(readNodes[i][0].Trim());
-            Nodes[i].X = Convert.ToDouble(readNodes[i][1].Trim());
-            Nodes[i].Y = Convert.ToDouble(readNodes[i][2].Trim());
+            Nodes[i].ID = Convert.ToInt16(nodes[i][0].Trim());
+            Nodes[i].X = Convert.ToDouble(nodes[i][1].Trim());
+            Nodes[i].Y = Convert.ToDouble(nodes[i][2].Trim());
         }
     }
 
     private void ReadElements(IReadOnlyList<string> dataFile)
     {
-        var readElements = new string[Conditions.ElementsNumber][];    //Getting a proper bunch of text that'll become Elements
+        var elements = new string[Conditions.ElementsNumber][];
+        
         for (int i = 0; i < Conditions.ElementsNumber; i++)
         {
-            readElements[i] = dataFile[i + 12 + Conditions.NodesNumber].Trim().Split(',');
+            elements[i] = dataFile[i + 12 + Conditions.NodesNumber].Trim().Split(',');
         }
 
-        for (int i = 0; i < Conditions.ElementsNumber; i++)         //Filling list of Elements
+        for (int i = 0; i < Conditions.ElementsNumber; i++)
         {
             Elements.Add(new Element(Conditions));
 
-            Elements[i].Id = Convert.ToInt16(readElements[i][0].Trim());
+            Elements[i].Id = Convert.ToInt16(elements[i][0].Trim());
 
-            Elements[i].AddNode(Nodes[Convert.ToInt16(readElements[i][1].Trim()) - 1]);
-            Elements[i].AddNode(Nodes[Convert.ToInt16(readElements[i][2].Trim()) - 1]);
-            Elements[i].AddNode(Nodes[Convert.ToInt16(readElements[i][3].Trim()) - 1]);
-            Elements[i].AddNode(Nodes[Convert.ToInt16(readElements[i][4].Trim()) - 1]);
+            Elements[i].AddNode(Nodes[Convert.ToInt16(elements[i][1].Trim()) - 1]);
+            Elements[i].AddNode(Nodes[Convert.ToInt16(elements[i][2].Trim()) - 1]);
+            Elements[i].AddNode(Nodes[Convert.ToInt16(elements[i][3].Trim()) - 1]);
+            Elements[i].AddNode(Nodes[Convert.ToInt16(elements[i][4].Trim()) - 1]);
         }
     }
 
     private void ReadBcs(IReadOnlyList<string> dataFile)
     {
-        var everyBc = dataFile[13 + Conditions.NodesNumber + Conditions.ElementsNumber]
+        var bcs = dataFile[13 + Conditions.NodesNumber + Conditions.ElementsNumber]
             .Trim()
             .Split(',')
             .Select(expression => Convert.ToInt16(expression.Trim()))
-            .Select(point => (int)point).ToList();            //Getting a proper bunch of words that'll become BCs
+            .Select(point => (int)point).ToList();
 
-        foreach (var id in everyBc)         //Setting BC for eligible nodes
+        foreach (var id in bcs)
         {
             Nodes[id - 1].Bc = true;
         }
