@@ -11,7 +11,7 @@ public class SimulationModel
         var fileText = File.ReadAllText(pathToDataFile);
         var lines = fileText.Split(Environment.NewLine);
         
-        Conditions.ReadConditions(pathToDataFile);
+        Conditions.ReadConditions(lines);
 
         ReadNodes(lines);
         ReadElements(lines);

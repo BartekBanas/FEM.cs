@@ -30,16 +30,13 @@ public class Conditions
         Console.WriteLine($"Amount of Elements: \t\t{ElementsNumber}\n");
     }
     
-    public void ReadConditions(string dataPath)
+    public void ReadConditions(IReadOnlyList<string> dataFile)
     {
-        var fileText = File.ReadAllText(dataPath);
-        var lines = fileText.Split(Environment.NewLine);
-
         var words = new string[10][];
     
         for (int i = 0; i < 10; i++)
         {
-            words[i] = lines[i].Trim().Split(' ');
+            words[i] = dataFile[i].Trim().Split(' ');
         }
 
         SimulationTime =     Convert.ToInt16(words[0][1]);
