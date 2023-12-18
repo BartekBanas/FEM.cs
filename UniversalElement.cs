@@ -4,14 +4,14 @@ namespace FEM_cs;
 
 public static class UniversalElement
 {
-    public static int IntegralPoints;
+    public static int IntegralPoints { get; private set; }
 
-    public static double[,] KsiDerivativeTable = { };
-    public static double[,] EtaDerivativeTable = { };
-    public static double[] Wages = { };
+    public static double[,] KsiDerivativeTable { get; private set; } = { };
+    public static double[,] EtaDerivativeTable { get; private set; } = { };
+    public static double[] Wages { get; private set; } = { };
 
-    public static double[] Points = { };
-    public static double[,][,] ShapeFunctionMatrix = { };
+    public static double[] Points { get; private set; } = { };
+    public static double[,][,] ShapeFunctionMatrix { get; private set; } = { };
 
     private static double[] _etas = { };
     private static double[] _ksis = { };
