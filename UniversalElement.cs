@@ -20,7 +20,7 @@ public static class UniversalElement
     {
         IntegralPoints = integralPoints;
         FillCoordinates();
-        MakeWages();
+        InitializeWages();
 
         KsiDerivativeTable = MakeKsiDerivativeTable();
         EtaDerivativeTable = MakeEtaDerivativeTable();
@@ -152,26 +152,19 @@ public static class UniversalElement
         return resultTable;
     }
 
-    private static void MakeWages()
+    private static void InitializeWages()
     {
-        switch (IntegralPoints)
+        Wages = IntegralPoints switch
         {
-            case 2:
-                Wages = new[] { 1.0, 1.0 };
-                break;
-            
-            case 3:
-                Wages = new[] { 5.0 / 9.0, 8.0 / 9.0, 5.0 / 9.0 };
-                break;
-            
-            case 4:
-                Wages = new[]
-                {
-                    (18.0 - Math.Sqrt(30.0)) / 36.0, (18.0 + Math.Sqrt(30.0)) / 36.0,
-                    (18.0 + Math.Sqrt(30.0)) / 36.0, (18.0 - Math.Sqrt(30.0)) / 36.0
-                };
-                break;
-        }
+            2 => new[] { 1.0, 1.0 },
+            3 => new[] { 5.0 / 9.0, 8.0 / 9.0, 5.0 / 9.0 },
+            4 => new[]
+            {
+                (18.0 - Math.Sqrt(30.0)) / 36.0, (18.0 + Math.Sqrt(30.0)) / 36.0,
+                (18.0 + Math.Sqrt(30.0)) / 36.0, (18.0 - Math.Sqrt(30.0)) / 36.0
+            },
+            _ => Wages
+        };
     }
 
     private static void MakeShapeFunctionMatrix()
