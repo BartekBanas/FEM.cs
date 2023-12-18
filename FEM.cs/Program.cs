@@ -5,7 +5,7 @@ CultureInfo.CurrentCulture = new CultureInfo("en-US");
 
 var simulationModel = new SimulationModel();
 
-const string pathToDataFile = "../../../../data/dane.txt";
+const string pathToDataFile = "../../../../data/example_4x4_1.txt";
 
 simulationModel.Initialize(pathToDataFile);
 
