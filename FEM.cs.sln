@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FEM cs", "FEM cs.csproj", "{2E1B831A-9930-42F6-9786-5F1E17F63C52}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FEM.cs", "FEM.cs\FEM.cs.csproj", "{13D81029-77E4-44FA-B9A9-4A82238C7301}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,9 +8,9 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2E1B831A-9930-42F6-9786-5F1E17F63C52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E1B831A-9930-42F6-9786-5F1E17F63C52}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2E1B831A-9930-42F6-9786-5F1E17F63C52}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2E1B831A-9930-42F6-9786-5F1E17F63C52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13D81029-77E4-44FA-B9A9-4A82238C7301}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13D81029-77E4-44FA-B9A9-4A82238C7301}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13D81029-77E4-44FA-B9A9-4A82238C7301}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13D81029-77E4-44FA-B9A9-4A82238C7301}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

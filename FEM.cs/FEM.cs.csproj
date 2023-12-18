@@ -3,17 +3,8 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net7.0</TargetFramework>
-        <RootNamespace>FEM_cs</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-
-    <ItemGroup>
-      <Folder Include="Results" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Remove="data\Extension.cs" />
-    </ItemGroup>
 
 </Project>
