@@ -19,15 +19,68 @@ public static class UniversalElement
     public static void Initialize(int integralPoints)
     {
         IntegralPoints = integralPoints;
-        FillCoordinates();
+        InitializeCoordinates();
         InitializeWages();
 
-        KsiDerivativeTable = MakeKsiDerivativeTable();
-        EtaDerivativeTable = MakeEtaDerivativeTable();
-        MakeShapeFunctionMatrix();
+        KsiDerivativeTable = InitializeKsiDerivativeTable();
+        EtaDerivativeTable = InitializeEtaDerivativeTable();
+        InitializeShapeFunctionMatrix();
     }
 
-    private static void FillCoordinates()
+    public static void PrintKsiDerivativeTable()
+    {
+        Console.WriteLine("\nKsi table:");
+        for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
+        {
+            Console.WriteLine($"{_etas[i]:F8}\t" +
+                              $"{KsiDerivativeTable[0, i]:F8}\t" +
+                              $"{KsiDerivativeTable[1, i]:F8}\t" +
+                              $"{KsiDerivativeTable[2, i]:F8}\t" +
+                              $"{KsiDerivativeTable[3, i]:F8}");
+        }
+
+        Console.WriteLine();
+    }
+
+    public static void PrintEtaDerivativeTable()
+    {
+        Console.WriteLine("\nEta table:");
+        for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
+        {
+            Console.WriteLine($"{_ksis[i]:F8}\t" +
+                              $"{EtaDerivativeTable[0, i]:F8}\t" +
+                              $"{EtaDerivativeTable[1, i]:F8}\t" +
+                              $"{EtaDerivativeTable[2, i]:F8}\t" +
+                              $"{EtaDerivativeTable[3, i]:F8}");
+        }
+
+        Console.WriteLine("\n");
+    }
+    
+    public static void PrintShapeFunctionMatrix()
+    {
+        for (int i = 0; i < IntegralPoints; i++)
+        {
+            for (int j = 0; j < IntegralPoints; j++)
+            {
+                Console.WriteLine($"Shape function for point {i * IntegralPoints + j + 1}:");
+                for (int l = 0; l < 4; l++)
+                {
+                    for (int k = 0; k < 4; k++)
+                    {
+                        Console.Write(ShapeFunctionMatrix[i, j][l, k].ToString("F4", CultureInfo.InvariantCulture));
+                        Console.Write("\t");
+                    }
+
+                    Console.WriteLine();
+                }
+
+                Console.WriteLine();
+            }
+        }
+    }
+    
+    private static void InitializeCoordinates()
     {
         switch (IntegralPoints)
         {
@@ -89,41 +142,11 @@ public static class UniversalElement
             }
         }
     }
-
-    public static void PrintKsiDerivativeTable()
+    
+    private static double[,] InitializeKsiDerivativeTable()
     {
-        Console.WriteLine("\nKsi table:");
-        for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
-        {
-            Console.WriteLine($"{_etas[i]:F8}\t" +
-                              $"{KsiDerivativeTable[0, i]:F8}\t" +
-                              $"{KsiDerivativeTable[1, i]:F8}\t" +
-                              $"{KsiDerivativeTable[2, i]:F8}\t" +
-                              $"{KsiDerivativeTable[3, i]:F8}");
-        }
-
-        Console.WriteLine();
-    }
-
-    public static void PrintEtaDerivativeTable()
-    {
-        Console.WriteLine("\nEta table:");
-        for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
-        {
-            Console.WriteLine($"{_ksis[i]:F8}\t" +
-                              $"{EtaDerivativeTable[0, i]:F8}\t" +
-                              $"{EtaDerivativeTable[1, i]:F8}\t" +
-                              $"{EtaDerivativeTable[2, i]:F8}\t" +
-                              $"{EtaDerivativeTable[3, i]:F8}");
-        }
-
-        Console.WriteLine("\n");
-    }
-
-    private static double[,] MakeKsiDerivativeTable()
-    {
-        int lenght = IntegralPoints * IntegralPoints;
-        double[,] resultTable = new double [4, lenght];
+        var lenght = IntegralPoints * IntegralPoints;
+        var resultTable = new double [4, lenght];
 
         for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
         {
@@ -136,10 +159,10 @@ public static class UniversalElement
         return resultTable;
     }
 
-    private static double[,] MakeEtaDerivativeTable()
+    private static double[,] InitializeEtaDerivativeTable()
     {
-        int lenght = IntegralPoints * IntegralPoints;
-        double[,] resultTable = new double [4, lenght];
+        var lenght = IntegralPoints * IntegralPoints;
+        var resultTable = new double [4, lenght];
 
         for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
         {
@@ -167,7 +190,7 @@ public static class UniversalElement
         };
     }
 
-    private static void MakeShapeFunctionMatrix()
+    private static void InitializeShapeFunctionMatrix()
     {
         ShapeFunctionMatrix = new double[IntegralPoints, IntegralPoints][,];
 
@@ -184,29 +207,6 @@ public static class UniversalElement
                 };
 
                 ShapeFunctionMatrix[i, j] = Functions.VectorsMultiplication(vector, vector);
-            }
-        }
-    }
-    
-    public static void PrintShapeFunctionMatrix()
-    {
-        for (int i = 0; i < IntegralPoints; i++)
-        {
-            for (int j = 0; j < IntegralPoints; j++)
-            {
-                Console.WriteLine($"Shape function for point {i * IntegralPoints + j + 1}:");
-                for (int l = 0; l < 4; l++)
-                {
-                    for (int k = 0; k < 4; k++)
-                    {
-                        Console.Write(ShapeFunctionMatrix[i, j][l, k].ToString("F4", CultureInfo.InvariantCulture));
-                        Console.Write("\t");
-                    }
-
-                    Console.WriteLine();
-                }
-
-                Console.WriteLine();
             }
         }
     }
