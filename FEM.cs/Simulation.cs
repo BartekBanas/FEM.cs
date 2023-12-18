@@ -323,7 +323,7 @@ public class Simulation
             lines[index] = _temperatureVector[i].ToString(CultureInfo.InvariantCulture);
         }
         
-        const string directoryPath = "../../../results/";
+        const string directoryPath = "../../../../results/";
         
         if (!Directory.Exists(directoryPath))
         {
