@@ -28,4 +28,10 @@
       <ProjectReference Include="..\FEM.cs\FEM.cs.csproj" />
     </ItemGroup>
 
+
+
+    <ItemGroup>
+      <Folder Include="test_output\" />
+    </ItemGroup>
+
 </Project>
