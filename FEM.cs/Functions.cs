@@ -146,7 +146,7 @@ public static class Functions
         return matrixToReturn;
     }
     
-    public static double[,] MultiplyMatrix(this double[,] matrix, double multiplier)
+    public static double[,] MatrixMultiplication(this double[,] matrix, double multiplier)
     {
         var lenght = Convert.ToInt32(Math.Sqrt(matrix.Length));
         var matrixToReturn = new double[lenght, lenght];

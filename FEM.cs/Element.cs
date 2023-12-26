@@ -183,8 +183,9 @@ public class Element
                 double determinant = jacobian.MatrixDeterminant();
                 
                 partialMatrix.CopyMatrix(UniversalElement.ShapeFunctionMatrix[i, j]);
-                partialMatrix = partialMatrix.MultiplyMatrix(UniversalElement.Wages[i] * UniversalElement.Wages[j] * 
-                                                     determinant * _conditions.SpecificHeat * _conditions.Density);
+                partialMatrix = partialMatrix.MatrixMultiplication(
+                    UniversalElement.Wages[i] * UniversalElement.Wages[j] * 
+                    determinant * _conditions.SpecificHeat * _conditions.Density);
                 
                 cMatrix.AddMatrix(partialMatrix);
             }
