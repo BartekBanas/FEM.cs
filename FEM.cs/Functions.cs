@@ -146,7 +146,7 @@ public static class Functions
         return matrixToReturn;
     }
     
-    public static double[,] MatrixMultiplication(this double[,] matrix, double multiplier)
+    public static double[,] MatrixMultiplication(double[,] matrix, double multiplier)
     {
         var lenght = Convert.ToInt32(Math.Sqrt(matrix.Length));
         var matrixToReturn = new double[lenght, lenght];
@@ -160,6 +160,19 @@ public static class Functions
         }
 
         return matrixToReturn;
+    }
+    
+    public static void MultiplyMatrix(this double[,] matrix, double multiplier)
+    {
+        var lenght = Convert.ToInt32(Math.Sqrt(matrix.Length));
+
+        for (int i = 0; i < lenght; i++)
+        {
+            for (int j = 0; j < lenght; j++)
+            {
+                matrix[i, j] *= multiplier;
+            }
+        }
     }
     
     public static void PrintMatrix(this double[,] matrix)
