@@ -91,7 +91,7 @@ public class Simulation
             }
         }
 
-        double[,] cPerΔτ = _globalCMatrix.MatrixMultiplication(1 / _conditions.SimulationStepTime);
+        double[,] cPerΔτ = Functions.MatrixMultiplication(_globalCMatrix, 1 / _conditions.SimulationStepTime);
 
         double[,] dashMatrix = Functions.MatrixSummation(_globalHmatrix, cPerΔτ, _globalHbcMatrix);
 

@@ -36,7 +36,9 @@ public class Element
             Console.Write($"{Nodes[j].ID}");
             if (j < 3)
                 Console.Write(", ");
-        }   Console.Write("\n");
+        }
+
+        Console.Write("\n");
     }
 
     public void PrintNodes()
@@ -47,12 +49,12 @@ public class Element
         }
     }
 
-    private double[,] Jacobian (int pointIndex)
+    private double[,] Jacobian(int pointIndex)
     {
         double dxdξ = 0, dxdη = 0, dydξ = 0, dydη = 0;
 
         for (int i = 0; i < 4; i++)
-        {   
+        {
             dxdξ += UniversalElement.KsiDerivativeTable[i, pointIndex] * Nodes[i].X;
             dxdη += UniversalElement.EtaDerivativeTable[i, pointIndex] * Nodes[i].X;
             dydξ += UniversalElement.KsiDerivativeTable[i, pointIndex] * Nodes[i].Y;
@@ -76,8 +78,8 @@ public class Element
 
         double[] dNdx = new double [_dimension * _dimension];
         double[] dNdy = new double [_dimension * _dimension];
-        
-        for (int i = 0; i < _dimension * _dimension; i++) 
+
+        for (int i = 0; i < _dimension * _dimension; i++)
         {
             dNdx[i] = inversedJacobian[0, 0] * UniversalElement.KsiDerivativeTable[i, pointIndex] +
                       inversedJacobian[0, 1] * UniversalElement.EtaDerivativeTable[i, pointIndex];
@@ -97,7 +99,7 @@ public class Element
                 hmatrixPartial[i, j] *= _conditions.Conductivity * determinant;
             }
         }
-        
+
         return hmatrixPartial;
     }
 
@@ -119,7 +121,7 @@ public class Element
                         partialHmatrix[k, l] *= UniversalElement.Wages[i] * UniversalElement.Wages[j];
                     }
                 }
-                
+
                 hMatrix.AddMatrix(partialHmatrix);
                 pointIndex++;
             }
@@ -156,7 +158,7 @@ public class Element
         {
             pVector.AddVector(new BcEdge(Nodes[3], Nodes[0], 4, _conditions).PVector());
         }
-        
+
         for (int i = 0; i < Nodes.Length - 1; i++)
         {
             if (Nodes[i].Bc && Nodes[i + 1].Bc)
@@ -170,23 +172,22 @@ public class Element
 
     public double[,] CMatrix()
     {
-        int pointIndex = 0;
+        var pointIndex = 0;
 
-        double[,] cMatrix = new double[4 ,4];
-        double[,] partialMatrix = new double[4 ,4];
+        var cMatrix = new double[4, 4];
+        var partialMatrix = new double[4, 4];
 
         for (int i = 0; i < UniversalElement.IntegralPoints; i++)
         {
             for (int j = 0; j < UniversalElement.IntegralPoints; j++, pointIndex++)
             {
-                double[,] jacobian = Jacobian(pointIndex);
-                double determinant = jacobian.MatrixDeterminant();
-                
+                var jacobian = Jacobian(pointIndex);
+                var determinant = jacobian.MatrixDeterminant();
+
                 partialMatrix.CopyMatrix(UniversalElement.ShapeFunctionMatrix[i, j]);
-                partialMatrix = partialMatrix.MatrixMultiplication(
-                    UniversalElement.Wages[i] * UniversalElement.Wages[j] * 
-                    determinant * _conditions.SpecificHeat * _conditions.Density);
-                
+                partialMatrix.MultiplyMatrix(UniversalElement.Wages[i] * UniversalElement.Wages[j] *
+                                             determinant * _conditions.SpecificHeat * _conditions.Density);
+
                 cMatrix.AddMatrix(partialMatrix);
             }
         }
