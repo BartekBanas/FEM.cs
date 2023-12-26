@@ -11,13 +11,12 @@ public class IntegrativeTests
     {
         // Arrange
         CultureInfo.CurrentCulture = new CultureInfo("en-US");
+        const string pathToDataFile = "../../../../data/example_4x4_1.txt";
+        
+        UniversalElement.Initialize(4);
 
         var simulationModel = new SimulationModel();
-
-        const string pathToDataFile = "../../../../data/example_4x4_1.txt";
-
         simulationModel.Initialize(pathToDataFile);
-        UniversalElement.Initialize(4);
         var simulation = new Simulation(simulationModel);
         
         // Act
