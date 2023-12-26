@@ -1,4 +1,4 @@
-﻿namespace FEM_cs;
+﻿namespace FEM.cs;
 
 public class BcEdge
 {
@@ -66,7 +66,7 @@ public class BcEdge
 
         double[,] matrix = Functions.VectorsMultiplication(row, row);
         
-        matrix = matrix.MultiplyMatrix(UniversalElement.Wages[index]);
+        matrix.MultiplyMatrix(UniversalElement.Wages[index]);
 
         return matrix;
     }
@@ -81,7 +81,7 @@ public class BcEdge
                 PartialHbcMatrix(_integrationPoints[i, 0], _integrationPoints[i, 1], i));
         }
         
-        hbcMatrix = hbcMatrix.MultiplyMatrix(_conditions.α * _jacobianDeterminant);
+        hbcMatrix.MultiplyMatrix(_conditions.α * _jacobianDeterminant);
 
         return hbcMatrix;
     }

@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace FEM_cs;
+namespace FEM.cs;
 
 public class Simulation
 {
@@ -91,7 +91,7 @@ public class Simulation
             }
         }
 
-        double[,] cPerΔτ = _globalCMatrix.MultiplyMatrix(1 / _conditions.SimulationStepTime);
+        double[,] cPerΔτ = Functions.MatrixMultiplication(_globalCMatrix, 1 / _conditions.SimulationStepTime);
 
         double[,] dashMatrix = Functions.MatrixSummation(_globalHmatrix, cPerΔτ, _globalHbcMatrix);
 
@@ -323,7 +323,7 @@ public class Simulation
             lines[index] = _temperatureVector[i].ToString(CultureInfo.InvariantCulture);
         }
         
-        const string directoryPath = "../../../results/";
+        const string directoryPath = "../../../../results/";
         
         if (!Directory.Exists(directoryPath))
         {
