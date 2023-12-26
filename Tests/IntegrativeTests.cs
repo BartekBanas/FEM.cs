@@ -26,7 +26,33 @@ public class IntegrativeTests
         for (int i = 0; i <= 10; i++)
         {
             var expected = File.ReadAllText("../../../../results/" + $"Data_{i:D3}.vtk");
-            var received = File.ReadAllText("../../../testOutput/" + $"Data_{i:D3}.test");
+            var received = File.ReadAllText("../../../testOutput_4x4_1/" + $"Data_{i:D3}.test");
+
+            Assert.Equal(received,expected);
+        }
+    }
+    
+    [Fact]
+    public void Test4X4Matrix2()
+    {
+        // Arrange
+        CultureInfo.CurrentCulture = new CultureInfo("en-US");
+        const string pathToDataFile = "../../../../data/example_4x4_2.txt";
+        
+        UniversalElement.Initialize(4);
+
+        var simulationModel = new SimulationModel();
+        simulationModel.Initialize(pathToDataFile);
+        var simulation = new Simulation(simulationModel);
+        
+        // Act
+        simulation.RunSimulation();
+        
+        // Assert
+        for (int i = 0; i <= 10; i++)
+        {
+            var expected = File.ReadAllText("../../../../results/" + $"Data_{i:D3}.vtk");
+            var received = File.ReadAllText("../../../testOutput_4x4_2/" + $"Data_{i:D3}.test");
 
             Assert.Equal(received,expected);
         }
