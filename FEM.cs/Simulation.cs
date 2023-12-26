@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace FEM_cs;
+namespace FEM.cs;
 
 public class Simulation
 {
