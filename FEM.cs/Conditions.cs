@@ -14,7 +14,7 @@ public class Conditions
     public int ElementsNumber { get; private set; }
     public int Dimension { get; private set; } = 2;
 
-    public void PrintConditions()
+    public void Print()
     {
         Console.WriteLine("Conditions of the Simulation:\t_____");
         

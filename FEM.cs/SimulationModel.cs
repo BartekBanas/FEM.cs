@@ -36,7 +36,7 @@ public class SimulationModel
 
     public void PrintConditions()
     {
-        Conditions.PrintConditions();
+        Conditions.Print();
     }
 
     private void ReadNodes(IReadOnlyList<string> dataFile)
