@@ -64,7 +64,7 @@ public class BcEdge
     
     private double[,] PartialHbcMatrix(double ξ, double η, int index)
     {
-        double[] row = { Functions.N1(ξ, η), Functions.N2(ξ, η), Functions.N3(ξ, η), Functions.N4(ξ, η) };
+        double[] row = { ShapeFunctions.N1(ξ, η), ShapeFunctions.N2(ξ, η), ShapeFunctions.N3(ξ, η), ShapeFunctions.N4(ξ, η) };
 
         double[,] matrix = Functions.VectorsMultiplication(row, row);
         
@@ -90,7 +90,7 @@ public class BcEdge
     
     private double[] PartialPVector(double ξ, double η, int index)
     {
-        double[] vector = { Functions.N1(ξ, η), Functions.N2(ξ, η), Functions.N3(ξ, η), Functions.N4(ξ, η) };
+        double[] vector = { ShapeFunctions.N1(ξ, η), ShapeFunctions.N2(ξ, η), ShapeFunctions.N3(ξ, η), ShapeFunctions.N4(ξ, η) };
         
         for (int i = 0; i < 4; i++)
         {

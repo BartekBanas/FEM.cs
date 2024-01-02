@@ -151,10 +151,10 @@ public static class UniversalElement
 
         for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
         {
-            resultTable[0, i] = Functions.N1dξ(null,_etas[i]);
-            resultTable[1, i] = Functions.N2dξ(null,_etas[i]);
-            resultTable[2, i] = Functions.N3dξ(null,_etas[i]);
-            resultTable[3, i] = Functions.N4dξ(null,_etas[i]);
+            resultTable[0, i] = ShapeFunctions.N1dξ(null,_etas[i]);
+            resultTable[1, i] = ShapeFunctions.N2dξ(null,_etas[i]);
+            resultTable[2, i] = ShapeFunctions.N3dξ(null,_etas[i]);
+            resultTable[3, i] = ShapeFunctions.N4dξ(null,_etas[i]);
         }
 
         return resultTable;
@@ -167,10 +167,10 @@ public static class UniversalElement
 
         for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
         {
-            resultTable[0, i] = Functions.N1dη(_ksis[i], null);
-            resultTable[1, i] = Functions.N2dη(_ksis[i], null);
-            resultTable[2, i] = Functions.N3dη(_ksis[i], null);
-            resultTable[3, i] = Functions.N4dη(_ksis[i], null);
+            resultTable[0, i] = ShapeFunctions.N1dη(_ksis[i], null);
+            resultTable[1, i] = ShapeFunctions.N2dη(_ksis[i], null);
+            resultTable[2, i] = ShapeFunctions.N3dη(_ksis[i], null);
+            resultTable[3, i] = ShapeFunctions.N4dη(_ksis[i], null);
         }
 
         return resultTable;
@@ -201,10 +201,10 @@ public static class UniversalElement
             {
                 double[] vector =
                 {
-                    Functions.N1(Points[i], Points[j]),
-                    Functions.N2(Points[i], Points[j]),
-                    Functions.N3(Points[i], Points[j]),
-                    Functions.N4(Points[i], Points[j])
+                    ShapeFunctions.N1(Points[i], Points[j]),
+                    ShapeFunctions.N2(Points[i], Points[j]),
+                    ShapeFunctions.N3(Points[i], Points[j]),
+                    ShapeFunctions.N4(Points[i], Points[j])
                 };
 
                 ShapeFunctionMatrix[i, j] = Functions.VectorsMultiplication(vector, vector);
