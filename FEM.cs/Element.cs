@@ -1,4 +1,6 @@
-﻿namespace FEM.cs;
+﻿using Utilities;
+
+namespace FEM.cs;
 
 public class Element
 {

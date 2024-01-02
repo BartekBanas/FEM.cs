@@ -42,4 +42,9 @@ public class Node
         Console.Write(Temperature.ToString("F8", CultureInfo.InvariantCulture));
         Console.Write($"\tBC: {Bc}\n");
     }
+    
+    public static double GetDistance(Node node1, Node node2)
+    {
+        return Math.Sqrt(Math.Pow(node2.X - node1.X, 2) + Math.Pow(node2.Y - node1.Y, 2));
+    }
 };

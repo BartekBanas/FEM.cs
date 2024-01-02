@@ -1,4 +1,6 @@
-﻿namespace FEM.cs;
+﻿using Utilities;
+
+namespace FEM.cs;
 
 public class BcEdge
 {
@@ -13,7 +15,7 @@ public class BcEdge
         _conditions = conditions;
         _side = side;
         
-        _jacobianDeterminant = Functions.GetDistance(node1, node2) / 2;
+        _jacobianDeterminant = Node.GetDistance(node1, node2) / 2;
         SetIntegrationPoints();
     }
 
