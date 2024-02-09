@@ -151,10 +151,10 @@ public static class UniversalElement
 
         for (int i = 0; i < IntegralPoints * IntegralPoints; i++)
         {
-            resultTable[0, i] = ShapeFunctions.N1dξ(null,_etas[i]);
-            resultTable[1, i] = ShapeFunctions.N2dξ(null,_etas[i]);
-            resultTable[2, i] = ShapeFunctions.N3dξ(null,_etas[i]);
-            resultTable[3, i] = ShapeFunctions.N4dξ(null,_etas[i]);
+            resultTable[0, i] = ShapeFunctions.N1dξ(null, _etas[i]);
+            resultTable[1, i] = ShapeFunctions.N2dξ(null, _etas[i]);
+            resultTable[2, i] = ShapeFunctions.N3dξ(null, _etas[i]);
+            resultTable[3, i] = ShapeFunctions.N4dξ(null, _etas[i]);
         }
 
         return resultTable;
