@@ -12,12 +12,6 @@ public class IntegrativeTests
         CultureInfo.CurrentCulture = new CultureInfo("en-US");
         UniversalElement.Initialize(4);
     }
-    
-    // public IntegrativeTests()
-    // {
-    //     CultureInfo.CurrentCulture = new CultureInfo("en-US");
-    //     UniversalElement.Initialize(4);
-    // }
 
     [Test]
     public void Test4X4Matrix()
