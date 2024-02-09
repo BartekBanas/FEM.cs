@@ -6,14 +6,17 @@ namespace Tests;
 
 public class IntegrativeTests
 {
+    public IntegrativeTests()
+    {
+        CultureInfo.CurrentCulture = new CultureInfo("en-US");
+        UniversalElement.Initialize(4);
+    }
+
     [Fact]
     public void Test4X4Matrix()
     {
         // Arrange
-        CultureInfo.CurrentCulture = new CultureInfo("en-US");
         const string pathToDataFile = "../../../test_input/example_4x4_1.txt";
-
-        UniversalElement.Initialize(4);
 
         var simulationModel = new SimulationModel();
         simulationModel.Initialize(pathToDataFile);
@@ -36,10 +39,7 @@ public class IntegrativeTests
     public void Test4X4Matrix2()
     {
         // Arrange
-        CultureInfo.CurrentCulture = new CultureInfo("en-US");
         const string pathToDataFile = "../../../test_input/example_4x4_2.txt";
-
-        UniversalElement.Initialize(4);
 
         var simulationModel = new SimulationModel();
         simulationModel.Initialize(pathToDataFile);
@@ -62,10 +62,7 @@ public class IntegrativeTests
     public void Test31X31Matrix()
     {
         // Arrange
-        CultureInfo.CurrentCulture = new CultureInfo("en-US");
         const string pathToDataFile = "../../../test_input/example_31x31_1.txt";
-
-        UniversalElement.Initialize(4);
 
         var simulationModel = new SimulationModel();
         simulationModel.Initialize(pathToDataFile);
