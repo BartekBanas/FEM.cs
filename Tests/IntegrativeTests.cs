@@ -1,18 +1,25 @@
 using System.Globalization;
 using FEM.cs;
-using Xunit;
+using NUnit.Framework;
 
 namespace Tests;
 
 public class IntegrativeTests
 {
-    public IntegrativeTests()
+    [SetUp]
+    public void SetUp()
     {
         CultureInfo.CurrentCulture = new CultureInfo("en-US");
         UniversalElement.Initialize(4);
     }
+    
+    // public IntegrativeTests()
+    // {
+    //     CultureInfo.CurrentCulture = new CultureInfo("en-US");
+    //     UniversalElement.Initialize(4);
+    // }
 
-    [Fact]
+    [Test]
     public void Test4X4Matrix()
     {
         // Arrange
@@ -31,11 +38,11 @@ public class IntegrativeTests
             var expected = File.ReadAllText("../../../../results/" + $"Data_{i:D3}.vtk");
             var actual = File.ReadAllText("../../../test_output/4x4_1/" + $"Data_{i:D3}.test");
 
-            Assert.Equal(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
     }
 
-    [Fact]
+    [Test]
     public void Test4X4Matrix2()
     {
         // Arrange
@@ -54,11 +61,11 @@ public class IntegrativeTests
             var expected = File.ReadAllText("../../../../results/" + $"Data_{i:D3}.vtk");
             var actual = File.ReadAllText("../../../test_output/4x4_2/" + $"Data_{i:D3}.test");
 
-            Assert.Equal(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
     }
 
-    [Fact]
+    [Test]
     public void Test31X31Matrix()
     {
         // Arrange
@@ -77,7 +84,7 @@ public class IntegrativeTests
             var expected = File.ReadAllText("../../../../results/" + $"Data_{i:D3}.vtk");
             var actual = File.ReadAllText("../../../test_output/31x31_1/" + $"Data_{i:D3}.test");
 
-            Assert.Equal(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
     }
 }
