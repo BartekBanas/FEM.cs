@@ -207,7 +207,7 @@ public static class UniversalElement
                     ShapeFunctions.N4(Points[i], Points[j])
                 };
 
-                ShapeFunctionMatrix[i, j] = Functions.VectorsMultiplication(vector, vector);
+                ShapeFunctionMatrix[i, j] = AlgebraicUtils.VectorsMultiplication(vector, vector);
             }
         }
     }

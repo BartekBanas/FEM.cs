@@ -92,11 +92,11 @@ public class Simulation
             }
         }
 
-        double[,] cPerΔτ = Functions.MatrixMultiplication(_globalCMatrix, 1 / _conditions.SimulationStepTime);
+        double[,] cPerΔτ = AlgebraicUtils.MatrixMultiplication(_globalCMatrix, 1 / _conditions.SimulationStepTime);
 
-        double[,] dashMatrix = Functions.MatrixSummation(_globalHmatrix, cPerΔτ, _globalHbcMatrix);
+        double[,] dashMatrix = AlgebraicUtils.MatrixSummation(_globalHmatrix, cPerΔτ, _globalHbcMatrix);
 
-        _globalPVector.AddVector(Functions.MultiplyMatrixByVector(cPerΔτ, _temperatureVector));
+        _globalPVector.AddVector(AlgebraicUtils.MultiplyMatrixByVector(cPerΔτ, _temperatureVector));
 
         for (int i = 0; i < _amountOfNodes; i++)
         {

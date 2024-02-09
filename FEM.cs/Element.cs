@@ -90,9 +90,9 @@ public class Element
                       inversedJacobian[1, 1] * UniversalElement.EtaDerivativeTable[i, pointIndex];
         }
 
-        double[,] hmatrixPartial = Functions.MatrixSummation(
-            Functions.VectorsMultiplication(dNdx, dNdx),
-            Functions.VectorsMultiplication(dNdy, dNdy));
+        double[,] hmatrixPartial = AlgebraicUtils.MatrixSummation(
+            AlgebraicUtils.VectorsMultiplication(dNdx, dNdx),
+            AlgebraicUtils.VectorsMultiplication(dNdy, dNdy));
 
         for (int i = 0; i < 4; i++)
         {

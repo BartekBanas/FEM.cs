@@ -2,10 +2,8 @@
 
 namespace Utilities;
 
-public static class Functions
+public static class AlgebraicUtils
 {
-    //  Shape functions
-
     public static double FindFromIntegralPoint(double value1, double value2, double ksi)
     {
         var wage1 = Math.Abs(ksi - 1) / 2;
@@ -13,8 +11,6 @@ public static class Functions
         
         return value1 * wage1 + value2 * wage2;
     }
-    
-    //  Mathematical operations
 
     public static double[,] MatrixInversion(this double[,] matrix)
     {
