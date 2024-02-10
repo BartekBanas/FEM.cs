@@ -10,28 +10,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0"/>
-        <PackageReference Include="xunit" Version="2.4.2"/>
-        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-            <PrivateAssets>all</PrivateAssets>
-        </PackageReference>
-        <PackageReference Include="coverlet.collector" Version="3.2.0">
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-            <PrivateAssets>all</PrivateAssets>
-        </PackageReference>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0"/>
+        <PackageReference Include="NUnit" Version="4.0.1"/>
+        <PackageReference Include="System.IO.Abstractions.TestingHelpers" Version="20.0.15" />
     </ItemGroup>
 
-
-
     <ItemGroup>
-      <ProjectReference Include="..\FEM.cs\FEM.cs.csproj" />
+        <ProjectReference Include="..\FEM.cs\FEM.cs.csproj"/>
     </ItemGroup>
 
-
-
     <ItemGroup>
-      <Folder Include="test_output\" />
+        <Folder Include="test_output\"/>
     </ItemGroup>
 
 </Project>

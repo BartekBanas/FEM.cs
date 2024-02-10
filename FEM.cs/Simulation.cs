@@ -1,10 +1,14 @@
 ﻿using System.Globalization;
+using System.IO.Abstractions;
 using Utilities;
 
 namespace FEM.cs;
 
 public class Simulation
 {
+    private readonly IFileSystem _fileSystem;
+    private IDirectoryInfo _outputDirectory;
+    
     private readonly Conditions _conditions;
     private readonly List<Element> _elements;
     private readonly List<Node> _nodes;
@@ -19,6 +23,9 @@ public class Simulation
     
     public Simulation(SimulationModel simulationModel)
     {
+        _fileSystem = simulationModel.FileSystem;
+        _outputDirectory = simulationModel.OutputDirectory;
+        
         _conditions = simulationModel.Conditions;
         
         _elements = simulationModel.Elements;
@@ -270,7 +277,6 @@ public class Simulation
         int index = 0;
         string[] lines = new string[_nodes.Count * 2 + _elements.Count * 2 + 15];
 
-
         lines[index] = "# vtk DataFile Version 2.0";
         index++;
         lines[index] = "Unstructured Grid Example";
@@ -324,15 +330,13 @@ public class Simulation
             lines[index] = _temperatureVector[i].ToString(CultureInfo.InvariantCulture);
         }
         
-        const string directoryPath = "../../../../results/";
-        
-        if (!Directory.Exists(directoryPath))
+        if (!_outputDirectory.Exists)
         {
-            Directory.CreateDirectory(directoryPath);
+            _outputDirectory.Create();
         }
         
-        var filePath = Path.Combine(directoryPath, $"Data_{iteration:D3}.vtk");
-        File.WriteAllLines(filePath, lines);
+        var filePath = Path.Combine(_outputDirectory.FullName, $"Data_{iteration:D3}.vtk");
+        _fileSystem.File.WriteAllLines(filePath, lines);
     }
 
     private void ClearGlobalStructures()
