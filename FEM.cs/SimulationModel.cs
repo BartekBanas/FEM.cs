@@ -11,7 +11,7 @@ public class SimulationModel
     public List<Node> Nodes { get; } = new();
     public List<Element> Elements { get; } = new();
 
-    public void Initialize(string pathToDataFile, IFileSystem? fileSystem = null)
+    public SimulationModel(string pathToDataFile, IFileSystem? fileSystem = null)
     {
         FileSystem = fileSystem ?? new FileSystem();
         InputFile = FileSystem.FileInfo.New(pathToDataFile);
@@ -27,7 +27,7 @@ public class SimulationModel
         ReadBcs(lines);
     }
     
-    public void Initialize(IFileInfo inputFile, IDirectoryInfo outputDirectory)
+    public SimulationModel(IFileInfo inputFile, IDirectoryInfo outputDirectory)
     {
         FileSystem = inputFile.FileSystem;
         InputFile = inputFile;

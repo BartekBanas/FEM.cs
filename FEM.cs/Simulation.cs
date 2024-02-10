@@ -7,7 +7,7 @@ namespace FEM.cs;
 public class Simulation
 {
     private readonly IFileSystem _fileSystem;
-    private IDirectoryInfo _outputDirectory;
+    private readonly IDirectoryInfo _outputDirectory;
     
     private readonly Conditions _conditions;
     private readonly List<Element> _elements;

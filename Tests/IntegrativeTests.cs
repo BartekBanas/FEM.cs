@@ -27,8 +27,7 @@ public class IntegrativeTests
         var fileInfo = fileSystem.FileInfo.New(pathToInputFile);
         var outputDirectory = fileSystem.DirectoryInfo.New("results");
 
-        var simulationModel = new SimulationModel();
-        simulationModel.Initialize(fileInfo, outputDirectory);
+        var simulationModel = new SimulationModel(fileInfo, outputDirectory);
         var simulation = new Simulation(simulationModel);
 
         // Act
@@ -57,8 +56,7 @@ public class IntegrativeTests
         var fileInfo = fileSystem.FileInfo.New(pathToInputFile);
         var outputDirectory = fileSystem.DirectoryInfo.New("results");
 
-        var simulationModel = new SimulationModel();
-        simulationModel.Initialize(fileInfo, outputDirectory);
+        var simulationModel = new SimulationModel(fileInfo, outputDirectory);
         var simulation = new Simulation(simulationModel);
 
         // Act
@@ -87,8 +85,7 @@ public class IntegrativeTests
         var fileInfo = fileSystem.FileInfo.New(pathToInputFile);
         var outputDirectory = fileSystem.DirectoryInfo.New("results");
 
-        var simulationModel = new SimulationModel();
-        simulationModel.Initialize(fileInfo, outputDirectory);
+        var simulationModel = new SimulationModel(fileInfo, outputDirectory);
         var simulation = new Simulation(simulationModel);
 
         // Act
