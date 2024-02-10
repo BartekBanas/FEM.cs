@@ -1,14 +1,39 @@
+using System.IO.Abstractions;
+
 namespace FEM.cs;
 
 public class SimulationModel
 {
+    public IFileSystem FileSystem { get; private set; }
+    public IFileInfo InputFile { get; set; }
+    public IDirectoryInfo OutputDirectory { get; set; }
     public Conditions Conditions { get; } = new();
     public List<Node> Nodes { get; } = new();
     public List<Element> Elements { get; } = new();
 
-    public void Initialize(string pathToDataFile)
+    public void Initialize(string pathToDataFile, IFileSystem? fileSystem = null)
     {
-        var fileText = File.ReadAllText(pathToDataFile);
+        FileSystem = fileSystem ?? new FileSystem();
+        InputFile = FileSystem.FileInfo.New(pathToDataFile);
+        OutputDirectory = FileSystem.DirectoryInfo.New("../../../../results/");
+        
+        var fileText = FileSystem.File.ReadAllText(pathToDataFile);
+        var lines = fileText.Split(Environment.NewLine);
+        
+        Conditions.ReadConditions(lines);
+
+        ReadNodes(lines);
+        ReadElements(lines);
+        ReadBcs(lines);
+    }
+    
+    public void Initialize(IFileInfo inputFile, IDirectoryInfo outputDirectory)
+    {
+        FileSystem = inputFile.FileSystem;
+        InputFile = inputFile;
+        OutputDirectory = outputDirectory;
+        
+        var fileText = FileSystem.File.ReadAllText(inputFile.FullName);
         var lines = fileText.Split(Environment.NewLine);
         
         Conditions.ReadConditions(lines);

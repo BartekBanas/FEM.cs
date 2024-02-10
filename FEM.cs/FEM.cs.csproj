@@ -11,4 +11,8 @@
       <ProjectReference Include="..\Utilities\Utilities.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="System.IO.Abstractions" Version="20.0.15" />
+    </ItemGroup>
+
 </Project>
