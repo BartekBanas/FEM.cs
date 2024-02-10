@@ -1,4 +1,6 @@
-﻿namespace FEM.cs;
+﻿using Utilities;
+
+namespace FEM.cs;
 
 public class BcEdge
 {
@@ -13,7 +15,7 @@ public class BcEdge
         _conditions = conditions;
         _side = side;
         
-        _jacobianDeterminant = Functions.GetDistance(node1, node2) / 2;
+        _jacobianDeterminant = Node.GetDistance(node1, node2) / 2;
         SetIntegrationPoints();
     }
 
@@ -62,9 +64,9 @@ public class BcEdge
     
     private double[,] PartialHbcMatrix(double ξ, double η, int index)
     {
-        double[] row = { Functions.N1(ξ, η), Functions.N2(ξ, η), Functions.N3(ξ, η), Functions.N4(ξ, η) };
+        double[] row = { ShapeFunctions.N1(ξ, η), ShapeFunctions.N2(ξ, η), ShapeFunctions.N3(ξ, η), ShapeFunctions.N4(ξ, η) };
 
-        double[,] matrix = Functions.VectorsMultiplication(row, row);
+        double[,] matrix = AlgebraicUtils.VectorsMultiplication(row, row);
         
         matrix.MultiplyMatrix(UniversalElement.Wages[index]);
 
@@ -77,7 +79,7 @@ public class BcEdge
         
         for (int i = 0; i < UniversalElement.IntegralPoints; i++)
         {
-            hbcMatrix = Functions.MatrixSummation(hbcMatrix,
+            hbcMatrix = AlgebraicUtils.MatrixSummation(hbcMatrix,
                 PartialHbcMatrix(_integrationPoints[i, 0], _integrationPoints[i, 1], i));
         }
         
@@ -88,7 +90,7 @@ public class BcEdge
     
     private double[] PartialPVector(double ξ, double η, int index)
     {
-        double[] vector = { Functions.N1(ξ, η), Functions.N2(ξ, η), Functions.N3(ξ, η), Functions.N4(ξ, η) };
+        double[] vector = { ShapeFunctions.N1(ξ, η), ShapeFunctions.N2(ξ, η), ShapeFunctions.N3(ξ, η), ShapeFunctions.N4(ξ, η) };
         
         for (int i = 0; i < 4; i++)
         {

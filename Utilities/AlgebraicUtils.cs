@@ -1,65 +1,9 @@
 ﻿using System.Globalization;
 
-namespace FEM.cs;
+namespace Utilities;
 
-public static class Functions
+public static class AlgebraicUtils
 {
-    //  Shape functions
-    
-    public static double N1(double ξ, double η)
-    {
-        return (1 - ξ) * (1 - η) / 4;
-    }
-    public static double N2(double ξ, double η)
-    {
-        return  (1 + ξ) * (1 - η) / 4;
-    }
-    public static double N3(double ξ, double η)
-    {
-        return (1 + ξ) * (1 + η) / 4;
-    }
-    public static double N4(double ξ, double η)
-    {
-        return (1 - ξ) * (1 + η) / 4;
-    }
-    
-    //  Derivatives of Shape Functions 
-    
-    public static double N1dξ(double? ξ, double η)
-    {
-        return - (1 - η) / 4;
-    }
-    public static double N2dξ(double? ξ, double η)
-    {
-        return  (1 - η) / 4;
-    }
-    public static double N3dξ(double? ξ, double η)
-    {
-        return (1 + η) / 4;
-    }
-    public static double N4dξ(double? ξ, double η)
-    {
-        return - (1 + η) / 4;
-    }
-    
-    
-    public static double N1dη(double ξ, double? η = 0)
-    {
-        return (1 - ξ) * - 1 / 4;
-    }
-    public static double N2dη(double ξ, double? η = 0)
-    {
-        return (1 + ξ) * - 1 / 4;
-    }
-    public static double N3dη(double ξ, double? η = 0)
-    {
-        return (1 + ξ) / 4;
-    }
-    public static double N4dη(double ξ, double? η = 0)
-    {
-        return (1 - ξ) / 4;
-    }
-
     public static double FindFromIntegralPoint(double value1, double value2, double ksi)
     {
         var wage1 = Math.Abs(ksi - 1) / 2;
@@ -67,8 +11,6 @@ public static class Functions
         
         return value1 * wage1 + value2 * wage2;
     }
-    
-    //  Mathematical operations
 
     public static double[,] MatrixInversion(this double[,] matrix)
     {
@@ -215,11 +157,6 @@ public static class Functions
         }
 
         return vector;
-    }
-    
-    public static double GetDistance(Node node1, Node node2)
-    {
-        return Math.Sqrt(Math.Pow(node2.X - node1.X, 2) + Math.Pow(node2.Y - node1.Y, 2));
     }
 
     public static double[,] CopyMatrix(this double[,] matrix)
