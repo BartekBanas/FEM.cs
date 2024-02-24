@@ -7,7 +7,7 @@ namespace FEM.cs;
 public class Simulation
 {
     private readonly IFileSystem _fileSystem;
-    private IDirectoryInfo _outputDirectory;
+    private readonly IDirectoryInfo _outputDirectory;
     
     private readonly Conditions _conditions;
     private readonly List<Element> _elements;
@@ -20,6 +20,8 @@ public class Simulation
     private readonly double[,] _globalHbcMatrix;
     private readonly double[,] _globalCMatrix;
     private readonly double[] _temperatureVector;
+
+    private bool _enableLogs;
     
     public Simulation(SimulationModel simulationModel)
     {
@@ -239,9 +241,9 @@ public class Simulation
         return xi;
     }
 
-    public void RunSimulation()
+    public void RunSimulation(bool enableLogs = false)
     {
-        Console.WriteLine("Time[s]\tMinTemp\tMaxTemp");
+        _enableLogs = enableLogs;
         
         int i;
         for (i = 0; i < _conditions.SimulationTime / _conditions.SimulationStepTime; i++)
@@ -255,16 +257,22 @@ public class Simulation
                 _nodes[j].Temperature = calculatedTemperature[j];
             }
 
-            //Console.WriteLine($"Simulation; Iteration nr: {i + 1}");
-            // Console.WriteLine(
-            //     $"Time = {(i+1) * Conditions.SimulationStepTime} min_T = {calculatedTemperature.Min()},\tmax_T = {calculatedTemperature.Max()}");
-            
-            Console.WriteLine(
-                ((i+1) * _conditions.SimulationStepTime).ToString(CultureInfo.InvariantCulture) + "\t" +
-                calculatedTemperature.Min().ToString("F2", CultureInfo.InvariantCulture) + "\t" +
-                calculatedTemperature.Max().ToString("F2", CultureInfo.InvariantCulture));
+            if (_enableLogs)
+            {
+                Console.WriteLine($"Simulation; Iteration nr: {i + 1}");
+                Console.WriteLine(
+                    $"Time = {(i + 1) * _conditions.SimulationStepTime} min_T = {calculatedTemperature.Min()},\tmax_T = {calculatedTemperature.Max()}");
+                
+                Console.WriteLine("Time[s]\tMinTemp\tMaxTemp");
+                
+                Console.WriteLine(
+                    ((i+1) * _conditions.SimulationStepTime).ToString(CultureInfo.InvariantCulture) + "\t" +
+                    calculatedTemperature.Min().ToString("F2", CultureInfo.InvariantCulture) + "\t" +
+                    calculatedTemperature.Max().ToString("F2", CultureInfo.InvariantCulture));
 
-            //PrintSystem();
+                PrintSystem();
+            }
+            
             WriteResults(i);
         }
         
