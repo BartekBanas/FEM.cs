@@ -35,7 +35,7 @@ public class Element
         Console.Write($"Element; ID:{Id}\tIncludes Nodes: ");
         for (int j = 0; j < 4; j++)
         {
-            Console.Write($"{Nodes[j].ID}");
+            Console.Write($"{Nodes[j].Id}");
             if (j < 3)
                 Console.Write(", ");
         }

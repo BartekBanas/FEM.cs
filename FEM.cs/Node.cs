@@ -4,37 +4,34 @@ namespace FEM.cs;
 
 public class Node
 {
-    public int ID;
+    public int Id;
     public double X, Y, Temperature;
     public bool Bc = false;
 
     public Node()
     {
-        ID = -1;
+        Id = -1;
         X = 0;
         Y = 0;
     }
     
     public Node(double x, double y)
     {
-        ID = -1;
+        Id = -1;
         X = x;
         Y = y;
     }
 
-    public Node(int id, double x, double y)
+    public Node(uint id, double x, double y)
     {
-        if (id < 0)
-            Console.Write("Warning: Given identifier less than 0!");
-
-        this.ID = id;
-        this.X = x;
-        this.Y = y;
+        Id = (int)id;
+        X = x;
+        Y = y;
     }
 
     public void PrintNode()
     {
-        Console.Write($"Node; ID: {ID}\tx: ");
+        Console.Write($"Node; ID: {Id}\tx: ");
         Console.Write(X.ToString("F8", CultureInfo.InvariantCulture));
         Console.Write($"\ty: ");
         Console.Write(Y.ToString("F8", CultureInfo.InvariantCulture));
@@ -47,4 +44,4 @@ public class Node
     {
         return Math.Sqrt(Math.Pow(node2.X - node1.X, 2) + Math.Pow(node2.Y - node1.Y, 2));
     }
-};
+}

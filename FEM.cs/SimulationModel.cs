@@ -76,7 +76,7 @@ public class SimulationModel
         for (int i = 0; i < Conditions.NodesNumber; i++)
         {
             Nodes.Add(new Node());
-            Nodes[i].ID = Convert.ToInt16(nodes[i][0].Trim());
+            Nodes[i].Id = Convert.ToInt16(nodes[i][0].Trim());
             Nodes[i].X = Convert.ToDouble(nodes[i][1].Trim());
             Nodes[i].Y = Convert.ToDouble(nodes[i][2].Trim());
         }

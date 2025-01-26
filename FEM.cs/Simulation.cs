@@ -33,7 +33,7 @@ public class Simulation
         _elements = simulationModel.Elements;
         _nodes = simulationModel.Nodes;
 
-        _amountOfNodes = simulationModel.Elements[^1].Nodes[2].ID;
+        _amountOfNodes = simulationModel.Elements[^1].Nodes[2].Id;
 
         _system = new double[_amountOfNodes, _amountOfNodes];
         _globalHmatrix = new double[_amountOfNodes, _amountOfNodes];
@@ -93,11 +93,11 @@ public class Simulation
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    _globalHmatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += hmatrix[i, j];
-                    _globalCMatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += cMatrix[i, j];
-                    _globalHbcMatrix[element.Nodes[i].ID - 1, element.Nodes[j].ID - 1] += hbcMatrix[i, j];
+                    _globalHmatrix[element.Nodes[i].Id - 1, element.Nodes[j].Id - 1] += hmatrix[i, j];
+                    _globalCMatrix[element.Nodes[i].Id - 1, element.Nodes[j].Id - 1] += cMatrix[i, j];
+                    _globalHbcMatrix[element.Nodes[i].Id - 1, element.Nodes[j].Id - 1] += hbcMatrix[i, j];
 
-                }   _globalPVector[element.Nodes[i].ID - 1] += pVector[i];
+                }   _globalPVector[element.Nodes[i].Id - 1] += pVector[i];
             }
         }
 
@@ -311,9 +311,9 @@ public class Simulation
 
         for (int i = 0; i < _elements.Count; i++, index++)
         {
-            lines[index] = _elements[i].Nodes.Length + " " + (_elements[i].Nodes[0].ID - 1) + " " +
-                           (_elements[i].Nodes[1].ID - 1) + " " + (_elements[i].Nodes[2].ID - 1) + " " + 
-                           (_elements[i].Nodes[3].ID - 1);
+            lines[index] = _elements[i].Nodes.Length + " " + (_elements[i].Nodes[0].Id - 1) + " " +
+                           (_elements[i].Nodes[1].Id - 1) + " " + (_elements[i].Nodes[2].Id - 1) + " " + 
+                           (_elements[i].Nodes[3].Id - 1);
         }
         
         index++;
