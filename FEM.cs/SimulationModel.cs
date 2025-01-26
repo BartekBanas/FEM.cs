@@ -8,8 +8,8 @@ public class SimulationModel
     public IFileInfo InputFile { get; set; }
     public IDirectoryInfo OutputDirectory { get; set; }
     public Conditions Conditions { get; } = new();
-    public List<Node> Nodes { get; } = new();
-    public List<Element> Elements { get; } = new();
+    public List<Node> Nodes { get; } = [];
+    public List<Element> Elements { get; } = [];
 
     public SimulationModel(string pathToDataFile, IFileSystem? fileSystem = null)
     {

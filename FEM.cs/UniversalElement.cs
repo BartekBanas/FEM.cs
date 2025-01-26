@@ -9,13 +9,13 @@ public static class UniversalElement
 
     public static double[,] KsiDerivativeTable { get; private set; } = { };
     public static double[,] EtaDerivativeTable { get; private set; } = { };
-    public static double[] Wages { get; private set; } = { };
+    public static double[] Wages { get; private set; } = [];
 
-    public static double[] Points { get; private set; } = { };
+    public static double[] Points { get; private set; } = [];
     public static double[,][,] ShapeFunctionMatrix { get; private set; } = { };
 
-    private static double[] _etas = { };
-    private static double[] _ksis = { };
+    private static double[] _etas = [];
+    private static double[] _ksis = [];
 
     public static void Initialize(int integralPoints)
     {
@@ -87,39 +87,39 @@ public static class UniversalElement
         {
             case 2:
             {
-                Points = new[] { -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
-                _etas = new[] { -1 / Math.Sqrt(3), -1 / Math.Sqrt(3), 1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
-                _ksis = new[] { -1 / Math.Sqrt(3), 1 / Math.Sqrt(3), -1 / Math.Sqrt(3), 1 / Math.Sqrt(3) };
+                Points = [-1 / Math.Sqrt(3), 1 / Math.Sqrt(3)];
+                _etas = [-1 / Math.Sqrt(3), -1 / Math.Sqrt(3), 1 / Math.Sqrt(3), 1 / Math.Sqrt(3)];
+                _ksis = [-1 / Math.Sqrt(3), 1 / Math.Sqrt(3), -1 / Math.Sqrt(3), 1 / Math.Sqrt(3)];
                 break;
             }
             
             case 3:
             {
-                Points = new[] { -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0) };
+                Points = [-Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0)];
 
-                _etas = new[]
-                {
+                _etas =
+                [
                     -Math.Sqrt(3.0 / 5.0), -Math.Sqrt(3.0 / 5.0), -Math.Sqrt(3.0 / 5.0), 0, 0, 0,
                     Math.Sqrt(3.0 / 5.0), Math.Sqrt(3.0 / 5.0), Math.Sqrt(3.0 / 5.0)
-                };
+                ];
 
-                _ksis = new[]
-                {
+                _ksis =
+                [
                     -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0),
                     -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0), -Math.Sqrt(3.0 / 5.0), 0, Math.Sqrt(3.0 / 5.0)
-                };
+                ];
                 break;
             }
             
             case 4:
             {
-                Points = new[]
-                {
+                Points =
+                [
                     -Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0)),
                     -Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0)),
                     Math.Sqrt(3.0 / 7.0 - 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0)),
                     Math.Sqrt(3.0 / 7.0 + 2.0 / 7.0 * Math.Sqrt(6.0 / 5.0))
-                };
+                ];
 
                 _etas = new double[16];
                 for (int i = 0; i < 4; i++)
@@ -180,13 +180,13 @@ public static class UniversalElement
     {
         Wages = IntegralPoints switch
         {
-            2 => new[] { 1.0, 1.0 },
-            3 => new[] { 5.0 / 9.0, 8.0 / 9.0, 5.0 / 9.0 },
-            4 => new[]
-            {
+            2 => [1.0, 1.0],
+            3 => [5.0 / 9.0, 8.0 / 9.0, 5.0 / 9.0],
+            4 =>
+            [
                 (18.0 - Math.Sqrt(30.0)) / 36.0, (18.0 + Math.Sqrt(30.0)) / 36.0,
                 (18.0 + Math.Sqrt(30.0)) / 36.0, (18.0 - Math.Sqrt(30.0)) / 36.0
-            },
+            ],
             _ => Wages
         };
     }
@@ -200,12 +200,12 @@ public static class UniversalElement
             for (int j = 0; j < IntegralPoints; j++)
             {
                 double[] vector =
-                {
+                [
                     ShapeFunctions.N1(Points[i], Points[j]),
                     ShapeFunctions.N2(Points[i], Points[j]),
                     ShapeFunctions.N3(Points[i], Points[j]),
                     ShapeFunctions.N4(Points[i], Points[j])
-                };
+                ];
 
                 ShapeFunctionMatrix[i, j] = AlgebraicUtils.VectorsMultiplication(vector, vector);
             }
