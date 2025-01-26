@@ -25,7 +25,7 @@ public class Node
     public Node(int id, double x, double y)
     {
         if (id < 0)
-            Console.Write("Warning: Given Identicator less than 0!");
+            Console.Write("Warning: Given identifier less than 0!");
 
         this.ID = id;
         this.X = x;
